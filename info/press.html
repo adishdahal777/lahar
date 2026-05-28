@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Press &amp; Media · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .pr-hero {
+    background: linear-gradient(145deg, #0B0A08 0%, #2A1F18 30%, #1A1814 70%, #0F0C08 100%);
+    color: white; padding: 0; position: relative; overflow: hidden;
+  }
+  .pr-hero::before {
+    content: '';
+    position: absolute; top: -30%; right: -15%;
+    width: 550px; height: 550px;
+    background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .pr-hero .wrap { padding: 96px 32px 80px; position: relative; z-index: 1; }
+  .pr-hero .pr-eyebrow {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); margin-bottom: 16px;
+  }
+  .pr-hero h1 { font-size: clamp(22px, 2.8vw, 34px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 14px; }
+  .pr-hero p { font-size: 17px; color: rgba(255,255,255,0.45); max-width: 520px; line-height: 1.7; margin: 0; }
+
+  .pr-about {
+    padding: 64px 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .pr-about .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .pr-about .pr-about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap); align-items: center;
+  }
+  @media(max-width: 720px) { .pr-about .pr-about-grid { grid-template-columns: 1fr; } }
+  .pr-about h2 { font-size: clamp(28px,3vw,38px); margin-bottom: 16px; }
+  .pr-about p { font-size: var(--text-base); color: var(--text-soft); line-height: 1.7; margin: 0 0 12px; }
+  .pr-about p:last-child { margin-bottom: 0; }
+  .pr-about .pr-stat-box {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: var(--r-xl); padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .pr-about .pr-stat-box .prs-item { text-align: center; }
+  .pr-about .pr-stat-box .prs-item .prs-num {
+    font-family: var(--font-display); font-size: 28px; font-weight: 700;
+    color: var(--brand); line-height: 1; margin-bottom: 4px;
+  }
+  .pr-about .pr-stat-box .prs-item .prs-label {
+    font-size: 11px; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  .pr-featured {
+    padding: 64px 0;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .pr-featured .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .pr-featured h2 { font-size: clamp(24px,2.5vw,32px); text-align: center; margin-bottom: 8px; }
+  .pr-featured > .wrap > p { text-align: center; font-size: var(--text-base); color: var(--text-soft); margin: 0 0 32px; }
+  .pr-logo-strip {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; gap: 12px;
+  }
+  .pr-logo-strip .pr-pill {
+    padding: 12px 24px;
+    border-radius: var(--r-pill);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 600;
+    color: var(--text-soft);
+    letter-spacing: 0.02em;
+    transition: all var(--t);
+  }
+  .pr-logo-strip .pr-pill:hover {
+    border-color: var(--text);
+    color: var(--text);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pr-kit {
+    padding: 64px 0;
+    background: var(--surface);
+  }
+  .pr-kit .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .pr-kit h2 { text-align: center; font-size: clamp(28px,3vw,38px); margin-bottom: 8px; }
+  .pr-kit > .wrap > p { text-align: center; font-size: var(--text-base); color: var(--text-soft); margin: 0 0 36px; }
+  .pr-kit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width: 720px) { .pr-kit-grid { grid-template-columns: 1fr; } }
+  .pr-kit-card {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: var(--r-xl); padding: 36px 28px;
+    text-align: center;
+    transition: transform var(--t), box-shadow var(--t);
+  }
+  .pr-kit-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .pr-kit-card .prk-icon {
+    width: 56px; height: 56px; margin: 0 auto 18px;
+    border-radius: var(--r-lg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pr-kit-card .prk-icon.brand { background: color-mix(in oklab, var(--violet) 12%, transparent); color: var(--violet); }
+  .pr-kit-card .prk-icon.photo { background: color-mix(in oklab, var(--info) 12%, transparent); color: var(--info); }
+  .pr-kit-card .prk-icon.release { background: color-mix(in oklab, var(--brand) 12%, transparent); color: var(--brand); }
+  .pr-kit-card h3 { font-size: 18px; font-weight: 600; margin: 0 0 6px; }
+  .pr-kit-card p { font-size: var(--text-base); color: var(--text-soft); margin: 0 0 20px; }
+  .pr-kit-card .prk-dl {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 22px; border-radius: var(--r-md);
+    background: var(--text); color: var(--bg);
+    font-size: 13px; font-weight: 600; text-decoration: none;
+    transition: background var(--t);
+  }
+  .pr-kit-card .prk-dl:hover { background: var(--brand); }
+
+  .pr-contact {
+    padding: 64px 0;
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+  }
+  .pr-contact .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .pr-contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 40px 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--gap);
+  }
+  @media(max-width: 720px) { .pr-contact-card { flex-direction: column; text-align: center; } }
+  .pr-contact-card .prc-left h3 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+  .pr-contact-card .prc-left p { font-size: var(--text-base); color: var(--text-soft); margin: 0; }
+  .pr-contact-card .prc-right { display: flex; align-items: center; gap: 14px; }
+  .pr-contact-card .prc-email {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; border-radius: var(--r-md);
+    background: var(--text); color: var(--bg);
+    font-weight: 600; font-size: 14px; text-decoration: none;
+    transition: background var(--t);
+  }
+  .pr-contact-card .prc-email:hover { background: var(--brand); }
+  .pr-contact-card .prc-response {
+    font-size: 12px; color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+<main>
+
+  <section class="pr-hero">
+    <div class="wrap">
+      <div class="pr-eyebrow">Press &amp; media resources</div>
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Press &amp; Media</span></div>
+      <h1>Press &amp; Media</h1>
+      <p>Resources, assets, and contact information for journalists, editors, and media professionals.</p>
+    </div>
+  </section>
+
+  <section class="pr-about">
+    <div class="wrap">
+      <div class="pr-about-grid">
+        <div>
+          <h2>About Lahar</h2>
+          <p>Lahar is a Copenhagen-based marketplace connecting independent makers with buyers who value quality, provenance, and story. Founded in 2019 by Ravi Mehta and Aiko Tanaka, Lahar curates fashion, home, electronics, and lifestyle products from 320+ vetted vendors across 42 countries.</p>
+          <p>We are a remote-first team of 12 people spread across Copenhagen, Tokyo, and Melbourne. Our mission is to build a marketplace that works for makers — with low commissions (5%), fair terms, and a curation process that prioritises craftsmanship over volume.</p>
+        </div>
+        <div class="pr-stat-box">
+          <div class="prs-item">
+            <div class="prs-num">320+</div>
+            <div class="prs-label">Vendors</div>
+          </div>
+          <div class="prs-item">
+            <div class="prs-num">42</div>
+            <div class="prs-label">Countries</div>
+          </div>
+          <div class="prs-item">
+            <div class="prs-num">4</div>
+            <div class="prs-label">Years</div>
+          </div>
+          <div class="prs-item">
+            <div class="prs-num">12k+</div>
+            <div class="prs-label">Products</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pr-featured">
+    <div class="wrap">
+      <h2>As featured in</h2>
+      <p>Lahar and our makers have been featured in these publications.</p>
+      <div class="pr-logo-strip">
+        <span class="pr-pill">Vogue</span>
+        <span class="pr-pill">Monocle</span>
+        <span class="pr-pill">Kinfolk</span>
+        <span class="pr-pill">The Slow</span>
+        <span class="pr-pill">Dezeen</span>
+        <span class="pr-pill">Wallpaper*</span>
+        <span class="pr-pill">Cereal Magazine</span>
+        <span class="pr-pill">The New York Times</span>
+        <span class="pr-pill">Architectural Digest</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="pr-kit">
+    <div class="wrap">
+      <h2>Press kit</h2>
+      <p>Download our press assets for your story. All files are high-resolution and ready for print.</p>
+      <div class="pr-kit-grid">
+        <div class="pr-kit-card">
+          <div class="prk-icon brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10c0 5-3.5 9-8 10-4.5-1-8-5-8-10A10 10 0 0 1 12 2z"/></svg>
+          </div>
+          <h3>Brand kit</h3>
+          <p>Logos in EPS, PNG, and SVG formats. Colour palette, typography guide, and brand usage guidelines.</p>
+          <a href="#" class="prk-dl">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download ZIP
+          </a>
+        </div>
+        <div class="pr-kit-card">
+          <div class="prk-icon photo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+          <h3>Photography</h3>
+          <p>Curated selection of product and lifestyle images. High-res JPEGs suitable for editorial use. 20+ images.</p>
+          <a href="#" class="prk-dl">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download ZIP
+          </a>
+        </div>
+        <div class="pr-kit-card">
+          <div class="prk-icon release">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3>Press release</h3>
+          <p>Latest company announcements, milestone updates, and founder biographies. Updated quarterly.</p>
+          <a href="#" class="prk-dl">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download ZIP
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pr-contact">
+    <div class="wrap">
+      <div class="pr-contact-card">
+        <div class="prc-left">
+          <h3>Media contact</h3>
+          <p>For press inquiries, interview requests, or collaboration proposals.</p>
+        </div>
+        <div class="prc-right">
+          <a href="mailto:press@laharhub.com" class="prc-email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            press@laharhub.com
+          </a>
+          <span class="prc-response">Response within 24h</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

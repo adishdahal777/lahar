@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Track order · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .track-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; align-items: flex-start; }
+  @media (max-width: 880px) { .track-grid { grid-template-columns: 1fr; } }
+  .track-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin-bottom: 20px; }
+  .track-card .head { padding: 18px 24px; border-bottom: 1px solid var(--border); background: var(--surface-2); display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .track-card .head h3 { font-size: 16px; margin: 0; }
+  .track-card .body { padding: 24px; }
+  .track-timeline { position: relative; padding-left: 28px; }
+  .track-timeline::before { content:''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+  .track-event { position: relative; padding: 0 0 28px 20px; }
+  .track-event:last-child { padding-bottom: 0; }
+  .track-event::before { content:''; position: absolute; left: -24px; top: 4px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border); background: var(--surface); z-index: 2; }
+  .track-event.done::before { background: var(--ok); border-color: var(--ok); }
+  .track-event.live::before { background: var(--brand); border-color: var(--brand); box-shadow: 0 0 0 5px color-mix(in oklab, var(--brand) 20%, transparent); animation: pulse-ring 2s infinite; }
+  @keyframes pulse-ring { 0%,100%{box-shadow:0 0 0 5px color-mix(in oklab, var(--brand) 20%, transparent)} 50%{box-shadow:0 0 0 10px color-mix(in oklab, var(--brand) 8%, transparent)} }
+  .track-event.done { opacity: 0.6; }
+  .track-event.live { font-weight: 600; }
+  .track-event .time { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .track-event .label { font-size: 14px; }
+  .track-event .desc { font-size: 13px; color: var(--text-soft); margin-top: 4px; }
+  .track-event .location { font-size: 12px; color: var(--text-muted); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+  .track-side-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; margin-bottom: 16px; }
+  .track-side-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); font-weight: 600; }
+  .track-side-card .value { font-family: var(--font-display); font-size: 20px; font-weight: 600; margin-top: 4px; }
+  .track-items { border-top: 1px solid var(--border); margin-top: 18px; padding-top: 18px; }
+  .track-item { display: flex; gap: 14px; align-items: center; padding: 10px 0; }
+  .track-item .thumb { width: 48px; aspect-ratio: 1; border-radius: var(--r-md); overflow: hidden; background: var(--surface-3); flex: none; }
+  .track-item .thumb img { width:100%; height:100%; object-fit:cover; }
+  .track-item .info { flex: 1; }
+  .track-item .info .name { font-weight: 600; font-size: 13px; }
+  .track-item .info .var { font-size: 11px; color: var(--text-muted); }
+  .track-item .qty { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+  .map-placeholder { aspect-ratio: 16/9; background: var(--surface-3); border-radius: var(--r-md); display: grid; place-items: center; color: var(--text-muted); font-size: 13px; margin: 16px 0; }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+
+<main style="padding:32px 0 64px">
+  <div class="wrap">
+    <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/account/orders.html">Order history</a><span class="sep">/</span><span>Track #LAH-4821</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin:18px 0 32px">
+      <div>
+        <h1 style="margin:0">Tracking · #LAH-4821</h1>
+        <p style="color:var(--text-muted);margin:8px 0 0">Sundry Audio · Sundry Audio</p>
+      </div>
+      <span class="ord-status-badge shipped" style="font-size:13px;padding:6px 14px">In transit</span>
+    </div>
+
+    <div class="track-grid">
+      <div>
+        <!-- TIMELINE -->
+        <div class="track-card">
+          <div class="head"><h3>Shipping timeline</h3><span style="font-size:13px;color:var(--text-soft)">USPS · 9405 5112 3489 0012</span></div>
+          <div class="body">
+            <div class="track-timeline">
+              <div class="track-event done">
+                <div class="time">May 22 · 10:14 AM</div>
+                <div class="label">Order placed &amp; confirmed</div>
+                <div class="desc">Payment authorized · escrow hold active</div>
+              </div>
+              <div class="track-event done">
+                <div class="time">May 23 · 2:42 PM</div>
+                <div class="label">Vendor confirmed order</div>
+                <div class="desc">Item located in Sundry Audio's Brooklyn warehouse</div>
+              </div>
+              <div class="track-event done">
+                <div class="time">May 24 · 11:08 AM</div>
+                <div class="label">Packed &amp; labeled</div>
+                <div class="desc">In Sundry Audio packaging · USB-C cable included</div>
+              </div>
+              <div class="track-event done">
+                <div class="time">May 25 · 4:30 PM</div>
+                <div class="label">Departed vendor facility</div>
+                <div class="desc">Picked up by USPS · Brooklyn, NY</div>
+              </div>
+              <div class="track-event done">
+                <div class="time">May 26 · 8:15 AM</div>
+                <div class="label">Processed at USPS regional facility</div>
+                <div class="desc">Brooklyn, NY 11201</div>
+              </div>
+              <div class="track-event done">
+                <div class="time">May 27 · 3:22 AM</div>
+                <div class="label">Departed USPS regional facility</div>
+                <div class="location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Jersey City, NJ</div>
+              </div>
+              <div class="track-event live">
+                <div class="time">May 28 · 6:40 AM</div>
+                <div class="label">Out for delivery</div>
+                <div class="desc">Your package is on the final truck</div>
+                <div class="location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Brooklyn, NY 11201</div>
+              </div>
+              <div class="track-event" style="opacity:0.4">
+                <div class="time">Estimated · Jun 2</div>
+                <div class="label">Delivered</div>
+                <div class="desc">Signature optional</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-placeholder">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span style="margin-left:8px">Live map loading…</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="track-side-card">
+          <div class="label">Order number</div>
+          <div class="value mono" style="font-family:var(--font-mono);font-size:16px">#LAH-4821</div>
+          <div style="margin-top:14px">
+            <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>Placed</span><span>May 22, 2026</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>Carrier</span><span>USPS Priority</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>Est. delivery</span><span class="mono" style="font-weight:700">Tue, Jun 2</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>Shipping from</span><span>Brooklyn, NY</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>Shipping to</span><span>Brooklyn, NY 11201</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>Weight</span><span>0.8 lbs</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>Package</span><span>1 of 1</span></div>
+          </div>
+        </div>
+
+        <div class="track-side-card">
+          <div class="label">Delivery address</div>
+          <div style="margin-top:8px;font-size:14px;line-height:1.6">
+            <strong>Priya Sharma</strong><br />
+            42 Cobble Hill Road<br />
+            Brooklyn, NY 11201<br />
+            United States<br />
+            +1 (917) 555 0184
+          </div>
+        </div>
+
+        <div class="track-card">
+          <div class="head"><h3>Items in this shipment</h3></div>
+          <div class="track-items" style="padding:8px 24px 18px;margin:0">
+            <div class="track-item">
+              <div class="thumb"><img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=100&q=80" alt=""/></div>
+              <div class="info"><div class="name">Pebble buds Pro · ANC</div><div class="var">Onyx · Medium tips</div></div>
+              <span class="qty">×1</span>
+            </div>
+            <div class="track-item">
+              <div class="thumb"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=80" alt=""/></div>
+              <div class="info"><div class="name">Studio 60 over-ear · matte</div><div class="var">Sand · XLR 3m</div></div>
+              <span class="qty">×1</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px">
+          <a href="/account/orders.html" class="btn btn-secondary btn-block">Back to orders</a>
+          <a href="/info/contact.html" class="btn btn-secondary btn-block">Get support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap">
+      <a href="/shop/category.html" class="ad-banner-sm">
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80" alt="" />
+        <div class="ad-overlay">
+          <span class="ad-label">While You Wait</span>
+          <div class="ad-title">New arrivals you might love</div>
+          <span class="ad-cta">Browse new drops →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Shipping &amp; Returns · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .s-ship { overflow-x: hidden; }
+
+  .s-ship-hero {
+    background: linear-gradient(160deg, #1A1814 0%, #0B0A08 100%);
+    color: white; padding: 0;
+    position: relative;
+    isolation: isolate;
+  }
+  .s-ship-hero::after {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 600px 400px at 40% 20%, rgba(220,38,38,.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .s-ship-hero .wrap { padding: 80px 32px 72px; position: relative; z-index: 1; }
+  .s-ship-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 34px);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1.05;
+    margin: 0 0 10px;
+    color: white;
+  }
+  .s-ship-hero p {
+    font-size: clamp(15px, 1.4vw, 17px);
+    color: rgba(255,255,255,.5);
+    margin: 0;
+    max-width: 560px;
+  }
+
+  .s-section {
+    padding: 52px 0;
+  }
+  .s-section:nth-child(odd) {
+    background: var(--surface-2);
+  }
+  .s-section:nth-child(even) {
+    background: var(--surface);
+  }
+  .s-section .wrap { max-width: var(--max); }
+  .s-section .ss-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .s-section .ss-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .s-section .ss-head .ss-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--r-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .s-section .ss-head h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin: 0;
+    color: var(--text);
+  }
+  .s-section h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 24px 0 8px;
+    color: var(--text);
+  }
+  .s-section h3:first-of-type { margin-top: 0; }
+  .s-section p {
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: var(--text-soft);
+    margin: 0 0 14px;
+  }
+  .s-section ul, .s-section ol {
+    padding: 0 0 0 20px;
+    margin: 0 0 14px;
+  }
+  .s-section ul li, .s-section ol li {
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: var(--text-soft);
+    margin-bottom: 6px;
+  }
+  .s-section ul li::marker { color: var(--text-muted); }
+  .s-section ol li::marker { color: var(--brand); font-weight: 600; }
+  .s-section strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .s-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media (max-width: 720px) { .s-highlights { grid-template-columns: 1fr; } }
+
+  .s-highlight-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 28px 24px;
+    text-align: center;
+    transition: box-shadow var(--t), transform var(--t);
+    position: relative;
+    overflow: hidden;
+  }
+  .s-highlight-card:hover {
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+  .s-highlight-card .shc-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .s-highlight-card .shc-icon svg { width: 26px; height: 26px; }
+  .s-highlight-card h4 {
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--text);
+  }
+  .s-highlight-card p {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    .s-section { padding: 36px 0; }
+  }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+<main class="s-ship">
+  <section class="s-ship-hero">
+    <div class="wrap">
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Shipping &amp; Returns</span></div>
+      <h1>Shipping &amp; Returns</h1>
+      <p>Everything you need to know about delivery, returns, and exchanges.</p>
+    </div>
+  </section>
+
+  <section class="s-section">
+    <div class="wrap">
+      <div class="s-highlights">
+        <div class="s-highlight-card">
+          <div class="shc-icon" style="background:color-mix(in oklab,#059669 10%,transparent);color:#059669">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h4>Free returns</h4>
+          <p>30-day free returns on eligible items. We provide the label — you just pack and drop off.</p>
+        </div>
+        <div class="s-highlight-card">
+          <div class="shc-icon" style="background:color-mix(in oklab,#2563EB 10%,transparent);color:#2563EB">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+          <h4>Global shipping</h4>
+          <p>We ship to over 60 countries. Duties and customs documentation handled automatically.</p>
+        </div>
+        <div class="s-highlight-card">
+          <div class="shc-icon" style="background:color-mix(in oklab,#7C3AED 10%,transparent);color:#7C3AED">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+          </div>
+          <h4>Purchase protection</h4>
+          <p>Every order is covered by Lahar's buyer protection policy. Shop with confidence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-section">
+    <div class="wrap">
+      <div class="ss-inner">
+        <div class="ss-head">
+          <div class="ss-icon" style="background:color-mix(in oklab,#059669 10%,transparent);color:#059669">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h18l-1.5 11h-15L3 9z"/><path d="M8 9V5a4 4 0 1 1 8 0v4"/></svg>
+          </div>
+          <h2>Shipping</h2>
+        </div>
+        <h3>Dispatch times</h3>
+        <p>Each vendor sets their own dispatch window, displayed on the product page and at checkout. Estimated dispatch times typically range from 1–5 business days for ready-to-ship items. Made-to-order items may take longer, as noted in the listing. During peak seasons (Black Friday, holidays), dispatch may be delayed by 1–2 business days.</p>
+        <h3>Shipping rates</h3>
+        <p>Shipping costs are calculated at checkout based on the vendor's settings, package weight, and destination. Many vendors offer free shipping on orders over a certain amount — this is clearly marked on the product page and at checkout. Lahar provides discounted rates through our carrier network, and vendors pass these savings on to you. Standard domestic shipping starts from £4.99 / €5.90.</p>
+        <h3>International shipping</h3>
+        <p>We ship to over 60 countries worldwide. Import duties, taxes, and customs fees are calculated and displayed at checkout before you complete your purchase. Lahar handles all customs documentation automatically — you don't need to fill out any forms. Delivery times for international orders vary by destination and customs processing, typically 5–14 business days after dispatch.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-section">
+    <div class="wrap">
+      <div class="ss-inner">
+        <div class="ss-head">
+          <div class="ss-icon" style="background:color-mix(in oklab,#2563EB 10%,transparent);color:#2563EB">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10h18M3 14h18M3 18h18"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          </div>
+          <h2>Returns</h2>
+        </div>
+        <h3>30-day free returns</h3>
+        <p>If you're not completely satisfied, you may return eligible items within 30 days of delivery. Lahar provides a prepaid return label — you just need to pack the item securely and drop it off at the carrier location. There are no restocking fees and no hidden charges. We believe in risk-free shopping.</p>
+        <h3>Conditions</h3>
+        <ul>
+          <li>Items must be unused and in their original packaging with all tags attached</li>
+          <li>Personalised or made-to-order items are non-returnable unless defective or damaged</li>
+          <li>Vintage items must be returned in the exact condition received</li>
+          <li>Return shipping is free for standard items; we deduct the label cost from the refund only if the item doesn't meet the conditions above</li>
+          <li>Footwear and apparel must be tried on indoors only — no signs of wear on soles or linings</li>
+        </ul>
+        <h3>How to return</h3>
+        <ol>
+          <li>Log into your account and go to Order History, then select the order containing the item you wish to return</li>
+          <li>Click "Initiate return" and select the item(s) and reason for return</li>
+          <li>Print the prepaid shipping label — or simply show the QR code at the carrier's drop-off location</li>
+          <li>Pack the item securely in its original packaging, attach the label, and drop it off</li>
+          <li>Your refund is processed within 5 business days of the vendor receiving and inspecting the item</li>
+        </ol>
+        <h3>Refunds</h3>
+        <p>Refunds are issued to your original payment method. Processing time depends on your bank or payment provider — typically 3–10 business days for credit cards, 1–3 days for PayPal, and immediately for store credit. If you used store credit, the refund will be returned as credit. You'll receive an email confirmation the moment your refund is initiated.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-section">
+    <div class="wrap">
+      <div class="ss-inner">
+        <div class="ss-head">
+          <div class="ss-icon" style="background:color-mix(in oklab,#D97706 10%,transparent);color:#D97706">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 2l4 4-4 4"/><path d="M3 12h14M3 18h14"/><path d="M15 2v20"/></svg>
+          </div>
+          <h2>Exchanges</h2>
+        </div>
+        <p>Exchanges are handled as a return followed by a new purchase. Return the original item for a full refund and place a new order for the desired item. This two-step process ensures accurate inventory tracking, faster processing, and avoids shipping delays. If you're exchanging due to a defect or our error, we'll cover the return shipping and provide a discount code for the replacement order.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-section">
+    <div class="wrap">
+      <div class="ss-inner">
+        <div class="ss-head">
+          <div class="ss-icon" style="background:color-mix(in oklab,#DC2626 10%,transparent);color:#DC2626">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="M12 8v4"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+          </div>
+          <h2>Damaged or incorrect items</h2>
+        </div>
+        <p>If your order arrives damaged or doesn't match its description, please contact us within 48 hours of delivery at <strong>support@laharhub.com</strong>. Include your order number and clear photos of the damage or discrepancy. We'll arrange a replacement or full refund at no cost to you, including return shipping if needed. Our team typically resolves these issues within 2 business days.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

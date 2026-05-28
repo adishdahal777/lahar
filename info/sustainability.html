@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sustainability · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .su-hero {
+    background: linear-gradient(160deg, #052E16 0%, #064E3B 35%, #0F0C08 100%);
+    color: white; padding: 0; position: relative; overflow: hidden;
+  }
+  .su-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1470071459604-7b8ec44ffd4c?w=1600&q=60') center/cover no-repeat;
+    opacity: 0.06; pointer-events: none;
+  }
+  .su-hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(74,222,128,0.2), transparent);
+  }
+  .su-hero .wrap { padding: 96px 32px 80px; position: relative; z-index: 1; }
+  .su-hero .su-leaf {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: var(--r-pill);
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.12);
+    font-size: 11px; color: rgba(74,222,128,0.6);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .su-hero h1 { font-size: clamp(22px, 2.8vw, 34px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 14px; }
+  .su-hero h1 span { background: linear-gradient(135deg, #4ADE80, #22D3EE); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .su-hero p { font-size: 17px; color: rgba(255,255,255,0.45); max-width: 560px; line-height: 1.7; margin: 0; }
+
+  .su-intro {
+    padding: 64px 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .su-intro .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .su-intro .su-intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap); align-items: center;
+  }
+  @media(max-width: 720px) { .su-intro .su-intro-grid { grid-template-columns: 1fr; } }
+  .su-intro h2 { font-size: clamp(28px,3vw,38px); margin-bottom: 16px; }
+  .su-intro p { font-size: 16px; color: var(--text-soft); line-height: 1.8; margin: 0; }
+  .su-intro .su-quote {
+    background: linear-gradient(135deg, color-mix(in oklab, var(--ok) 8%, transparent), transparent);
+    border: 1px solid color-mix(in oklab, var(--ok) 12%, transparent);
+    border-radius: var(--r-xl); padding: 32px;
+    font-family: var(--font-editorial); font-size: 18px; font-style: italic;
+    color: var(--ok); line-height: 1.6;
+  }
+
+  .su-stats {
+    padding: 48px 0;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .su-stats .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .su-stats-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width: 720px) { .su-stats-inner { grid-template-columns: repeat(2, 1fr); } }
+  .su-stat {
+    text-align: center; padding: 24px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+  }
+  .su-stat .su-stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 3.5vw, 44px); font-weight: 700;
+    line-height: 1; margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--ok), #22D3EE);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .su-stat .su-stat-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .su-stat .su-stat-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  .su-pillars {
+    padding: 64px 0;
+    background: var(--surface);
+  }
+  .su-pillars .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .su-pillars .sup-header { text-align: center; margin-bottom: 40px; }
+  .su-pillars .sup-header h2 { font-size: clamp(28px,3vw,38px); margin-bottom: 8px; }
+  .su-pillars .sup-header p { font-size: var(--text-base); color: var(--text-soft); max-width: 560px; margin: 0 auto; }
+  .sup-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width: 720px) { .sup-grid { grid-template-columns: 1fr; } }
+  .sup-card {
+    background: color-mix(in oklab, var(--ok) 8%, transparent);
+    border: 1px solid color-mix(in oklab, var(--ok) 12%, transparent);
+    border-radius: var(--r-xl); padding: 36px 28px;
+    transition: transform var(--t), box-shadow var(--t);
+  }
+  .sup-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .sup-card .sup-icon {
+    width: 52px; height: 52px; border-radius: var(--r-lg);
+    background: color-mix(in oklab, var(--ok) 15%, transparent);
+    color: var(--ok);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .sup-card h3 { font-size: 18px; font-weight: 600; margin: 0 0 10px; }
+  .sup-card p { font-size: var(--text-base); color: var(--text-soft); margin: 0; line-height: 1.6; }
+
+  .su-approach {
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+    padding: 64px 0;
+  }
+  .su-approach .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .su-approach .sua-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  @media(max-width: 720px) { .su-approach .sua-grid { grid-template-columns: 1fr; } }
+  .su-approach h2 { font-size: clamp(28px,3vw,38px); margin-bottom: 20px; }
+  .su-approach p { font-size: 15px; color: var(--text-soft); line-height: 1.8; margin: 0 0 16px; }
+  .su-approach p:last-child { margin-bottom: 0; }
+  .su-approach .sua-right { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 32px; }
+  .su-approach .sua-right h4 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--text-muted); margin-bottom: 16px;
+  }
+  .su-approach .sua-list { list-style: none; padding: 0; margin: 0; }
+  .su-approach .sua-list li {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px solid var(--border);
+    font-size: 14px; color: var(--text-soft);
+  }
+  .su-approach .sua-list li:last-child { border-bottom: 0; }
+  .su-approach .sua-list li svg { color: var(--ok); flex-shrink: 0; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+<main>
+
+  <section class="su-hero">
+    <div class="wrap">
+      <div class="su-leaf">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.5 2.8 8.3 6.8 9.7-.1-.8-.2-2.1 0-3 .2-.9 1.4-5.9 1.4-5.9s-.4-.7-.4-1.8c0-1.7 1-3 2.2-3s1.2.9 1.2 2c0 1.2-.8 3-1.2 4.5-.3 1.3.7 2.4 2 2.4 2.4 0 4-3 4-6.5 0-2.7-1.8-4.7-5-4.7-3.6 0-5.8 2.7-5.8 5.7 0 1 .4 2.2.9 2.8.1.1.1.2.1.3l-.3 1.5c0 .2-.2.3-.4.2-1.5-.6-2.2-2.2-2.2-4 0-3 2.4-6.5 7.5-6.5 4 0 6.6 2.9 6.6 6.1 0 4.1-2.3 7.2-5.7 7.2-1.1 0-2.2-.6-2.6-1.3l-.7 2.9c-.3.9-1 2-1.4 2.7A10 10 0 0 0 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+        Our impact
+      </div>
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Sustainability</span></div>
+      <h1>Sustain<span>ability</span></h1>
+      <p>Our commitment to a slower, more responsible way of making and buying — because the most sustainable products are the ones that last.</p>
+    </div>
+  </section>
+
+  <section class="su-intro">
+    <div class="wrap">
+      <div class="su-intro-grid">
+        <div>
+          <h2>Impact is our foundation</h2>
+          <p>At Lahar, sustainability isn't a campaign — it's the reason we exist. We believe the most sustainable products are the ones that last, the ones with a story, and the ones that never end up in a landfill. From day one, every decision we've made has been guided by that belief.</p>
+        </div>
+        <div class="su-quote">
+          "The most sustainable product is the one that's already made, well-made, and never thrown away."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="su-stats">
+    <div class="wrap">
+      <div class="su-stats-inner">
+        <div class="su-stat">
+          <div class="su-stat-num">12.4t</div>
+          <div class="su-stat-label">CO₂ offset</div>
+          <div class="su-stat-desc">Since 2022</div>
+        </div>
+        <div class="su-stat">
+          <div class="su-stat-num">94%</div>
+          <div class="su-stat-label">Plastic-free</div>
+          <div class="su-stat-desc">Vendor packaging</div>
+        </div>
+        <div class="su-stat">
+          <div class="su-stat-num">320+</div>
+          <div class="su-stat-label">Local makers</div>
+          <div class="su-stat-desc">Supporting communities</div>
+        </div>
+        <div class="su-stat">
+          <div class="su-stat-num">42</div>
+          <div class="su-stat-label">Countries</div>
+          <div class="su-stat-desc">Global reach</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="su-pillars">
+    <div class="wrap">
+      <div class="sup-header">
+        <h2>What we do</h2>
+        <p>Three pillars that guide our approach to sustainability every day.</p>
+      </div>
+      <div class="sup-grid">
+        <div class="sup-card">
+          <div class="sup-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10c0 5-3.5 9-8 10-4.5-1-8-5-8-10A10 10 0 0 1 12 2z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3>Made to last</h3>
+          <p>We curate for durability, not disposability. Every product is chosen for its quality of materials, construction, and timeless design. We prioritise natural fibres, solid wood, stainless steel, and other materials that age gracefully.</p>
+        </div>
+        <div class="sup-card">
+          <div class="sup-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Carbon offset</h3>
+          <p>Every shipment on Lahar is carbon offset through verified reforestation and renewable energy projects. We partner with ClimatePartner to calculate and offset the full lifecycle emissions of every order — including last-mile delivery.</p>
+        </div>
+        <div class="sup-card">
+          <div class="sup-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9h18l-1.5 11h-15L3 9z"/><path d="M8 9V5a4 4 0 1 1 8 0v4"/></svg>
+          </div>
+          <h3>Minimal packaging</h3>
+          <p>We encourage and support our vendors to use recycled, compostable, and plastic-free packaging. Our own shipping materials are 100% recycled cardboard, and all labels are carbon neutral. We also offset the packaging footprint.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="su-approach">
+    <div class="wrap">
+      <div class="sua-grid">
+        <div>
+          <h2>Our approach</h2>
+          <p>We prioritise vendors who use sustainable materials, ethical production methods, and traditional craftsmanship. Made-to-order and small-batch production means less waste, fewer unsold goods, and a smaller environmental footprint.</p>
+          <p>Vintage and restored goods give existing products a second life. We're building a marketplace where repair, restoration, and longevity are celebrated — not hidden behind marketing jargon.</p>
+          <p>We measure our impact transparently and publish an annual sustainability report. No greenwashing, no vague promises — just honest data about where we are and where we need to go.</p>
+        </div>
+        <div class="sua-right">
+          <h4>Our commitments</h4>
+          <ul class="sua-list">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>100% carbon neutral shipping by 2026</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Zero plastic in all Lahar-branded packaging</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Annual transparency report with third-party audit</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>1% of revenue donated to reforestation projects</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Maker toolkit for sustainable packaging transition</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

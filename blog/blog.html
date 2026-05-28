@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Journal · The Lahar journal — Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  /* ── BLOG HERO ── */
+  .blog-hero {
+    padding: 48px 0 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .blog-hero h1 { font-family:var(--font-display); font-size:clamp(32px,4vw,48px); font-weight:600; letter-spacing:-.02em; margin:0; }
+  .blog-hero p { color:var(--text-soft); font-family:var(--font-editorial); font-style:italic; font-size:18px; margin:6px 0 0; }
+  .blog-pills { display:flex; gap:8px; flex-wrap:wrap; margin-top:20px; }
+  .blog-pills .pill { font-size:12px; padding:6px 16px; border-radius:var(--r-pill); border:1px solid var(--border); background:var(--surface); cursor:pointer; transition:all var(--t); font-weight:500; }
+  .blog-pills .pill:hover { border-color:var(--text); }
+  .blog-pills .pill.on { background:var(--text); color:var(--bg); border-color:var(--text); }
+
+  /* ── FEATURED ARTICLE ── */
+  .bf-card {
+    display:block; text-decoration:none; color:inherit;
+    background:var(--text); border-radius:var(--r-2xl); overflow:hidden;
+    display:flex; flex-direction:column;
+    transition:box-shadow var(--t),transform var(--t);
+    margin-bottom:32px;
+  }
+  .bf-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-2px); }
+  .bf-card .bf-img { aspect-ratio:21/9; position:relative; overflow:hidden; background:#000; min-height:280px; }
+  @media(max-width:700px){ .bf-card .bf-img { aspect-ratio:16/10; min-height:auto; } }
+  .bf-card .bf-img img { width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease); }
+  .bf-card:hover .bf-img img { transform:scale(1.04); }
+  .bf-card .bf-img .bf-tag {
+    position:absolute; top:16px; left:16px; z-index:2;
+    font-size:10px; text-transform:uppercase; letter-spacing:.08em; font-weight:700;
+    padding:4px 14px; border-radius:var(--r-pill);
+    background:var(--brand); color:white;
+  }
+  .bf-card .bf-img::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.55),transparent 60%);
+  }
+  .bf-card .bf-body { padding:28px 30px 30px; display:flex; flex-direction:column; gap:10px; flex:1; color:var(--bg); }
+  .bf-card .bf-body .bf-meta { display:flex; gap:14px; font-size:var(--text-xs); color:rgba(255,255,255,.5); font-family:var(--font-mono); }
+  .bf-card .bf-body h2 {
+    font-family:var(--font-editorial); font-style:italic; font-weight:500;
+    color:var(--bg); font-size:clamp(20px,2.4vw,30px);
+    line-height:1.15; letter-spacing:-.01em; margin:0;
+  }
+  .bf-card .bf-body p { color:rgba(255,255,255,.6); font-size:var(--text-base); line-height:1.55; margin:0; }
+  .bf-card .bf-body .bf-author {
+    display:flex; align-items:center; gap:10px;
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  .bf-card .bf-body .bf-author img { width:28px; height:28px; border-radius:50%; object-fit:cover; }
+  .bf-card .bf-body .bf-author .bfa-name { font-size:var(--text-sm); font-weight:600; color:rgba(255,255,255,.85); }
+  .bf-card .bf-body .bf-author .bfa-role { font-size:var(--text-xs); color:rgba(255,255,255,.4); }
+
+  /* ── ARTICLE GRID ── */
+  .blog-grid {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width:1100px){ .blog-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:640px){ .blog-grid { grid-template-columns: 1fr; } }
+
+  .bl-card {
+    display:flex; flex-direction:column;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-xl); overflow:hidden;
+    text-decoration:none; color:inherit;
+    transition:box-shadow var(--t),transform var(--t);
+  }
+  .bl-card:hover { box-shadow:var(--shadow-sm); transform:translateY(-2px); }
+  .bl-card .bl-img {
+    aspect-ratio:16/10; overflow:hidden; background:var(--surface-3);
+  }
+  .bl-card .bl-img img { width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease); }
+  .bl-card:hover .bl-img img { transform:scale(1.05); }
+  .bl-card .bl-body { padding:18px 20px 20px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .bl-card .bl-body .bl-tag { font-size:9px; text-transform:uppercase; letter-spacing:.1em; font-weight:700; color:var(--brand); }
+  .bl-card .bl-body h3 { font-size:var(--text-lg); font-weight:600; line-height:1.3; margin:0; }
+  .bl-card .bl-body p { font-size:var(--text-sm); color:var(--text-soft); line-height:1.5; margin:0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .bl-card .bl-body .bl-meta {
+    font-size:var(--text-xs); color:var(--text-muted); font-family:var(--font-mono);
+    margin-top:auto; padding-top:10px; display:flex; gap:12px;
+  }
+
+  /* ── BLOG FOOTER ── */
+  .blog-footer { padding:16px 0; }
+  .blog-footer .bfl {
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:var(--text-sm); color:var(--text-muted);
+  }
+  .blog-footer .bfl strong { color:var(--text); }
+</style>
+</head>
+<body>
+
+<div data-partial="header"></div>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section class="blog-hero">
+    <div class="wrap">
+      <h1>The Lahar journal</h1>
+      <p>stories from the studio floor</p>
+      <div class="blog-pills">
+        <span class="pill on">All articles</span>
+        <span class="pill">Maker spotlight</span>
+        <span class="pill">Field test</span>
+        <span class="pill">Design notes</span>
+        <span class="pill">Interviews</span>
+        <span class="pill">Studio visits</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURED ── -->
+  <section class="tight" style="padding-top:36px">
+    <div class="wrap">
+      <a href="/blog/blog-detail.html" class="bf-card">
+        <div class="bf-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1400&q=80" alt="" />
+          <span class="bf-tag">Featured story</span>
+        </div>
+        <div class="bf-body">
+          <div class="bf-meta"><span>Vol. 07 · May 28, 2026</span><span>16 min read</span></div>
+          <h2>"The kiln that waits: inside Murmur Atelier's six-month firing cycle"</h2>
+          <p>A rare look at the Kyoto-based studio that refuses to rush — and why that makes their stoneware some of the most sought-after in the world. We spent a week in the mountains documenting every stage.</p>
+          <div class="bf-author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="" />
+            <div>
+              <div class="bfa-name">Ravi Mehta</div>
+              <div class="bfa-role">Co-founder · Lahar Hub</div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <div class="blog-grid">
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Field test</span>
+            <h3>North Field 1988 NOS — 10 years of daily wear, reviewed</h3>
+            <p>We tracked down a collector who's worn the same NOS field watch every day for a decade. Here's what it looks like now.</p>
+            <div class="bl-meta"><span>Aiko Tanaka</span><span>8 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Maker spotlight</span>
+            <h3>The tannery in Porto where Halen Goods sources every hide</h3>
+            <p>How a family-run tannery in northern Portugal supplies the leather for every Halen bag — and why it matters.</p>
+            <div class="bl-meta"><span>Lahar team</span><span>14 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Design notes</span>
+            <h3>Prototype #002: the reading chair that took two years</h3>
+            <p>Brindle Studio's founder walks us through every rejected sketch and structural failure that led to their breakthrough piece.</p>
+            <div class="bl-meta"><span>Maya Krishnan</span><span>12 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Studio visit</span>
+            <h3>Inside the Copenhagen workshop where Quay &amp; Co. restores time</h3>
+            <p>A Sunday morning with the watchmaker who services every vintage piece sold on Lahar — by hand, under a single lamp.</p>
+            <div class="bl-meta"><span>Ravi Mehta</span><span>10 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Field test</span>
+            <h3>Sundry Audio planar #004 — open-back headphones reviewed</h3>
+            <p>Are prototype planar magnetics worth the premium? Our audio editor spent 200 hours with them before writing this.</p>
+            <div class="bl-meta"><span>David Okonkwo</span><span>18 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Maker spotlight</span>
+            <h3>How Halen Goods found Horween — a leather origin story</h3>
+            <p>The journey from a Chicago tannery to a Copenhagen workshop, and why shell cordovan is worth the wait.</p>
+            <div class="bl-meta"><span>Lahar team</span><span>9 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1594226801341-41427b4a5f4d?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Interviews</span>
+            <h3>Brindle Studio on the art of single-edition furniture</h3>
+            <p>"We'll never produce more than one copy of a piece." A conversation about scarcity, craft, and running a studio that says no.</p>
+            <div class="bl-meta"><span>Maya Krishnan</span><span>16 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Studio visit</span>
+            <h3>Murmur Atelier's kiln — a photo essay on slow fire</h3>
+            <p>Twenty-four images from the loading of a wood-fired kiln that will burn for six days before cooling for three months.</p>
+            <div class="bl-meta"><span>Ravi Mehta</span><span>7 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Field test</span>
+            <h3>Persol 714 — why the 1960s original is still unbeatable</h3>
+            <p>We compared a 1962 pair of Persol 714s against the modern reissue. The differences might surprise you.</p>
+            <div class="bl-meta"><span>Aiko Tanaka</span><span>6 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Design notes</span>
+            <h3>Mid-century sideboards — a buyer's guide to walnut &amp; teak</h3>
+            <p>Everything you need to know before bidding on vintage Danish storage: makers, joinery, restoration, and red flags.</p>
+            <div class="bl-meta"><span>Maya Krishnan</span><span>22 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Maker spotlight</span>
+            <h3>Quay &amp; Co. on the Leica M6 — a camera that outlasts trends</h3>
+            <p>Why a Copenhagen vintage dealer considers the M6 the single most undervalued film camera on the market today.</p>
+            <div class="bl-meta"><span>Ravi Mehta</span><span>11 min read</span></div>
+          </div>
+        </a>
+
+        <a href="/blog/blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1542728928-1413d1894ed1?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Studio visit</span>
+            <h3>From clay to kiln: a day at Murmur Atelier's mountain studio</h3>
+            <p>Following a single pot from the throwing wheel through trimming, bisque firing, glazing, and the final wood-fire.</p>
+            <div class="bl-meta"><span>Lahar team</span><span>20 min read</span></div>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="blog-footer">
+        <div class="bfl">
+          <span>Showing <strong>1–12</strong> of <strong>24</strong> articles</span>
+          <div class="pagination" style="margin:0">
+            <button class="icon-btn" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 6-6 6 6 6"/></svg></button>
+            <button class="icon-btn" style="background:var(--text);color:var(--bg);font-family:var(--font-mono);width:40px">1</button>
+            <button class="icon-btn" style="font-family:var(--font-mono)">2</button>
+            <button class="icon-btn" aria-label="Next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

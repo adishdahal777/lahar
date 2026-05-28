@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Cookie Policy · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .cp-hero {
+    background: linear-gradient(160deg, #1A1814 0%, #1A1A0E 35%, #0B0A08 100%);
+    color: white; padding: 0; position: relative; overflow: hidden;
+  }
+  .cp-hero::before {
+    content: ''; position: absolute; bottom: -50%; right: -15%;
+    width: 550px; height: 550px;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in oklab, #FBBF24 8%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cp-hero .wrap { padding: 80px 32px 72px; position: relative; }
+  .cp-hero .cp-hero-icon {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  }
+  .cp-hero .cp-hero-icon svg { width: 28px; height: 28px; color: #FBBF24; }
+  .cp-hero .cp-hero-icon span {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em;
+    color: color-mix(in oklab, #FBBF24 70%, transparent);
+  }
+  .cp-hero h1 { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 34px); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; margin: 0 0 10px; }
+  .cp-hero p { font-size: var(--text-md); color: rgba(255,255,255,.5); margin: 0; max-width: 520px; }
+
+  .cp-section { padding: 56px 0; }
+  .cp-section.alt { background: color-mix(in oklab, var(--surface-2) 60%, var(--surface)); }
+  .cp-section h2 {
+    font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+    margin: 0 0 20px; letter-spacing: -.01em; color: var(--text);
+  }
+  .cp-section h2 svg { width: 22px; height: 22px; color: var(--warning); flex-shrink: 0; }
+  .cp-section p { font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0 0 14px; }
+  .cp-section p:last-child { margin-bottom: 0; }
+
+  .cp-updated { font-size: var(--text-xs); color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 24px; display: block; }
+
+  .cp-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 28px; transition: box-shadow var(--t);
+  }
+  .cp-card:hover { box-shadow: var(--shadow-sm); }
+
+  .cp-cookie-explainer {
+    background: linear-gradient(135deg, color-mix(in oklab, var(--warning) 6%, var(--surface)), var(--surface));
+    border: 1px solid color-mix(in oklab, var(--warning) 20%, var(--border));
+    border-radius: var(--r-xl); padding: 28px 32px;
+    display: flex; gap: 18px; align-items: flex-start;
+  }
+  @media (max-width: 600px) { .cp-cookie-explainer { flex-direction: column; } }
+  .cp-cookie-explainer svg { width: 28px; height: 28px; color: var(--warning); flex-shrink: 0; margin-top: 2px; }
+  .cp-cookie-explainer h3 { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; margin: 0 0 4px; }
+  .cp-cookie-explainer p { font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0; }
+
+  .cp-types { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+  @media (max-width: 860px) { .cp-types { grid-template-columns: 1fr; } }
+  .cp-type-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 22px 24px; display: flex; gap: 14px; align-items: flex-start;
+    transition: box-shadow var(--t), transform var(--t);
+  }
+  .cp-type-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+  .cp-type-card .cp-type-label {
+    display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; padding: 3px 8px; border-radius: var(--r-pill);
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .cp-type-card .cp-type-label.essential { background: color-mix(in oklab, var(--info) 14%, transparent); color: var(--info); }
+  .cp-type-card .cp-type-label.functional { background: color-mix(in oklab, var(--ok) 14%, transparent); color: var(--ok); }
+  .cp-type-card .cp-type-label.analytics { background: color-mix(in oklab, var(--warning) 14%, transparent); color: var(--warning); }
+  .cp-type-card .cp-type-label.marketing { background: color-mix(in oklab, var(--violet) 14%, transparent); color: var(--violet); }
+  .cp-type-card .cp-type-body h3 { font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; margin: 0 0 4px; color: var(--text); }
+  .cp-type-card .cp-type-body p { font-size: var(--text-sm); line-height: 1.6; color: var(--text-soft); margin: 0; }
+
+  .cp-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); }
+  @media (max-width: 860px) { .cp-grid-3 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .cp-grid-3 { grid-template-columns: 1fr; } }
+
+  .cp-cta-wrap {
+    background: linear-gradient(135deg, var(--text), #000);
+    border-radius: var(--r-xl); padding: 40px 48px;
+    text-align: center; color: white;
+  }
+  .cp-cta-wrap h3 { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 700; margin: 0 0 6px; color: white; }
+  .cp-cta-wrap p { font-size: var(--text-base); color: rgba(255,255,255,.6); margin: 0 0 20px; }
+  .cp-cta-wrap a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; border-radius: var(--r-md);
+    background: var(--brand); color: white; font-weight: 600; font-size: var(--text-base);
+    text-decoration: none; transition: background var(--t);
+  }
+  .cp-cta-wrap a:hover { background: var(--brand-hover); }
+</style>
+</head>
+<body>
+
+<div data-partial="header"></div>
+
+<main>
+
+  <section class="cp-hero">
+    <div class="wrap">
+      <div class="cp-hero-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a4 4 0 0 1 4 4c0 2-2 2-2 4s2 2 2 4a4 4 0 0 1-4 4"/><path d="M2 12h20"/></svg>
+        <span>Tracking &amp; Privacy</span>
+      </div>
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Cookie Policy</span></div>
+      <h1>Cookie Policy</h1>
+      <p>How we use cookies and similar technologies on Lahar.</p>
+    </div>
+  </section>
+
+  <section class="cp-section">
+    <div class="wrap">
+      <span class="cp-updated">Last updated: May 28, 2026</span>
+
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a4 4 0 0 1 4 4c0 2-2 2-2 4s2 2 2 4a4 4 0 0 1-4 4"/></svg> What are cookies?</h2>
+      <div class="cp-cookie-explainer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+        <div>
+          <h3>Small text files that make the web work better</h3>
+          <p>Cookies are small text files stored on your device by your web browser when you visit a website. They allow the site to remember your preferences, keep you logged in, understand how you use the platform, and deliver relevant content. Some cookies are essential for the platform to function — without them, features like your shopping cart and account login wouldn't work. Others help us improve your experience by showing us which features are most useful.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-section alt">
+    <div class="wrap">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> Types of cookies we use</h2>
+      <div class="cp-types">
+        <div class="cp-type-card">
+          <span class="cp-type-label essential">Essential</span>
+          <div class="cp-type-body">
+            <h3>Required for operation</h3>
+            <p>Authentication tokens, CSRF protection, cart state, checkout flow, and security features. These cannot be disabled without breaking core functionality. Stored for the duration of your session or up to 30 days for "remember me" preferences.</p>
+          </div>
+        </div>
+        <div class="cp-type-card">
+          <span class="cp-type-label functional">Functional</span>
+          <div class="cp-type-body">
+            <h3>Remember your preferences</h3>
+            <p>Language selection, currency preference, region, saved address details, theme choice (light/dark mode), and dismissed notification banners. These make your experience consistent across visits. Persist for up to 12 months.</p>
+          </div>
+        </div>
+        <div class="cp-type-card">
+          <span class="cp-type-label analytics">Analytics</span>
+          <div class="cp-type-body">
+            <h3>Help us improve</h3>
+            <p>Page views, click tracking, scroll depth, session recordings (anonymised), and error monitoring. Powered by Google Analytics and our internal telemetry. Data is aggregated and anonymised. Persist for up to 24 months.</p>
+          </div>
+        </div>
+        <div class="cp-type-card">
+          <span class="cp-type-label marketing">Marketing</span>
+          <div class="cp-type-body">
+            <h3>Relevant recommendations</h3>
+            <p>Product recommendations, personalised feeds, retargeting pixels for social media, and campaign attribution. We limit data sharing to anonymised segments. Persist for up to 90 days unless you opt out.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-section">
+    <div class="wrap">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Third-party cookies</h2>
+      <div class="cp-grid-3">
+        <div class="cp-card" style="padding:22px 24px">
+          <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--info);flex-shrink:0;margin-top:2px"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-base);font-weight:600;margin:0;color:var(--text)">Stripe &amp; PayPal</h3>
+          </div>
+          <p style="font-size:var(--text-sm);line-height:1.6;color:var(--text-soft);margin:0">Used for payment processing and fraud detection. These are essential cookies — without them we cannot process transactions. Stripe and PayPal set their own cookies according to their respective privacy policies.</p>
+        </div>
+        <div class="cp-card" style="padding:22px 24px">
+          <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--warning);flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-base);font-weight:600;margin:0;color:var(--text)">Google Analytics</h3>
+          </div>
+          <p style="font-size:var(--text-sm);line-height:1.6;color:var(--text-soft);margin:0">Usage analytics to help us understand how visitors interact with Lahar. Data is anonymised and aggregated. You can opt out via the <a href="https://tools.google.com/dlpage/gaoptout" style="color:var(--brand)">Google Analytics Opt-out Browser Add-on</a>.</p>
+        </div>
+        <div class="cp-card" style="padding:22px 24px">
+          <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--violet);flex-shrink:0;margin-top:2px"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-base);font-weight:600;margin:0;color:var(--text)">Social platforms</h3>
+          </div>
+          <p style="font-size:var(--text-sm);line-height:1.6;color:var(--text-soft);margin:0">Embedded social sharing buttons and product pins may set cookies from Instagram, Pinterest, and TikTok. These are only activated when you interact with the sharing features.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-section alt">
+    <div class="wrap">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Your choices</h2>
+      <div class="cp-card" style="padding:24px 28px">
+        <p>You have full control over cookies. Most web browsers allow you to:</p>
+        <ul style="padding:0 0 0 18px;margin:10px 0 0">
+          <li style="font-size:var(--text-base);line-height:1.7;color:var(--text-soft);margin-bottom:4px"><strong>Block all cookies</strong> — available in your browser's privacy settings</li>
+          <li style="font-size:var(--text-base);line-height:1.7;color:var(--text-soft);margin-bottom:4px"><strong>Delete existing cookies</strong> — clearing your browsing data will remove all stored cookies</li>
+          <li style="font-size:var(--text-base);line-height:1.7;color:var(--text-soft);margin-bottom:4px"><strong>Set cookie preferences per site</strong> — most browsers let you whitelist or blacklist specific domains</li>
+          <li style="font-size:var(--text-base);line-height:1.7;color:var(--text-soft);margin-bottom:4px"><strong>Use private/incognito mode</strong> — cookies are automatically deleted when you close the window</li>
+        </ul>
+        <p style="margin-top:12px"><strong>Important:</strong> Disabling essential cookies will prevent core features of Lahar from working — including login, cart, and checkout. We recommend keeping essential cookies enabled and managing only analytics and marketing cookies.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-section">
+    <div class="wrap">
+      <div class="cp-cta-wrap">
+        <h3>Questions about cookies?</h3>
+        <p>Our privacy team is happy to help with any questions about how we use cookies and your data.</p>
+        <a href="mailto:privacy@laharhub.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          Email privacy@laharhub.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Contact Us · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .c-contact { overflow-x: hidden; }
+
+  .c-contact-hero {
+    background: linear-gradient(160deg, #0B0A08 0%, #15120E 100%);
+    color: white; padding: 0;
+    position: relative;
+    isolation: isolate;
+  }
+  .c-contact-hero::after {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 500px 350px at 60% 20%, rgba(220,38,38,.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .c-contact-hero .wrap { padding: 80px 32px 72px; position: relative; z-index: 1; }
+  .c-contact-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 34px);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1.05;
+    margin: 0 0 10px;
+    color: white;
+  }
+  .c-contact-hero p {
+    font-size: clamp(15px, 1.4vw, 17px);
+    color: rgba(255,255,255,.5);
+    margin: 0;
+    max-width: 520px;
+  }
+
+  .c-contact-body { padding: 56px 0 0; }
+  .c-contact-body .wrap { max-width: var(--max); }
+
+  .c-two-col {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--gap);
+    align-items: flex-start;
+  }
+  @media (max-width: 800px) { .c-two-col { grid-template-columns: 1fr; } }
+
+  .c-form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 36px 32px;
+  }
+  .c-form-card h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    margin: 0 0 4px;
+    letter-spacing: -.02em;
+  }
+  .c-form-card .cf-sub {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin: 0 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .c-form-card .cf-sub .cf-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ok);
+    display: inline-block;
+  }
+  .c-form-card .cf-sub .cf-dot-pulse {
+    animation: cpulse 2s infinite;
+  }
+  @keyframes cpulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .35; }
+  }
+  .c-form-card .cf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 500px) { .c-form-card .cf-row { grid-template-columns: 1fr; } }
+  .c-form-card .field { margin-bottom: 16px; }
+  .c-form-card button[type=submit] {
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    border-radius: var(--r-md);
+    background: var(--brand);
+    color: white;
+    font-size: var(--text-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--t), transform var(--t), box-shadow var(--t);
+  }
+  .c-form-card button[type=submit]:hover {
+    background: var(--brand-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-brand);
+  }
+
+  .c-info-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+  }
+  .c-info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 28px 24px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    transition: box-shadow var(--t), transform var(--t);
+  }
+  .c-info-card:hover {
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+  }
+  .c-info-card .cic-icon {
+    width: 48px; height: 48px;
+    border-radius: var(--r-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .c-info-card .cic-icon svg { width: 22px; height: 22px; }
+  .c-info-card .cic-body { flex: 1; min-width: 0; }
+  .c-info-card .cic-body h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: var(--text);
+  }
+  .c-info-card .cic-body p {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .c-info-card .cic-body a {
+    color: var(--brand);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .c-info-card .cic-body a:hover { text-decoration: underline; }
+
+  .c-response {
+    margin-top: 48px;
+  }
+  .c-response h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin: 0 0 6px;
+    text-align: center;
+  }
+  .c-response .cr-sub {
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin: 0 0 28px;
+  }
+  .c-response-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media (max-width: 640px) { .c-response-grid { grid-template-columns: 1fr; } }
+  .c-response-grid .cr-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .c-response-grid .cr-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .c-response-grid .cr-card:first-child::before { background: var(--brand); }
+  .c-response-grid .cr-card:nth-child(2)::before { background: var(--ok); }
+  .c-response-grid .cr-card:nth-child(3)::before { background: var(--warning); }
+  .c-response-grid .cr-card .cr-stat {
+    font-family: var(--font-display);
+    font-size: var(--text-8xl);
+    font-weight: 800;
+    letter-spacing: -.04em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .c-response-grid .cr-card:first-child .cr-stat { color: var(--brand); }
+  .c-response-grid .cr-card:nth-child(2) .cr-stat { color: var(--ok); }
+  .c-response-grid .cr-card:nth-child(3) .cr-stat { color: var(--warning); }
+  .c-response-grid .cr-card h4 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--text);
+  }
+  .c-response-grid .cr-card p {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    .c-form-card { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+<main class="c-contact">
+  <section class="c-contact-hero">
+    <div class="wrap">
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Contact Us</span></div>
+      <h1>Contact us</h1>
+      <p>We're here to help — get in touch with the Lahar team.</p>
+    </div>
+  </section>
+  <section class="c-contact-body">
+    <div class="wrap">
+      <div class="c-two-col">
+        <form class="c-form-card">
+          <h2>Send us a message</h2>
+          <p class="cf-sub"><span class="cf-dot cf-dot-pulse"></span> We typically respond within 24 hours, often sooner.</p>
+          <div class="cf-row">
+            <div class="field">
+              <label>First name</label>
+              <input class="input" type="text" placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label>Last name</label>
+              <input class="input" type="text" placeholder="Your surname" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Email address</label>
+            <input class="input" type="email" placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label>Subject</label>
+            <select class="input select">
+              <option>Order inquiry</option>
+              <option>Return or exchange</option>
+              <option>Vendor question</option>
+              <option>Account support</option>
+              <option>Partnership</option>
+              <option>Press &amp; media</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Message</label>
+            <textarea class="input textarea" placeholder="How can we help?" style="min-height:140px"></textarea>
+          </div>
+          <button type="submit">Send message</button>
+        </form>
+        <div class="c-info-stack">
+          <div class="c-info-card">
+            <div class="cic-icon" style="background:color-mix(in oklab,#DC2626 10%,transparent);color:#DC2626">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="cic-body">
+              <h3>Email</h3>
+              <p><a href="mailto:support@laharhub.com">support@laharhub.com</a><br />We reply within 24 hours, usually sooner.</p>
+            </div>
+          </div>
+          <div class="c-info-card">
+            <div class="cic-icon" style="background:color-mix(in oklab,#059669 10%,transparent);color:#059669">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="cic-body">
+              <h3>Live chat</h3>
+              <p>Available weekdays 9:00–18:00 CET.<br />Look for the chat bubble in the corner of your screen.</p>
+            </div>
+          </div>
+          <div class="c-info-card">
+            <div class="cic-icon" style="background:color-mix(in oklab,#2563EB 10%,transparent);color:#2563EB">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="cic-body">
+              <h3>Visit us</h3>
+              <p>Lahar Hub<br />242-244 Vesterbrograde<br />Copenhagen, Denmark</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-response">
+        <h2>Response times</h2>
+        <p class="cr-sub">How fast you can expect to hear back from us.</p>
+        <div class="c-response-grid">
+          <div class="cr-card">
+            <div class="cr-stat">&lt;24h</div>
+            <h4>Email</h4>
+            <p>We respond to every email within 24 hours. Most inquiries are answered within 6 hours during business days.</p>
+          </div>
+          <div class="cr-card">
+            <div class="cr-stat">&lt;5m</div>
+            <h4>Live chat</h4>
+            <p>Chat with our team in real time. Average response time is under 5 minutes during operating hours.</p>
+          </div>
+          <div class="cr-card">
+            <div class="cr-stat">By&nbsp;appt</div>
+            <h4>Phone</h4>
+            <p>Phone support is available by appointment. Schedule a call through our contact form and we'll call you at your preferred time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

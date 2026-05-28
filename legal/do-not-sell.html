@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Do Not Sell My Personal Information · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .dns-hero {
+    background: linear-gradient(160deg, #1A1814 0%, #1A1410 35%, #0B0A08 100%);
+    color: white; padding: 0; position: relative; overflow: hidden;
+  }
+  .dns-hero::before {
+    content: ''; position: absolute; top: -50%; right: -15%;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in oklab, #F97316 8%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .dns-hero .wrap { padding: 80px 32px 72px; position: relative; }
+  .dns-hero .dns-hero-icon {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  }
+  .dns-hero .dns-hero-icon svg { width: 28px; height: 28px; color: #F97316; }
+  .dns-hero .dns-hero-icon span {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em;
+    color: color-mix(in oklab, #F97316 70%, transparent);
+  }
+  .dns-hero h1 { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 34px); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; margin: 0 0 10px; }
+  .dns-hero p { font-size: var(--text-md); color: rgba(255,255,255,.5); margin: 0; max-width: 540px; }
+
+  .dns-section { padding: 56px 0; }
+  .dns-section.alt { background: color-mix(in oklab, var(--surface-2) 60%, var(--surface)); }
+  .dns-section h2 {
+    font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+    margin: 0 0 20px; letter-spacing: -.01em; color: var(--text);
+  }
+  .dns-section h2 svg { width: 22px; height: 22px; color: #F97316; flex-shrink: 0; }
+  .dns-section p { font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0 0 14px; }
+  .dns-section p:last-child { margin-bottom: 0; }
+
+  .dns-intro-card {
+    background: linear-gradient(135deg, color-mix(in oklab, #F97316 6%, var(--surface)), var(--surface));
+    border: 1px solid color-mix(in oklab, #F97316 20%, var(--border));
+    border-radius: var(--r-xl); padding: 28px 32px;
+  }
+  .dns-intro-card p {
+    font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0;
+  }
+
+  .dns-toggle-card {
+    background: var(--surface); border: 2px solid var(--border); border-radius: var(--r-xl);
+    padding: 32px; text-align: center; max-width: 560px; margin: 0 auto;
+    transition: border-color var(--t), box-shadow var(--t);
+  }
+  .dns-toggle-card:hover { border-color: color-mix(in oklab, #F97316 30%, var(--border)); box-shadow: var(--shadow-sm); }
+  .dns-toggle-card .dns-toggle-icon { margin-bottom: 12px; }
+  .dns-toggle-card .dns-toggle-icon svg { width: 36px; height: 36px; color: #F97316; }
+  .dns-toggle-card h3 { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; margin: 0 0 4px; }
+  .dns-toggle-card p { font-size: var(--text-sm); color: var(--text-muted); margin: 0 0 20px; }
+  .dns-toggle-wrap {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 16px 24px; border-radius: var(--r-xl);
+    background: color-mix(in oklab, #F97316 6%, var(--surface-2));
+    border: 1px solid color-mix(in oklab, #F97316 15%, var(--border));
+    cursor: pointer; transition: all var(--t);
+  }
+  .dns-toggle-wrap:hover { background: color-mix(in oklab, #F97316 10%, var(--surface-2)); }
+  .dns-toggle-wrap input[type="checkbox"] {
+    width: 44px; height: 24px; appearance: none; -webkit-appearance: none;
+    background: var(--border-strong); border-radius: 999px;
+    position: relative; cursor: pointer; flex-shrink: 0;
+    transition: background var(--t);
+  }
+  .dns-toggle-wrap input[type="checkbox"]::after {
+    content: ''; position: absolute; top: 3px; left: 3px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: white; transition: transform var(--t);
+    box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  }
+  .dns-toggle-wrap input[type="checkbox"]:checked {
+    background: #F97316;
+  }
+  .dns-toggle-wrap input[type="checkbox"]:checked::after {
+    transform: translateX(20px);
+  }
+  .dns-toggle-wrap label {
+    font-size: var(--text-base); font-weight: 600; color: var(--text);
+    cursor: pointer; user-select: none;
+  }
+
+  .dns-info-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 24px 28px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .dns-info-card svg { width: 22px; height: 22px; color: var(--info); flex-shrink: 0; margin-top: 3px; }
+  .dns-info-card h3 { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin: 0 0 4px; }
+  .dns-info-card p { font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0; }
+
+  .dns-contact-card {
+    background: var(--text); color: var(--bg); border-radius: var(--r-xl);
+    padding: 36px 40px; text-align: center;
+  }
+  .dns-contact-card h3 { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 700; margin: 0 0 6px; color: var(--bg); }
+  .dns-contact-card p { font-size: var(--text-base); color: rgba(255,255,255,.6); margin: 0 0 18px; }
+  .dns-contact-card a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; border-radius: var(--r-md);
+    background: var(--brand); color: white; font-weight: 600; font-size: var(--text-base);
+    text-decoration: none; transition: background var(--t);
+  }
+  .dns-contact-card a:hover { background: var(--brand-hover); }
+
+  .dns-updated { font-size: var(--text-xs); color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 24px; display: block; }
+</style>
+</head>
+<body>
+
+<div data-partial="header"></div>
+
+<main>
+
+  <section class="dns-hero">
+    <div class="wrap">
+      <div class="dns-hero-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 10v4"/><path d="M8 12h8"/></svg>
+        <span>Privacy Rights</span>
+      </div>
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Do Not Sell My Info</span></div>
+      <h1>Do Not Sell My Personal Information</h1>
+      <p>Your rights under the California Consumer Privacy Act (CCPA).</p>
+    </div>
+  </section>
+
+  <section class="dns-section">
+    <div class="wrap">
+      <span class="dns-updated">Last updated: May 28, 2026</span>
+
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> Your right to opt out</h2>
+      <div class="dns-intro-card">
+        <p>Under the California Consumer Privacy Act (CCPA) as amended by the CPRA, California residents have the right to opt out of the "sale" or "sharing" of their personal information for cross-context behavioural advertising. Lahar does not sell personal information in the traditional sense — we do not exchange your data for money. However, certain data-sharing practices involving advertising and analytics partners may be considered a "sale" or "share" under the broad definitions of the CCPA. We respect that distinction and provide you with the control below to exercise your rights.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="dns-section alt">
+    <div class="wrap">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Opt-out preference</h2>
+      <div class="dns-toggle-card">
+        <div class="dns-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 10v4"/><path d="M8 12h8"/></svg>
+        </div>
+        <h3>Your privacy preference</h3>
+        <p>Toggle this control to opt out of data sharing for advertising and analytics purposes. This preference will be stored in a first-party cookie on your device.</p>
+        <div class="dns-toggle-wrap">
+          <input type="checkbox" id="dns-optout" />
+          <label for="dns-optout">Do not sell or share my personal information</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dns-section">
+    <div class="wrap">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> What happens when you opt out</h2>
+      <div class="dns-info-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        <div>
+          <h3>Your experience remains the same</h3>
+          <p>When you opt out, we will stop sharing your data with advertising partners, ad networks, and analytics providers that use your information for cross-context behavioural advertising. You will still see ads — they will just be less personalised. All core functionality of the platform remains unchanged: you can browse, purchase, message vendors, and manage your account exactly as before. Your opt-out preference is respected for 12 months, after which we will ask you to confirm it again.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dns-section alt">
+    <div class="wrap">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Verified requests &amp; contact</h2>
+      <div class="dns-contact-card">
+        <h3>Need help exercising your rights?</h3>
+        <p>If you have questions about the CCPA, your privacy rights, or need assistance submitting a verified request — including access, deletion, or correction — our privacy team is here to help.</p>
+        <a href="mailto:privacy@laharhub.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          Email privacy@laharhub.com
+        </a>
+        <p style="font-size:var(--text-sm);color:rgba(255,255,255,.5);margin-top:12px;margin-bottom:0">We respond to all verified requests within 45 days as required by law.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Become a vendor · Sell on Lahar — Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  /* ── BECOME A VENDOR ── */
+
+  /* Hero */
+  .bv-hero {
+    position:relative; min-height:520px;
+    display:flex; align-items:center;
+    background: #0B0A08;
+    overflow:hidden;
+    color:white;
+    padding:0;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .bv-hero::before {
+    content:''; position:absolute; inset:0;
+    background:
+      linear-gradient(to right, #0B0A08 0%, rgba(11,10,8,.85) 30%, rgba(11,10,8,.5) 60%, rgba(11,10,8,.3) 100%),
+      url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1600&q=85') center/cover no-repeat;
+    pointer-events:none; z-index:0;
+  }
+  .bv-hero::after {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse 70% 90% at 50% 40%, rgba(220,38,38,.25) 0%, transparent 65%);
+    pointer-events:none; z-index:1;
+  }
+  .bv-hero .wrap { position:relative; z-index:3; padding:80px 32px; text-align:left; }
+  @media(max-width:720px){ .bv-hero .wrap { padding:60px 18px; } }
+  @media(max-width:500px){ .bv-hero { min-height:auto; } }
+  .bv-hero .bv-badge {
+    display:inline-flex; font-size:10px; text-transform:uppercase; letter-spacing:.12em; font-weight:700;
+    padding:5px 14px; border-radius:var(--r-pill);
+    background:rgba(255,255,255,.08); color:var(--brand); margin-bottom:20px;
+    border:1px solid rgba(255,255,255,.06);
+  }
+  .bv-hero h1 { font-family:var(--font-display); font-size: clamp(22px, 2.8vw, 34px); font-weight:700; letter-spacing:-.025em; line-height:1.05; margin:0 0 14px; max-width:700px; text-align:left; }
+  .bv-hero p { font-size:var(--text-lg); color:rgba(255,255,255,.6); line-height:1.6; margin:0 0 28px; max-width:640px; text-align:left; }
+  .bv-hero .bv-actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-start; }
+  .bv-hero .bv-actions .btn-primary {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 32px; border:0; border-radius:var(--r-md);
+    background:var(--brand); color:white; font-size:var(--text-md); font-weight:600;
+    cursor:pointer; text-decoration:none; transition:background var(--t);
+  }
+  .bv-hero .bv-actions .btn-primary:hover { background:var(--brand-hover); }
+  .bv-hero .bv-actions .btn-ghost {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 28px; border:1px solid rgba(255,255,255,.18); border-radius:var(--r-md);
+    background:rgba(255,255,255,.04); color:white; font-size:var(--text-md); font-weight:600;
+    cursor:pointer; text-decoration:none; transition:background var(--t);
+  }
+  .bv-hero .bv-actions .btn-ghost:hover { background:rgba(255,255,255,.1); }
+  .bv-hero .bv-stat {
+    display:flex; gap:32px; margin-top:40px; flex-wrap:wrap; justify-content:flex-start;
+  }
+  .bv-hero .bv-stat .bvs-item { display:flex; flex-direction:column; }
+  .bv-hero .bv-stat .bvs-n { font-family:var(--font-display); font-size:var(--text-7xl); font-weight:700; line-height:1; letter-spacing:-.02em; }
+  .bv-hero .bv-stat .bvs-l { font-size:var(--text-sm); color:rgba(255,255,255,.45); margin-top:4px; }
+
+  /* Stats strip */
+  .bv-strip {
+    padding:40px 0;
+    border-bottom:1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--bg) 100%);
+  }
+  .bv-strip .wrap { max-width:var(--max); }
+  .bv-strip .bvs-label {
+    font-size:var(--text-xs); text-transform:uppercase; letter-spacing:.1em;
+    color:var(--text-muted); margin-bottom:16px; font-weight:600;
+  }
+  .bv-strip .bvs-grid {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:12px;
+  }
+  @media(max-width:900px){ .bv-strip .bvs-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:500px){ .bv-strip .bvs-grid { grid-template-columns: 1fr; } }
+  .bv-strip .bvs-item {
+    display:flex; flex-direction:column; gap:2px;
+    padding:20px 24px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--r-lg);
+  }
+  .bv-strip .bvs-item .bvs-n {
+    font-family:var(--font-display); font-size:var(--text-2xl); font-weight:700;
+    letter-spacing:-.02em;
+  }
+  .bv-strip .bvs-item .bvs-l {
+    font-size:var(--text-sm); color:var(--text-soft);
+  }
+  .bv-strip .bvs-cats {
+    margin-top:24px; padding-top:20px;
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .bv-strip .bvs-cats-label {
+    font-size:var(--text-xs); text-transform:uppercase; letter-spacing:.1em;
+    color:var(--text-muted); font-weight:600;
+  }
+  .bv-strip .bvs-cats-list { display:flex; gap:8px; flex-wrap:wrap; }
+  .bv-strip .fv-chip {
+    font-size:11px; font-weight:600; padding:6px 16px;
+    border-radius:var(--r-pill); background:var(--surface-2); border:1px solid var(--border);
+    color:var(--text-soft); transition:background var(--t),border-color var(--t);
+  }
+  .bv-strip .fv-chip:hover {
+    background:var(--surface); border-color:var(--brand);
+    color:var(--text);
+  }
+
+  /* Section common */
+  .bv-section { padding:56px 0; }
+  .bv-section[id] { scroll-margin-top:90px; }
+  .bv-section .sec-head { margin-bottom:36px; }
+  .bv-section .sec-head .sec-title { font-size:clamp(28px,3vw,40px); }
+  .bv-section .sec-head .sec-sub { font-size:var(--text-md); }
+
+  /* Plans / vendor types */
+  .plan-grid {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width:1100px){ .plan-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:560px){ .plan-grid { grid-template-columns: 1fr; } }
+  .plan-card {
+    display:flex; flex-direction:column;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-xl); padding:28px 26px 30px;
+    position:relative;
+  }
+  .plan-card.featured { border-color:var(--brand); background:linear-gradient(135deg,var(--surface),color-mix(in oklab,var(--brand) 4%,var(--surface))); }
+  .plan-card .pc-pop { position:absolute; top:-10px; left:50%; transform:translateX(-50%); font-size:9px; text-transform:uppercase; letter-spacing:.14em; font-weight:700; padding:3px 14px; border-radius:var(--r-pill); background:var(--brand); color:white; white-space:nowrap; }
+  .plan-card .pc-name { font-size:var(--text-sm); text-transform:uppercase; letter-spacing:.12em; color:var(--text-muted); font-weight:600; margin-bottom:2px; }
+  .plan-card .pc-price { font-size:var(--text-10xl); font-weight:700; letter-spacing:-.025em; line-height:1; margin-bottom:4px; }
+  .plan-card .pc-price .pc-curr { font-size:var(--text-2xl); vertical-align:super; }
+  .plan-card .pc-desc { font-size:var(--text-sm); color:var(--text-soft); margin-bottom:18px; line-height:1.4; }
+  .plan-card .pc-features { list-style:none; padding:0; margin:0 0 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .plan-card .pc-features li { font-size:var(--text-sm); display:flex; align-items:center; gap:8px; color:var(--text); }
+  .plan-card .pc-features li svg { flex-shrink:0; color:var(--brand); }
+  .plan-card .pc-features li .na { color:var(--text-muted); opacity:.4; }
+  .plan-card .pc-cta {
+    width:100%; padding:12px; border-radius:var(--r-md);
+    border:1px solid var(--border); background:transparent;
+    font-size:var(--text-base); font-weight:600; cursor:pointer;
+    text-align:center; text-decoration:none; display:block;
+    transition:all var(--t); color:var(--text);
+  }
+  .plan-card .pc-cta:hover { background:var(--surface-2); }
+  .plan-card.featured .pc-cta { background:var(--brand); border-color:var(--brand); color:white; }
+  .plan-card.featured .pc-cta:hover { background:var(--brand-hover); }
+
+  /* Benefits */
+  .ben-grid {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width:900px){ .ben-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:500px){ .ben-grid { grid-template-columns: 1fr; } }
+  .ben-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-xl); padding:26px 24px 28px;
+    transition:box-shadow var(--t),transform var(--t);
+  }
+  .ben-card:hover { box-shadow:var(--shadow-sm); transform:translateY(-2px); }
+  .ben-card .bc-icon {
+    width:40px; height:40px; border-radius:var(--r-md);
+    background:color-mix(in oklab,var(--brand) 12%,transparent);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--brand); margin-bottom:16px;
+  }
+  .ben-card h3 { font-size:var(--text-lg); font-weight:600; margin:0 0 6px; }
+  .ben-card p { font-size:var(--text-sm); color:var(--text-soft); line-height:1.5; margin:0; }
+
+  /* How it works */
+  .steps {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    counter-reset: step;
+  }
+  @media(max-width:1000px){ .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:500px){ .steps { grid-template-columns: 1fr; } }
+  .step-card {
+    text-align:center; padding:28px 20px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-xl); position:relative;
+    transition:transform var(--t),box-shadow var(--t);
+  }
+  .step-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-sm); }
+  .step-card .sc-num {
+    width:44px; height:44px; border-radius:50%;
+    background:var(--text); color:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:var(--text-xl); font-weight:700;
+    margin:0 auto 16px;
+  }
+  .step-card h3 { font-size:var(--text-md); font-weight:600; margin:0 0 6px; }
+  .step-card p { font-size:var(--text-sm); color:var(--text-soft); margin:0; line-height:1.4; }
+
+  /* Testimonials */
+  .test-grid {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width:900px){ .test-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:500px){ .test-grid { grid-template-columns: 1fr; } }
+  .test-card {
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:var(--r-xl); padding:24px 24px 26px;
+    display:flex; flex-direction:column;
+    transition:transform var(--t),box-shadow var(--t);
+  }
+  .test-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-sm); }
+  .test-card .tc-stars { display:flex; gap:2px; margin-bottom:12px; }
+  .test-card .tc-stars svg { width:14px; height:14px; fill:var(--brand); color:var(--brand); }
+  .test-card .tc-quote { font-size:var(--text-base); line-height:1.55; color:var(--text-soft); margin:0 0 auto; }
+  .test-card .tc-quote strong { color:var(--text); }
+  .test-card .tc-author { display:flex; align-items:center; gap:12px; margin-top:16px; padding-top:14px; border-top:1px solid var(--border); }
+  .test-card .tc-author img { width:36px; height:36px; border-radius:50%; object-fit:cover; }
+  .test-card .tc-author .tca-name { font-size:var(--text-sm); font-weight:600; }
+  .test-card .tc-author .tca-role { font-size:var(--text-xs); color:var(--text-muted); font-family:var(--font-mono); }
+
+  /* Form section */
+  .bv-form-wrap {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+    align-items:flex-start;
+  }
+  @media(max-width:800px){ .bv-form-wrap { grid-template-columns: 1fr; } }
+  .bv-form {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-xl); padding:32px 30px;
+  }
+  .bv-form h3 { font-size:var(--text-2xl); font-weight:600; margin:0 0 4px; }
+  .bv-form .bf-sub { font-size:var(--text-sm); color:var(--text-soft); margin:0 0 24px; }
+  .bv-form .bf-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  @media(max-width:500px){ .bv-form .bf-row { grid-template-columns:1fr; } }
+  .bv-form .field { margin-bottom:14px; }
+  .bv-form .field.full { grid-column:1/-1; }
+  .bv-form .field-row { flex-direction:row; gap:10px; align-items:flex-start; }
+  .bv-form .field-row input[type=checkbox] { margin-top:3px; accent-color:var(--brand); }
+  .bv-form .field-row label { text-transform:none; letter-spacing:0; font-size:var(--text-sm); color:var(--text-soft); cursor:pointer; }
+  .bv-form .field-row label a { color:var(--text); text-decoration:underline; }
+  .select-multiple { min-height:100px; padding:8px 12px; }
+  .textarea-apply { min-height:120px; }
+  .bv-form button[type=submit] {
+    width:100%; padding:14px; border:0; border-radius:var(--r-md);
+    background:var(--brand); color:white;
+    font-size:var(--text-md); font-weight:600; cursor:pointer;
+    transition:background var(--t);
+  }
+  .bv-form button[type=submit]:hover { background:var(--brand-hover); }
+  .bv-form .bf-note { font-size:var(--text-xs); color:var(--text-muted); text-align:center; margin-top:12px; }
+
+  /* Form right side */
+  .bv-form-side { display:flex; flex-direction:column; gap:16px; }
+  .bvs-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-xl); padding:22px 24px;
+    display:flex; align-items:center; gap:14px;
+    transition:transform var(--t),box-shadow var(--t);
+  }
+  .bvs-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-sm); }
+  .bvs-card .bvs-icon {
+    width:44px; height:44px; border-radius:var(--r-lg);
+    background:color-mix(in oklab,var(--brand) 10%,transparent);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--brand); flex-shrink:0;
+  }
+  .bvs-card .bvs-body h4 { font-size:var(--text-base); font-weight:600; margin:0 0 2px; }
+  .bvs-card .bvs-body p { font-size:var(--text-sm); color:var(--text-soft); margin:0; line-height:1.4; }
+
+  /* FAQ */
+  .faq-list { max-width:var(--max); margin:0 auto; }
+  .faq-item {
+    border-bottom:1px solid var(--border);
+    padding:18px 0;
+  }
+  .faq-item:first-child { border-top:1px solid var(--border); }
+  .faq-item .fi-q {
+    display:flex; justify-content:space-between; align-items:center;
+    cursor:pointer; font-size:var(--text-md); font-weight:600;
+    color:var(--text); user-select:none;
+  }
+  .faq-item .fi-q svg { flex-shrink:0; transition:transform var(--t); color:var(--text-muted); }
+  .faq-item.open .fi-q svg { transform:rotate(180deg); }
+  .faq-item .fi-a {
+    max-height:0; overflow:hidden; transition:max-height .3s ease;
+    font-size:var(--text-base); color:var(--text); line-height:1.7;
+  }
+  .faq-item.open .fi-a { max-height:300px; padding-top:12px; }
+  .faq-item .fi-a p { margin:0; }
+
+  /* Final CTA */
+  .bv-cta {
+    background:linear-gradient(135deg,#1A1814 0%,#0B0A08 100%);
+    color:white; text-align:center; padding:80px 32px;
+  }
+  @media(max-width:720px){ .bv-cta { padding:64px 18px; } }
+  .bv-cta h2 { font-size:clamp(28px,3.6vw,48px); font-weight:700; letter-spacing:-.02em; margin:0 0 10px; color:white; }
+  .bv-cta p { font-size:var(--text-lg); color:rgba(255,255,255,.55); margin:0 0 24px; max-width:500px; margin-left:auto; margin-right:auto; }
+  .bv-cta .btn-primary {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:16px 36px; border:0; border-radius:var(--r-md);
+    background:var(--brand); color:white; font-size:var(--text-lg); font-weight:600;
+    cursor:pointer; text-decoration:none; transition:background var(--t);
+  }
+  .bv-cta .btn-primary:hover { background:var(--brand-hover); }
+  .bv-cta .bv-cta-sub { font-size:var(--text-xs); color:rgba(255,255,255,.3); margin-top:14px; }
+
+  /* Misc page extras */
+  .bv-affil {
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:var(--r-xl); padding:28px 30px;
+    display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+  }
+  .bv-affil .ba-left h4 { margin:0 0 4px; font-size:var(--text-lg); font-weight:600; }
+  .bv-affil .ba-left p { margin:0; font-size:var(--text-sm); color:var(--text-soft); }
+  .bv-affil .ba-right { flex-shrink:0; }
+  .bv-affil .ba-right a {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:10px 22px; border:1px solid var(--border); border-radius:var(--r-md);
+    font-size:var(--text-sm); font-weight:600; color:var(--text);
+    text-decoration:none; transition:all var(--t);
+  }
+  .bv-affil .ba-right a:hover { background:var(--surface); }
+</style>
+</head>
+<body>
+
+<div data-partial="header"></div>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section class="bv-hero">
+    <div class="wrap">
+      <span class="bv-badge">Open for applications</span>
+      <h1>Sell on Lahar.<br />Join 320+ independent makers.</h1>
+      <p>Turn your craft into a business. Get a premium storefront, built-in audience, and tools that let you focus on making — not on logistics.</p>
+      <div class="bv-actions">
+        <a href="#apply" class="btn-primary">Apply now <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#how-it-works" class="btn-ghost">See how it works</a>
+      </div>
+      <div class="bv-stat">
+        <div class="bvs-item"><span class="bvs-n">$4.2M</span><span class="bvs-l">paid to vendors this year</span></div>
+        <div class="bvs-item"><span class="bvs-n">320+</span><span class="bvs-l">active makers</span></div>
+        <div class="bvs-item"><span class="bvs-n">42</span><span class="bvs-l">countries represented</span></div>
+        <div class="bvs-item"><span class="bvs-n">7 yrs</span><span class="bvs-l">of slow commerce</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS STRIP ── -->
+  <div class="bv-strip">
+    <div class="wrap">
+      <div class="bvs-label">Why sellers choose Lahar</div>
+      <div class="bvs-grid">
+        <div class="bvs-item"><span class="bvs-n">$0</span><span class="bvs-l">Monthly fee for Starter</span></div>
+        <div class="bvs-item"><span class="bvs-n">5%</span><span class="bvs-l">Avg. commission rate</span></div>
+        <div class="bvs-item"><span class="bvs-n">24h</span><span class="bvs-l">Payout after delivery</span></div>
+        <div class="bvs-item"><span class="bvs-n">92%</span><span class="bvs-l">Vendor satisfaction</span></div>
+      </div>
+      <div class="bvs-cats">
+        <span class="bvs-cats-label">Popular categories</span>
+        <div class="bvs-cats-list">
+          <span class="fv-chip">Fashion</span>
+          <span class="fv-chip">Home &amp; living</span>
+          <span class="fv-chip">Electronics</span>
+          <span class="fv-chip">Vintage</span>
+          <span class="fv-chip">Ceramics</span>
+          <span class="fv-chip">Jewellery</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ── PLANS ── -->
+  <section class="bv-section" id="plans">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Choose your path</div>
+          <div class="sec-sub">Every plan includes a custom storefront, secure payments, and 24/7 support.</div>
+        </div>
+      </div>
+      <div class="plan-grid">
+        <div class="plan-card">
+          <div class="pc-name">Starter</div>
+          <div class="pc-price"><span class="pc-curr">$</span>0</div>
+          <div class="pc-desc">Perfect for testing the waters — no commitment, no monthly fee.</div>
+          <ul class="pc-features">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> 8% commission</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Up to 25 products</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Basic analytics</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Standard support</li>
+            <li><span class="na"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg> Custom domain</span></li>
+            <li><span class="na"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg> Priority support</span></li>
+          </ul>
+          <a href="#apply" class="pc-cta">Get started</a>
+        </div>
+
+        <div class="plan-card featured">
+          <span class="pc-pop">Most popular</span>
+          <div class="pc-name">Standard</div>
+          <div class="pc-price"><span class="pc-curr">$</span>19</div>
+          <div class="pc-desc">For serious makers — lower commission, more products, better insights.</div>
+          <ul class="pc-features">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> 5% commission</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Unlimited products</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Advanced analytics</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Scheduled payouts</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Custom domain</li>
+            <li><span class="na"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg> Priority support</span></li>
+          </ul>
+          <a href="#apply" class="pc-cta">Choose Standard</a>
+        </div>
+
+        <div class="plan-card">
+          <div class="pc-name">Premium</div>
+          <div class="pc-price"><span class="pc-curr">$</span>49</div>
+          <div class="pc-desc">For established brands — lowest commission, dedicated account manager.</div>
+          <ul class="pc-features">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> 3% commission</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Unlimited products</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Full analytics suite</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Instant payouts</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Custom domain + SSL</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Priority support 24/7</li>
+          </ul>
+          <a href="#apply" class="pc-cta">Go Premium</a>
+        </div>
+
+        <div class="plan-card">
+          <div class="pc-name">Enterprise</div>
+          <div class="pc-price"><span class="pc-curr">$</span>99</div>
+          <div class="pc-desc">For multi-brand houses and high-volume studios. Custom terms available.</div>
+          <ul class="pc-features">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> < 2% commission</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Unlimited products</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> API access</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Custom integrations</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Multi-brand dashboard</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Dedicated manager</li>
+          </ul>
+          <a href="#apply" class="pc-cta">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENEFITS ── -->
+  <section class="bv-section" style="background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Everything you need to sell</div>
+          <div class="sec-sub">From storefront to payout — built for independent makers, by people who work with them every day.</div>
+        </div>
+      </div>
+      <div class="ben-grid">
+        <div class="ben-card">
+          <div class="bc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3>Beautiful storefront</h3>
+          <p>Every vendor gets a customisable brand page with cover photo, bio, product grid, reels, and customer reviews — no design skills needed.</p>
+        </div>
+        <div class="ben-card">
+          <div class="bc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <h3>Fast payouts</h3>
+          <p>Get paid within 24 hours of delivery confirmation. Standard: scheduled payouts. Premium: instant withdrawal. No hidden holds.</p>
+        </div>
+        <div class="ben-card">
+          <div class="bc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></div>
+          <h3>Inventory tools</h3>
+          <p>Manage stock, variants, categories, and pricing in one dashboard. Bulk import, draft scheduling, and low-stock alerts included.</p>
+        </div>
+        <div class="ben-card">
+          <div class="bc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2a10 10 0 0 1 10 10c0 5-3.5 9-8 10-4.5-1-8-5-8-10A10 10 0 0 1 12 2z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Built-in trust</h3>
+          <p>Every vendor is vetted. Buyers shop with confidence thanks to purchase protection, free returns, and verified reviews — which means fewer disputes.</p>
+        </div>
+        <div class="ben-card">
+          <div class="bc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12h4l3-9 4 18 4-9h5"/></svg></div>
+          <h3>Marketing & reach</h3>
+          <p>Your products appear in curated category pages, editorial journal features, reels, auctions, and personalised buyer feeds. We drive the traffic.</p>
+        </div>
+        <div class="ben-card">
+          <div class="bc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          <h3>Dedicated support</h3>
+          <p>Real humans, not bots. Standard support replies within 4 hours. Premium gets a dedicated account manager and priority phone line.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section class="bv-section" id="how-it-works">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">How it works</div>
+          <div class="sec-sub">From application to first sale in four steps.</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step-card">
+          <div class="sc-num">1</div>
+          <h3>Apply</h3>
+          <p>Fill out the application form below. Tell us about your craft, your story, and what you make.</p>
+        </div>
+        <div class="step-card">
+          <div class="sc-num">2</div>
+          <h3>Get vetted</h3>
+          <p>Our team reviews every application personally. We may schedule a quick video call to get to know you and your work.</p>
+        </div>
+        <div class="step-card">
+          <div class="sc-num">3</div>
+          <h3>Set up shop</h3>
+          <p>Once approved, you'll get access to your vendor dashboard. Upload products, set pricing, and customise your storefront.</p>
+        </div>
+        <div class="step-card">
+          <div class="sc-num">4</div>
+          <h3>Start selling</h3>
+          <p>Your products go live on Lahar. We handle payments, shipping labels, and customer support. You focus on making.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="bv-section" style="background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Hear from our makers</div>
+          <div class="sec-sub">Real vendors, real stories. Not a single testimonial was paid for or prompted.</div>
+        </div>
+      </div>
+      <div class="test-grid">
+        <div class="test-card">
+          <div class="tc-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="tc-quote">"Moving to Lahar tripled our monthly revenue in the first quarter. The audience here actually <strong>understands</strong> why handmade costs more — we stopped explaining, started selling."</p>
+          <div class="tc-author">
+            <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=100&q=80" alt="" />
+            <div>
+              <div class="tca-name">Yoshiko Murata</div>
+              <div class="tca-role">Murmur Atelier · Kyoto, JP</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="tc-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="tc-quote">"The onboarding was seamless. I uploaded my catalogue on a Friday and had my first order by Sunday. The dashboard is intuitive — I can manage everything from my phone."</p>
+          <div class="tc-author">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80" alt="" />
+            <div>
+              <div class="tca-name">Kenji Murata</div>
+              <div class="tca-role">Brindle Studio · Melbourne, AU</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="tc-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="tc-quote">"What sets Lahar apart is the quality of the buyers. They read product descriptions. They care about provenance. I've had zero chargebacks in two years — that never happened on other platforms."</p>
+          <div class="tc-author">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="" />
+            <div>
+              <div class="tca-name">Elena Voss</div>
+              <div class="tca-role">North Field Goods · Copenhagen, DK</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── APPLY FORM ── -->
+  <section class="bv-section" id="apply">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Apply to become a vendor</div>
+          <div class="sec-sub">We review every application personally. Most responses within 48 hours.</div>
+        </div>
+      </div>
+      <div class="bv-form-wrap">
+        <form class="bv-form">
+          <h3>Tell us about yourself</h3>
+          <p class="bf-sub">This helps us understand your brand and get you set up faster.</p>
+          <div class="bf-row">
+            <div class="field">
+              <label>First name</label>
+              <input class="input" type="text" placeholder="Your first name" />
+            </div>
+            <div class="field">
+              <label>Last name</label>
+              <input class="input" type="text" placeholder="Your last name" />
+            </div>
+          </div>
+          <div class="bf-row">
+            <div class="field">
+              <label>Business name</label>
+              <input class="input" type="text" placeholder="e.g. Murmur Atelier" />
+            </div>
+            <div class="field">
+              <label>Business type</label>
+              <select class="input select">
+                <option>Individual / Sole trader</option>
+                <option>Partnership</option>
+                <option>Limited company</option>
+                <option>Co-operative</option>
+                <option>Non-profit</option>
+              </select>
+            </div>
+          </div>
+          <div class="field full">
+            <label>Email address</label>
+            <input class="input" type="email" placeholder="you@yourbrand.com" />
+          </div>
+          <div class="field full">
+            <label>Phone number</label>
+            <input class="input" type="tel" placeholder="+1 (555) 123-4567" />
+          </div>
+          <div class="bf-row">
+            <div class="field">
+              <label>Country</label>
+              <select class="input select">
+                <option>United States</option>
+                <option>Japan</option>
+                <option>Denmark</option>
+                <option>Portugal</option>
+                <option>Australia</option>
+                <option>United Kingdom</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>City</label>
+              <input class="input" type="text" placeholder="City / town" />
+            </div>
+          </div>
+          <div class="field full">
+            <label>Product categories you sell</label>
+            <select class="input select select-multiple" multiple>
+              <option>Fashion &amp; apparel</option>
+              <option>Home &amp; living</option>
+              <option>Ceramics &amp; glass</option>
+              <option>Jewellery &amp; accessories</option>
+              <option>Electronics &amp; audio</option>
+              <option>Vintage &amp; antiques</option>
+              <option>Art &amp; prints</option>
+              <option>Furniture &amp; lighting</option>
+              <option>Beauty &amp; self-care</option>
+              <option>Food &amp; drink</option>
+              <option>Stationery &amp; books</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>Tell us about your brand</label>
+            <textarea class="input textarea textarea-apply" placeholder="How long have you been making? What's your story? What materials do you work with? Any links to your existing shop or portfolio?"></textarea>
+          </div>
+          <div class="field full">
+            <label>Website or social link (optional)</label>
+            <input class="input" type="url" placeholder="https://instagram.com/yourbrand or https://yourwebsite.com" />
+          </div>
+          <div class="field full field-row">
+            <input type="checkbox" />
+            <label>I agree to the <a href="/legal/terms.html">Vendor Terms of Service</a> and <a href="/legal/privacy.html">Privacy Policy</a></label>
+          </div>
+          <button type="submit">Submit application</button>
+          <p class="bf-note">No commitment required. If approved, you choose your plan before going live.</p>
+        </form>
+
+        <div class="bv-form-side">
+          <div class="bvs-card">
+            <div class="bvs-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <div class="bvs-body">
+              <h4>48-hour response</h4>
+              <p>We personally review every application and get back to you within two business days.</p>
+            </div>
+          </div>
+          <div class="bvs-card">
+            <div class="bvs-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v4"/><path d="M21 10v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M12 2v8"/><path d="M12 14v8"/><path d="M2 10h20"/></svg></div>
+            <div class="bvs-body">
+              <h4>No code required</h4>
+              <p>Set up your entire storefront through our dashboard. No coding, no design skills — just upload and go.</p>
+            </div>
+          </div>
+          <div class="bvs-card">
+            <div class="bvs-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 2"/></svg></div>
+            <div class="bvs-body">
+              <h4>Pause anytime</h4>
+              <p>No long-term contracts. You can pause or close your shop whenever you want — no penalties, no hidden fees.</p>
+            </div>
+          </div>
+          <div class="bvs-card">
+            <div class="bvs-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9h18l-1.5 11h-15L3 9z"/><path d="M8 9V5a4 4 0 1 1 8 0v4"/></svg></div>
+            <div class="bvs-body">
+              <h4>Free returns handled</h4>
+              <p>We manage all returns and customer disputes at our cost. You keep your earnings — no chargebacks deducted.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="bv-section" style="background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Frequently asked questions</div>
+          <div class="sec-sub">Everything you need to know about selling on Lahar.</div>
+        </div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <div class="fi-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>How much does it cost to sell on Lahar?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="fi-a"><p>You can start for free with our Starter plan — no monthly fee, 8% commission. Most vendors choose Standard ($19/mo, 5% commission). Premium ($49/mo, 3%) and Enterprise ($99/mo, &lt;2%) are available for established brands. No setup fees, no hidden charges.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="fi-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>How and when do I get paid?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="fi-a"><p>Payouts are triggered 24 hours after delivery confirmation. Standard plan vendors can schedule weekly or bi-weekly payouts. Premium and Enterprise vendors get instant withdrawal to their bank account or PayPal. Minimum payout: $10.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="fi-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Do I need to handle shipping myself?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="fi-a"><p>You pack and ship your products — we provide discounted shipping labels through our carrier network (UPS, FedEx, USPS, DHL). The label cost is deducted from the buyer's payment so you never pay out of pocket. We also offer an optional pick-and-pack service in select regions.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="fi-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Who handles customer support and returns?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="fi-a"><p>We handle first-line customer support, including returns and disputes. Our 30-day free returns policy is fully managed by Lahar — we provide the label, process the refund, and cover any losses. You just need to accept the return when it arrives. Premium and Enterprise vendors get white-glove dispute resolution.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="fi-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Can I sell internationally?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="fi-a"><p>Absolutely. Lahar ships to over 60 countries and we handle all cross-border customs documentation automatically. Vendors can set different pricing and shipping rules per region. We also offer multi-currency payouts in USD, EUR, JPY, GBP, and DKK.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="fi-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>What kind of products can I sell?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="fi-a"><p>We accept handmade, designed, curated, and vintage goods across fashion, home, electronics, ceramics, jewellery, art, furniture, and more. Every product is reviewed before going live to ensure quality and authenticity. We do not accept mass-produced, drop-shipped, or counterfeit items.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── AFFILIATE + CTA ── -->
+  <section class="bv-section">
+    <div class="wrap">
+      <div class="bv-affil">
+        <div class="ba-left">
+          <h4>Not a maker? You can still earn.</h4>
+          <p>Join the Lahar Affiliate Program and earn 10% commission on every sale you refer. No inventory, no overhead — just share what you love.</p>
+        </div>
+        <div class="ba-right">
+          <a href="/info/affiliate.html">Join affiliate program <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ── -->
+  <section class="bv-cta">
+    <h2>Ready to start selling?</h2>
+    <p>Join 320+ makers who've built their businesses on Lahar. Your first product could be live in under an hour.</p>
+    <a href="#apply" class="btn-primary">Apply now <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div class="bv-cta-sub">Free to apply. No commitment until you choose a plan.</div>
+  </section>
+
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

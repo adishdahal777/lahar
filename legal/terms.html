@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Terms of Service · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .tos-hero {
+    background: linear-gradient(160deg, #1A1814 0%, #1A1418 30%, #0B0A08 100%);
+    color: white; padding: 0; position: relative; overflow: hidden;
+  }
+  .tos-hero::before {
+    content: ''; position: absolute; top: -40%; left: -10%;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in oklab, #A78BFA 8%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .tos-hero .wrap { padding: 80px 32px 72px; position: relative; }
+  .tos-hero .tos-hero-icon {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  }
+  .tos-hero .tos-hero-icon svg { width: 28px; height: 28px; color: #A78BFA; }
+  .tos-hero .tos-hero-icon span {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em;
+    color: color-mix(in oklab, #A78BFA 70%, transparent);
+  }
+  .tos-hero h1 { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 34px); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; margin: 0 0 10px; }
+  .tos-hero p { font-size: var(--text-md); color: rgba(255,255,255,.5); margin: 0; max-width: 520px; }
+
+  .tos-section { padding: 56px 0; }
+  .tos-section.alt { background: color-mix(in oklab, var(--surface-2) 60%, var(--surface)); }
+  .tos-section h2 {
+    font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+    margin: 0 0 20px; letter-spacing: -.01em; color: var(--text);
+  }
+  .tos-section h2 .tos-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: color-mix(in oklab, var(--brand) 12%, transparent);
+    color: var(--brand); font-size: var(--text-sm); font-weight: 700;
+    flex-shrink: 0;
+  }
+  .tos-section h2 svg { width: 20px; height: 20px; color: var(--brand); flex-shrink: 0; }
+  .tos-section p { font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0 0 14px; }
+  .tos-section p:last-child { margin-bottom: 0; }
+  .tos-section p strong, .tos-section li strong { color: var(--text); }
+
+  .tos-updated { font-size: var(--text-xs); color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 24px; display: block; }
+
+  .tos-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 28px; margin-bottom: 20px;
+  }
+  .tos-card:last-child { margin-bottom: 0; }
+
+  .tos-checklist { list-style: none; padding: 0; margin: 0; }
+  .tos-checklist li {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: var(--text-base); line-height: 1.6; color: var(--text-soft);
+  }
+  .tos-checklist li:last-child { border-bottom: 0; }
+  .tos-checklist li svg { width: 18px; height: 18px; color: var(--ok); flex-shrink: 0; margin-top: 2px; }
+
+  .tos-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+  @media (max-width: 720px) { .tos-grid-2 { grid-template-columns: 1fr; } }
+  .tos-grid-2 .tos-card { margin-bottom: 0; }
+
+  .tos-danger {
+    background: color-mix(in oklab, var(--danger) 6%, var(--surface));
+    border: 1px solid color-mix(in oklab, var(--danger) 25%, var(--border));
+    border-radius: var(--r-xl); padding: 28px;
+  }
+  .tos-danger h2 svg { color: var(--danger); }
+  .tos-danger .tos-num { background: color-mix(in oklab, var(--danger) 15%, transparent); color: var(--danger); }
+  .tos-danger-list { list-style: none; padding: 0; margin: 0; }
+  .tos-danger-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 8px 0; border-bottom: 1px solid color-mix(in oklab, var(--danger) 12%, var(--border));
+    font-size: var(--text-base); line-height: 1.6; color: var(--text-soft);
+  }
+  .tos-danger-list li:last-child { border-bottom: 0; }
+  .tos-danger-list li svg { width: 18px; height: 18px; color: var(--danger); flex-shrink: 0; margin-top: 3px; }
+
+  .tos-warning {
+    background: linear-gradient(135deg, color-mix(in oklab, var(--warning) 8%, var(--surface)), var(--surface));
+    border: 1px solid color-mix(in oklab, var(--warning) 30%, var(--border));
+    border-radius: var(--r-xl); padding: 28px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  @media (max-width: 600px) { .tos-warning { flex-direction: column; } }
+  .tos-warning svg { width: 28px; height: 28px; color: var(--warning); flex-shrink: 0; margin-top: 1px; }
+  .tos-warning h3 { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; margin: 0 0 4px; }
+  .tos-warning p { font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0; }
+  .tos-warning ul { margin: 8px 0 0; padding: 0 0 0 18px; }
+  .tos-warning ul li { font-size: var(--text-base); line-height: 1.6; color: var(--text-soft); margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div data-partial="header"></div>
+
+<main>
+
+  <section class="tos-hero">
+    <div class="wrap">
+      <div class="tos-hero-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <span>Legal Agreement</span>
+      </div>
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Terms of Service</span></div>
+      <h1>Terms of Service</h1>
+      <p>The terms governing your use of Lahar as a buyer, seller, or visitor.</p>
+    </div>
+  </section>
+
+  <section class="tos-section alt">
+    <div class="wrap">
+      <span class="tos-updated">Last updated: May 28, 2026</span>
+
+      <div class="tos-card">
+        <h2><span class="tos-num">1</span> Acceptance of terms</h2>
+        <p>By accessing or using Lahar Hub ("Lahar"), you agree to be bound by these Terms of Service. If you do not agree to all of these terms, please do not use the platform. We may update these terms from time to time; material changes will be notified via email or platform notice. Continued use after changes take effect constitutes acceptance of the updated terms.</p>
+      </div>
+
+      <div class="tos-card">
+        <h2><span class="tos-num">2</span> Definitions</h2>
+        <p><strong>"Platform"</strong> refers to Lahar Hub, the online marketplace operating at laharhub.com. <strong>"Buyer"</strong> refers to any person or entity purchasing goods through the platform. <strong>"Vendor"</strong> refers to any person or entity listing goods for sale. <strong>"Content"</strong> includes product listings, images, descriptions, reviews, messages, and any material posted or uploaded to the platform. <strong>"Services"</strong> refers to all features, tools, and functionality provided through Lahar.</p>
+      </div>
+
+      <div class="tos-card">
+        <h2><span class="tos-num">3</span> Account registration</h2>
+        <p>You must be at least 16 years old to create an account. You agree to provide accurate, current, and complete information during registration and to keep your account details up to date. You are solely responsible for maintaining the confidentiality of your login credentials. Any activity that occurs under your account is your responsibility. Notify us immediately at <a href="mailto:safety@laharhub.com" style="color:var(--brand)">safety@laharhub.com</a> if you suspect unauthorised access. Lahar reserves the right to refuse, suspend, or terminate accounts at its sole discretion.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tos-section">
+    <div class="wrap">
+      <div class="tos-card">
+        <h2><span class="tos-num">4</span> Vendor terms</h2>
+        <p>Vendors are independent sellers and are not employees, agents, or partners of Lahar. By listing products on the platform, you represent and warrant that:</p>
+        <ul class="tos-checklist">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            You have the legal right and authority to sell the items you list
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            All product descriptions, images, prices, and specifications are accurate and not misleading
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Your products comply with all applicable laws, regulations, and safety standards in every market you ship to
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            You will fulfil orders promptly and ship using the method and timeframe specified at checkout
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            You will not list counterfeit, stolen, prohibited, or restricted items
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            You will maintain adequate inventory levels and promptly notify us of stock changes
+          </li>
+        </ul>
+        <p style="margin-top:16px">Lahar reserves the right to remove listings, suspend accounts, and withhold payouts for violations of these terms. Repeated or serious violations will result in permanent account termination.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tos-section alt">
+    <div class="wrap">
+      <div class="tos-card">
+        <h2><span class="tos-num">5</span> Fees and payments</h2>
+        <div class="tos-grid-2">
+          <div>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:600;margin:0 0 8px;color:var(--text);">Buyers</h3>
+            <p>Buyers are charged the listed price plus applicable shipping costs, taxes, and any applicable duties at the time of purchase. Payment is processed immediately via Stripe or PayPal. Funds are held in escrow until the vendor confirms shipment or the order is fulfilled. All transactions are denominated in the currency selected by the buyer.</p>
+          </div>
+          <div>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:600;margin:0 0 8px;color:var(--text);">Vendors</h3>
+            <p>Vendor fees (commission rates) are disclosed during plan selection and on each invoice. Commission is deducted from each sale before payout. Fees are exclusive of VAT or similar taxes where applicable. Lahar may adjust fee structures with 30 days' written notice. Payouts are processed on a weekly cycle with a 3-day holding period after confirmed delivery.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tos-section">
+    <div class="wrap">
+      <div class="tos-card">
+        <h2><span class="tos-num">6</span> Shipping and fulfilment</h2>
+        <p>Vendors are solely responsible for packaging, shipping, and ensuring items arrive in the condition described. Estimated dispatch and delivery times are provided at checkout and are based on the vendor's stated handling time plus carrier estimates. Lahar provides discounted shipping labels through integrated carriers but is not liable for carrier delays, customs clearance issues, or damages during transit. Vendors must provide tracking information within 48 hours of dispatch.</p>
+      </div>
+
+      <div class="tos-card">
+        <h2><span class="tos-num">7</span> Returns and refunds</h2>
+        <p>Lahar offers a 30-day free returns policy on eligible items. Buyers must initiate return requests through the platform within 30 days of delivery. Refunds are processed after the vendor receives and confirms the returned item's condition, typically within 5 business days. Vendors may set their own return policies, but they cannot be less favourable than Lahar's minimum standards. Vendors who fail to accept legitimate returns or issue refunds may have their accounts suspended and payouts withheld.</p>
+      </div>
+
+      <div class="tos-card">
+        <h2><span class="tos-num">8</span> Intellectual property</h2>
+        <p>You retain full ownership of the content you post on Lahar, including product photos, descriptions, and reviews. By posting content, you grant Lahar a non-exclusive, worldwide, royalty-free licence to display, distribute, reproduce, and promote your content on the platform and in marketing materials (including social media, email campaigns, and advertisements). You represent that your content does not infringe any third-party intellectual property rights. Lahar's name, logo, trade dress, and design system are our trademarks and may not be used without prior written permission.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tos-section alt">
+    <div class="wrap">
+      <div class="tos-danger">
+        <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6"/><path d="M9 9l6 6"/></svg> <span class="tos-num">9</span> Prohibited conduct</h2>
+        <p>You may not use Lahar to engage in any of the following activities. Violations will result in immediate account suspension and may be reported to relevant authorities.</p>
+        <ul class="tos-danger-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+            List counterfeit, stolen, prohibited, or restricted goods
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+            Engage in fraud, chargeback abuse, or money laundering
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+            Harass, threaten, defame, or abuse other users
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+            Manipulate reviews, ratings, or search rankings through fake accounts or coordination
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+            Attempt to transact outside the platform to avoid fees
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+            Collect or scrape user data without explicit consent
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="tos-section">
+    <div class="wrap">
+      <div class="tos-warning">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        <div>
+          <h3>Limitation of liability</h3>
+          <p>Lahar is a marketplace platform and is not a party to transactions between buyers and vendors. To the fullest extent permitted by applicable law, Lahar and its affiliates, officers, and employees are not liable for:</p>
+          <ul>
+            <li>Any losses arising from transactions or interactions between buyers and vendors</li>
+            <li>Indirect, incidental, special, or consequential damages of any kind</li>
+            <li>Service interruptions, downtime, or data loss resulting from factors beyond our reasonable control</li>
+            <li>Third-party services, integrations, or content linked from the platform</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tos-section alt">
+    <div class="wrap">
+      <div class="tos-card">
+        <h2><span class="tos-num">11</span> Termination</h2>
+        <p>Either party may terminate this agreement at any time. Vendors can close their account through the dashboard — all active listings will be removed and pending payouts processed within 30 days. Lahar may suspend or terminate any account for violations of these terms without prior notice. Upon termination, you must cease using the platform and remove all Lahar-branded materials from your storefront and marketing.</p>
+      </div>
+
+      <div class="tos-card">
+        <h2><span class="tos-num">12</span> Dispute resolution</h2>
+        <p>Disputes between users should first be raised through our support system at <a href="/info/contact.html" style="color:var(--brand)">laharhub.com/info/contact.html</a>. Our mediation team will facilitate a resolution within 14 days. Unresolved disputes may be escalated to binding mediation in accordance with Danish law. Any legal claims shall be governed by the laws of Denmark and resolved exclusively in the courts of Copenhagen.</p>
+      </div>
+
+      <div class="tos-card">
+        <h2><span class="tos-num">13</span> Contact</h2>
+        <p>If you have questions about these terms, please contact our legal team:</p>
+        <p><strong>Email:</strong> <a href="mailto:legal@laharhub.com" style="color:var(--brand)">legal@laharhub.com</a><br />
+        <strong>Address:</strong> Lahar Hub, 242-244 Vesterbrograde, Copenhagen, Denmark<br />
+        <strong>Response time:</strong> Within 48 hours for standard inquiries, 14 days for formal legal requests</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>1972 stoneware sake set — Lahar auction</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+/* ── layout ── */
+.ad-layout { display:grid; grid-template-columns:1fr 380px; gap:36px; align-items:flex-start; padding-top:36px; }
+@media(max-width:960px){ .ad-layout{grid-template-columns:1fr} }
+.ad-sidebar { position:sticky; top:88px; display:flex; flex-direction:column; gap:16px; }
+
+/* ── gallery ── */
+.ad-gallery { border-radius:var(--r-2xl); overflow:hidden; background:var(--surface); border:1px solid var(--border); }
+.ad-gallery .ad-main { aspect-ratio:4/3; background:var(--surface-3); position:relative; }
+.ad-gallery .ad-main img { width:100%; height:100%; object-fit:cover; display:block; }
+.ad-gallery .ad-main .ad-badge { position:absolute; top:16px; left:16px; z-index:2; }
+.ad-gallery .ad-main .ad-zoom { position:absolute; bottom:16px; right:16px; width:40px; height:40px; border-radius:50%; background:rgba(0,0,0,.55); backdrop-filter:blur(6px); border:0; color:white; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background var(--t); }
+.ad-gallery .ad-main .ad-zoom:hover { background:rgba(0,0,0,.75); }
+.ad-gallery .ad-thumbs { display:flex; gap:8px; padding:12px; overflow-x:auto; }
+.ad-gallery .ad-thumbs img { width:72px; height:60px; border-radius:var(--r-md); object-fit:cover; cursor:pointer; opacity:.5; transition:all var(--t); flex-shrink:0; background:var(--surface-3); }
+.ad-gallery .ad-thumbs img.on { opacity:1; outline:2px solid var(--text); outline-offset:-2px; }
+.ad-gallery .ad-thumbs img:hover { opacity:.8; }
+
+/* ── sidebar card ── */
+.ad-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:22px; }
+.ad-card h4 { font-size:var(--text-2xs); text-transform:uppercase; letter-spacing:.14em; color:var(--text-muted); font-weight:600; margin:0 0 14px; }
+
+/* ── timer ── */
+.ad-timer { text-align:center; padding:20px; }
+.ad-timer .ad-tl { font-size:var(--text-xs); text-transform:uppercase; letter-spacing:.12em; color:var(--text-muted); font-weight:600; margin-bottom:8px; }
+.ad-timer .ad-tl.urgent { color:#FF1744; }
+.ad-timer .ad-tl.urgent::before { content:''; display:inline-block; width:6px; height:6px; border-radius:50%; background:#FF1744; margin-right:6px; vertical-align:middle; animation:pulse 1.4s infinite; }
+.ad-timer .ad-clock { display:flex; justify-content:center; gap:16px; }
+.ad-timer .ad-clock .ad-unit { text-align:center; }
+.ad-timer .ad-clock .ad-unit .ad-n { font-family:var(--font-mono); font-size:var(--text-7xl); font-weight:700; line-height:1; }
+.ad-timer .ad-clock .ad-unit .ad-l { font-size:var(--text-2xs); text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); margin-top:4px; display:block; }
+.ad-timer .ad-clock .ad-sep { font-family:var(--font-mono); font-size:var(--text-6xl); font-weight:300; color:var(--text-muted); padding-top:2px; }
+
+/* ── bid box ── */
+.ad-bid { padding:20px; }
+.ad-bid .ad-price-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+.ad-bid .ad-price-row .apr { text-align:center; padding:12px; border-radius:var(--r-md); background:var(--surface-2); }
+.ad-bid .ad-price-row .apr .apr-l { font-size:var(--text-2xs); text-transform:uppercase; letter-spacing:.12em; color:var(--text-muted); font-weight:600; }
+.ad-bid .ad-price-row .apr .apr-v { font-family:var(--font-mono); font-size:var(--text-4xl); font-weight:700; margin-top:4px; }
+.ad-bid .ad-price-row .apr .apr-v.brand { color:var(--brand); }
+.ad-bid .ad-input-row { display:flex; gap:8px; margin-bottom:10px; }
+.ad-bid .ad-input-row input { flex:1; padding:11px 14px; border-radius:var(--r-md); border:1px solid var(--border); background:var(--bg); font-family:var(--font-mono); font-size:var(--text-xl); font-weight:600; outline:0; transition:border var(--t); }
+.ad-bid .ad-input-row input:focus { border-color:var(--text); }
+.ad-bid .ad-info { font-size:var(--text-xs); color:var(--text-muted); text-align:center; margin-top:10px; }
+
+/* ── bid history ── */
+.ad-bids { padding:16px 22px; max-height:320px; overflow-y:auto; }
+.ad-bids .ab-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); font-size:var(--text-base); }
+.ad-bids .ab-item:last-child { border-bottom:0; }
+.ad-bids .ab-item .ab-avatar { width:28px; height:28px; border-radius:50%; object-fit:cover; flex-shrink:0; background:var(--surface-3); }
+.ad-bids .ab-item .ab-body { flex:1; min-width:0; }
+.ad-bids .ab-item .ab-body .ab-name { font-weight:600; }
+.ad-bids .ab-item .ab-body .ab-name.you { color:var(--brand); }
+.ad-bids .ab-item .ab-body .ab-time { font-size:var(--text-xs); color:var(--text-muted); }
+.ad-bids .ab-item .ab-amount { font-family:var(--font-mono); font-size:var(--text-lg); font-weight:700; }
+.ad-bids .ab-item .ab-amount.high { color:var(--brand); }
+
+/* ── detail sections ── */
+.ad-detail { margin-bottom:40px; }
+.ad-detail h2 { font-family:var(--font-display); font-size:var(--text-5xl); font-weight:600; letter-spacing:-.01em; margin:0 0 4px; }
+.ad-detail .ad-sub { font-size:var(--text-base); color:var(--text-muted); margin-bottom:20px; }
+.ad-desc p { font-size:var(--text-md); color:var(--text-soft); line-height:1.7; margin:0 0 14px; }
+.ad-desc p:last-child { margin:0; }
+.ad-meta-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.ad-meta-grid .am { padding:14px; border-radius:var(--r-md); background:var(--surface); border:1px solid var(--border); }
+.ad-meta-grid .am .am-l { font-size:var(--text-2xs); text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); font-weight:600; }
+.ad-meta-grid .am .am-v { font-family:var(--font-mono); font-size:var(--text-md); font-weight:600; margin-top:4px; }
+
+/* ── vendor mini card ── */
+.ad-vendor { display:flex; align-items:center; gap:14px; padding:16px 20px; text-decoration:none; color:inherit; border-radius:var(--r-lg); border:1px solid var(--border); background:var(--surface); transition:all var(--t); }
+.ad-vendor:hover { border-color:var(--text); }
+.ad-vendor .av-avatar { width:48px; height:48px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+.ad-vendor .av-body { flex:1; min-width:0; }
+.ad-vendor .av-body .av-name { font-weight:600; font-size:var(--text-lg); }
+.ad-vendor .av-body .av-loc { font-size:var(--text-sm); color:var(--text-muted); font-family:var(--font-mono); }
+.ad-vendor .av-rating { display:flex; align-items:center; gap:4px; font-size:var(--text-base); font-weight:600; }
+.ad-vendor .av-rating svg { width:14px; height:14px; color:var(--warning); }
+
+/* ── similar auctions ── */
+.ad-similar { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+@media(max-width:720px){ .ad-similar{grid-template-columns:1fr} }
+
+/* reuse auction card from dark index section but adapt for light */
+.ad-sm { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; text-decoration:none; color:inherit; transition:all var(--t); }
+.ad-sm:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--border-strong); }
+.ad-sm .ad-sm-img { aspect-ratio:5/4; position:relative; overflow:hidden; background:var(--surface-3); }
+.ad-sm .ad-sm-img img { width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease); }
+.ad-sm:hover .ad-sm-img img { transform:scale(1.04); }
+.ad-sm .ad-sm-img .ad-sm-timer { position:absolute; left:14px; right:14px; bottom:14px; background:rgba(0,0,0,.7); backdrop-filter:blur(8px); color:white; border-radius:var(--r-md); padding:8px 12px; font-family:var(--font-mono); font-size:var(--text-sm); font-weight:700; display:flex; justify-content:space-between; }
+.ad-sm .ad-sm-body { padding:16px 18px; display:flex; flex-direction:column; gap:8px; }
+.ad-sm .ad-sm-body .ad-sm-vendor { font-size:var(--text-2xs); text-transform:uppercase; letter-spacing:.14em; color:var(--text-muted); font-weight:600; }
+.ad-sm .ad-sm-body .ad-sm-title { font-family:var(--font-display); font-weight:600; font-size:var(--text-md); letter-spacing:-.005em; line-height:1.3; margin:0; }
+.ad-sm .ad-sm-body .ad-sm-bid { font-family:var(--font-mono); font-size:var(--text-lg); font-weight:700; color:var(--brand); }
+
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.35} }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+
+<main>
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="crumbs" style="margin-top:24px"><a href="/">Home</a><span class="sep">/</span><a href="/shop/auctions.html">Auctions</a><span class="sep">/</span><span>1972 stoneware sake set</span></div>
+
+      <div class="ad-layout">
+
+        <!-- ── LEFT: GALLERY ── -->
+        <div>
+          <div class="ad-gallery">
+            <div class="ad-main">
+              <span class="ad-badge"><span class="badge badge-live">LIVE NOW</span></span>
+              <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=1000&q=85" alt=""/>
+              <button class="ad-zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg></button>
+            </div>
+            <div class="ad-thumbs">
+              <img class="on" src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=200&q=60" alt=""/>
+              <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=200&q=60" alt=""/>
+              <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=200&q=60" alt=""/>
+              <img src="https://images.unsplash.com/photo-1493106819501-66d381c466f1?w=200&q=60" alt=""/>
+              <img src="https://images.unsplash.com/photo-1578500351865-d6c3706f46bc?w=200&q=60" alt=""/>
+            </div>
+          </div>
+
+          <!-- ── ITEM DETAILS ── -->
+          <div class="ad-detail" style="margin-top:32px">
+            <h2>1972 stoneware sake set</h2>
+            <div class="ad-sub">Twelve pieces · Naoshima provenance · Estate of T. Mori</div>
+            <div class="ad-desc">
+              <p>A complete twelve-piece sake service fired in 1972 at the renowned Naoshima kiln on the island of Naoshima, Kagawa Prefecture. The set includes one tokkuri (flask), six ochoko (cups), one serving carafe, two small plates, one soy dish, and one chopstick rest — each piece exhibiting the signature warm ash glaze and subtle iron speckling that defines mid-century Naoshima stoneware.</p>
+              <p>The set was part of the private collection of T. Mori, a Tokyo-based ceramic historian who spent decades documenting kiln sites across the Seto Inland Sea. Each piece shows minimal use; the original kiri-wood box (tomobako) is included, with a provenance note from the collector's estate.</p>
+              <p>This is an exceptional opportunity to acquire a complete service from one of Japan's most revered 20th-century studio pottery traditions.</p>
+            </div>
+          </div>
+
+          <!-- ── ITEM SPECS ── -->
+          <div class="ad-detail">
+            <h2>Specifications</h2>
+            <div class="ad-sub">Detailed information about this item</div>
+            <div class="ad-meta-grid">
+              <div class="am"><div class="am-l">Year</div><div class="am-v">1972</div></div>
+              <div class="am"><div class="am-l">Origin</div><div class="am-v">Naoshima, JP</div></div>
+              <div class="am"><div class="am-l">Kiln</div><div class="am-v">Naoshima kiln</div></div>
+              <div class="am"><div class="am-l">Pieces</div><div class="am-v">12</div></div>
+              <div class="am"><div class="am-l">Glaze</div><div class="am-v">Ash + iron</div></div>
+              <div class="am"><div class="am-l">Condition</div><div class="am-v">Excellent</div></div>
+              <div class="am"><div class="am-l">Includes box</div><div class="am-v">Yes (kiri-wood)</div></div>
+              <div class="am"><div class="am-l">Provenance</div><div class="am-v">T. Mori estate</div></div>
+            </div>
+          </div>
+
+          <!-- ── VENDOR ── -->
+          <div class="ad-detail">
+            <h2>Seller</h2>
+            <div class="ad-sub">Listed by a verified vendor</div>
+            <a href="/shop/vendor.html" class="ad-vendor">
+              <img class="av-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80" alt=""/>
+              <div class="av-body">
+                <div class="av-name">Murmur Atelier</div>
+                <div class="av-loc">Kyoto, JP · since 2014</div>
+              </div>
+              <div class="av-rating">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                5.0
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- ── RIGHT SIDEBAR ── -->
+        <div class="ad-sidebar">
+
+          <!-- timer -->
+          <div class="ad-card ad-timer">
+            <div class="ad-tl urgent">Ending soon</div>
+            <div class="ad-clock">
+              <div class="ad-unit"><div class="ad-n">01</div><span class="ad-l">Hours</span></div>
+              <div class="ad-sep">:</div>
+              <div class="ad-unit"><div class="ad-n">24</div><span class="ad-l">Mins</span></div>
+              <div class="ad-sep">:</div>
+              <div class="ad-unit"><div class="ad-n">33</div><span class="ad-l">Secs</span></div>
+            </div>
+          </div>
+
+          <!-- bid box -->
+          <div class="ad-card ad-bid">
+            <div class="ad-price-row">
+              <div class="apr"><div class="apr-l">Current bid</div><div class="apr-v brand">$1,420</div></div>
+              <div class="apr"><div class="apr-l">Min. next</div><div class="apr-v">$1,470</div></div>
+            </div>
+            <div class="ad-input-row">
+              <input type="text" value="$1,470" />
+              <button class="btn btn-primary" style="white-space:nowrap;font-size:var(--text-md);padding:11px 22px">Place bid</button>
+
+            <div style="display:flex;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);font-family:var(--font-mono);margin-bottom:12px"><span>72% of reserve</span><span>Reserve: $2,000</span></div>
+            <div class="ad-info"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Your bid is a binding contract if you win</div>
+          </div>
+
+          <!-- bid history -->
+          <div class="ad-card" style="padding:0">
+            <div style="padding:16px 22px 0"><h4>Bid history · 24 bids</h4></div>
+            <div class="ad-bids">
+              <div class="ab-item">
+                <img class="ab-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt=""/>
+                <div class="ab-body"><div class="ab-name you">You</div><div class="ab-time">Just now</div></div>
+                <div class="ab-amount high">$1,420</div>
+              </div>
+              <div class="ab-item">
+                <img class="ab-avatar" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&q=80" alt=""/>
+                <div class="ab-body"><div class="ab-name">north_field</div><div class="ab-time">12 min ago</div></div>
+                <div class="ab-amount">$1,380</div>
+              </div>
+              <div class="ab-item">
+                <img class="ab-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt=""/>
+                <div class="ab-body"><div class="ab-name">halen.goods</div><div class="ab-time">42 min ago</div></div>
+                <div class="ab-amount">$1,320</div>
+              </div>
+              <div class="ab-item">
+                <img class="ab-avatar" src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=80&q=80" alt=""/>
+                <div class="ab-body"><div class="ab-name">quay_co</div><div class="ab-time">1h ago</div></div>
+                <div class="ab-amount">$1,260</div>
+              </div>
+              <div class="ab-item">
+                <img class="ab-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&q=80" alt=""/>
+                <div class="ab-body"><div class="ab-name">brindle.studio</div><div class="ab-time">2h ago</div></div>
+                <div class="ab-amount">$1,200</div>
+              </div>
+              <div class="ab-item">
+                <img class="ab-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt=""/>
+                <div class="ab-body"><div class="ab-name">sundry_audio</div><div class="ab-time">4h ago</div></div>
+                <div class="ab-amount">$1,120</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- info card -->
+          <div class="ad-card">
+            <h4>Auction details</h4>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:var(--text-base)">
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Started</span><span style="font-weight:600;font-family:var(--font-mono)">Mar 24, 2026</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Ends</span><span style="font-weight:600;font-family:var(--font-mono)">Apr 2, 2026</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Reserve</span><span style="font-weight:600;font-family:var(--font-mono)">$2,000</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Starting bid</span><span style="font-weight:600;font-family:var(--font-mono)">$400</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Bids</span><span style="font-weight:600;font-family:var(--font-mono)">24</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Bidders</span><span style="font-weight:600;font-family:var(--font-mono)">12</span></div>
+            </div>
+          </div>
+
+          <!-- shipping -->
+          <div class="ad-card">
+            <h4>Shipping</h4>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:var(--text-base)">
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">From</span><span style="font-weight:600">Kyoto, Japan</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Est. cost</span><span style="font-weight:600;font-family:var(--font-mono)">$28–$65</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Delivery</span><span style="font-weight:600;font-family:var(--font-mono)">7–14 days</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Insured</span><span style="font-weight:600">Yes</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── SIMILAR AUCTIONS ── -->
+      <div style="margin-top:56px;border-top:1px solid var(--border);padding-top:36px">
+        <h2 style="font-family:var(--font-display);font-size:var(--text-5xl);font-weight:600;letter-spacing:-.01em;margin:0 0 4px">Similar auctions</h2>
+        <p style="font-size:var(--text-base);color:var(--text-muted);margin-bottom:20px">More pieces you might be interested in</p>
+        <div class="ad-similar">
+          <a href="/shop/auction.html" class="ad-sm">
+            <div class="ad-sm-img">
+              <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80" alt=""/>
+              <div class="ad-sm-timer"><span>1d 14h left</span></div>
+            </div>
+            <div class="ad-sm-body">
+              <div class="ad-sm-vendor">Murmur Atelier</div>
+              <h3 class="ad-sm-title">Stoneware vase · ash glaze, Naoshima #4</h3>
+              <div class="ad-sm-bid">$340 current bid</div>
+            </div>
+          </a>
+          <a href="/shop/auction.html" class="ad-sm">
+            <div class="ad-sm-img">
+              <img src="https://images.unsplash.com/photo-1542728928-1413d1894ed1?w=600&q=80" alt=""/>
+              <div class="ad-sm-timer"><span>3d 06h left</span></div>
+            </div>
+            <div class="ad-sm-body">
+              <div class="ad-sm-vendor">Quay &amp; Co.</div>
+              <h3 class="ad-sm-title">Hand-thrown serving bowl · Ø28cm</h3>
+              <div class="ad-sm-bid">$94 current bid</div>
+            </div>
+          </a>
+          <a href="/shop/auction.html" class="ad-sm">
+            <div class="ad-sm-img">
+              <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=80" alt=""/>
+              <div class="ad-sm-timer"><span class="urgent">Ending today</span><span>4h 21m</span></div>
+            </div>
+            <div class="ad-sm-body">
+              <div class="ad-sm-vendor">Brindle Studio</div>
+              <h3 class="ad-sm-title">Brass candlestick · limited edition #7/50</h3>
+              <div class="ad-sm-bid">$185 current bid</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <a href="/shop/auctions.html" class="ad-banner">
+        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1400&q=80" alt="" />
+        <div class="ad-overlay">
+          <span class="ad-label">More Auctions</span>
+          <h3 class="ad-title">Live now · 8 active auctions</h3>
+          <p class="ad-desc">Hand-built ceramics, rare vinyl, limited-edition prints — all starting at $1 with no reserve.</p>
+          <span class="ad-cta">Browse all auctions →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

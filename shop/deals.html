@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Deals · Flash sales & offers — Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  /* ── DEALS PAGE ── */
+
+  /* Hero */
+  .dl-hero {
+    background: linear-gradient(135deg, #1A1814 0%, #0B0A08 100%);
+    color:white; padding:56px 0 48px; position:relative; overflow:hidden;
+  }
+  .dl-hero::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse 70% 60% at 20% 40%, rgba(200,150,80,.06) 0%, transparent 60%);
+  }
+  .dl-hero .wrap { position:relative; z-index:2; }
+  .dl-hero .dl-badge {
+    display:inline-block; font-size:10px; text-transform:uppercase; letter-spacing:.12em; font-weight:700;
+    padding:5px 14px; border-radius:var(--r-pill);
+    background:rgba(255,255,255,.08); color:var(--brand); margin-bottom:16px;
+    border:1px solid rgba(255,255,255,.06);
+  }
+  .dl-hero h1 { font-family:var(--font-display); font-size:clamp(32px,4.5vw,56px); font-weight:700; letter-spacing:-.025em; line-height:1.05; margin:0 0 12px; }
+  .dl-hero p { font-size:var(--text-lg); color:rgba(255,255,255,.55); line-height:1.6; margin:0 0 24px; max-width:480px; }
+  .dl-hero .dl-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .dl-hero .dl-actions .btn-primary {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 28px; border:0; border-radius:var(--r-md);
+    background:var(--brand); color:white;
+    font-size:var(--text-md); font-weight:600;
+    text-decoration:none; transition:background var(--t);
+  }
+  .dl-hero .dl-actions .btn-primary:hover { background:var(--brand-hover); }
+  .dl-hero .dl-actions .btn-ghost {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 28px; border:1px solid rgba(255,255,255,.18); border-radius:var(--r-md);
+    background:rgba(255,255,255,.04); color:white;
+    font-size:var(--text-md); font-weight:600;
+    text-decoration:none; transition:background var(--t);
+  }
+  .dl-hero .dl-actions .btn-ghost:hover { background:rgba(255,255,255,.1); }
+
+  /* Section common */
+  .dl-section { padding:48px 0; }
+  .dl-section .sec-head { margin-bottom:28px; }
+  .dl-section .sec-head .sec-title { font-size:clamp(24px,2.6vw,34px); }
+
+  /* ── Active flash sales ── */
+  .flash-grid {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width:960px){ .flash-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:540px){ .flash-grid { grid-template-columns: 1fr; } }
+  .flash-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-xl); overflow:hidden;
+    text-decoration:none; color:inherit;
+    transition:box-shadow var(--t),transform var(--t);
+    display:flex; flex-direction:column;
+  }
+  .flash-card:hover { box-shadow:var(--shadow-sm); transform:translateY(-2px); }
+  .flash-card .fc-img { aspect-ratio:4/3; position:relative; overflow:hidden; background:var(--surface-3); }
+  .flash-card .fc-img img { width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease); }
+  .flash-card:hover .fc-img img { transform:scale(1.04); }
+  .flash-card .fc-timer {
+    position:absolute; bottom:10px; left:10px; z-index:2;
+    display:flex; gap:4px;
+  }
+  .flash-card .fc-timer .ft-unit {
+    background:rgba(0,0,0,.72); backdrop-filter:blur(4px);
+    border-radius:var(--r-sm); padding:4px 7px;
+    text-align:center; min-width:36px;
+  }
+  .flash-card .fc-timer .ft-unit .ft-n {
+    font-family:var(--font-mono); font-size:14px; font-weight:700;
+    color:white; line-height:1; display:block;
+  }
+  .flash-card .fc-timer .ft-unit .ft-l {
+    font-size:7px; text-transform:uppercase; letter-spacing:.04em;
+    color:rgba(255,255,255,.5); display:block; margin-top:1px;
+  }
+  .flash-card .fc-body { padding:16px 18px 18px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .flash-card .fc-body .fc-vendor { font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-muted); font-weight:600; }
+  .flash-card .fc-body h3 { font-size:var(--text-md); font-weight:600; margin:0; line-height:1.3; }
+  .flash-card .fc-body .fc-price { display:flex; align-items:center; gap:8px; margin-top:auto; padding-top:8px; }
+  .flash-card .fc-body .fc-price .fc-old { font-size:var(--text-sm); color:var(--text-muted); text-decoration:line-through; }
+  .flash-card .fc-body .fc-price .fc-new { font-size:var(--text-xl); font-weight:700; color:var(--brand); font-family:var(--font-mono); }
+  .flash-card .fc-body .fc-price .fc-off { font-size:10px; font-weight:700; color:white; background:#e44; border-radius:var(--r-pill); padding:2px 8px; line-height:1.4; }
+  .flash-card .fc-progress { height:3px; background:var(--border); border-radius:999px; overflow:hidden; margin-top:10px; }
+  .flash-card .fc-progress span { display:block; height:100%; background:var(--brand); border-radius:inherit; }
+  .flash-card .fc-claim {
+    margin-top:12px; width:100%; padding:8px; border:0; border-radius:var(--r-md);
+    background:var(--text); color:var(--bg); font-size:var(--text-sm); font-weight:600;
+    cursor:pointer; text-align:center; transition:background var(--t);
+  }
+  .flash-card .fc-claim:hover { background:var(--brand); }
+
+  /* ── Coupon codes ── */
+  .coupon-grid {
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width:640px){ .coupon-grid { grid-template-columns: 1fr; } }
+  .coupon-card {
+    display:flex; align-items:stretch;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-xl); overflow:hidden;
+    text-decoration:none; color:inherit;
+    transition:box-shadow var(--t),transform var(--t);
+  }
+  .coupon-card:hover { box-shadow:var(--shadow-sm); transform:translateY(-1px); }
+  .coupon-card .cc-left {
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:20px 18px; min-width:100px;
+    background:color-mix(in oklab,var(--brand) 8%,var(--surface));
+    border-right:2px dashed var(--border);
+    text-align:center;
+  }
+  .coupon-card .cc-left .cc-disc { font-family:var(--font-display); font-size:var(--text-5xl); font-weight:700; color:var(--brand); line-height:1; letter-spacing:-.02em; }
+  .coupon-card .cc-left .cc-label { font-size:9px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-muted); margin-top:4px; }
+  .coupon-card .cc-body { padding:16px 20px; display:flex; flex-direction:column; gap:4px; flex:1; }
+  .coupon-card .cc-body h3 { font-size:var(--text-md); font-weight:600; margin:0; }
+  .coupon-card .cc-body p { font-size:var(--text-sm); color:var(--text-soft); margin:0; line-height:1.4; }
+  .coupon-card .cc-body .cc-meta { font-size:var(--text-xs); color:var(--text-muted); font-family:var(--font-mono); }
+  .coupon-card .cc-body .cc-code {
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:8px; padding:6px 14px;
+    border:1.5px dashed var(--brand); border-radius:var(--r-md);
+    background:color-mix(in oklab,var(--brand) 6%,var(--surface));
+    font-family:var(--font-mono); font-size:var(--text-base); font-weight:700; color:var(--text);
+    letter-spacing:.08em; cursor:pointer; transition:all var(--t); align-self:flex-start;
+  }
+  .coupon-card .cc-body .cc-code:hover { background:color-mix(in oklab,var(--brand) 14%,var(--surface)); }
+  .coupon-card .cc-body .cc-code .cc-copy { font-size:10px; font-weight:600; color:var(--brand); font-family:var(--font-sans); letter-spacing:0; display:inline-flex; align-items:center; gap:4px; }
+
+  /* ── Category deals ── */
+  .cat-deal-grid {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width:1000px){ .cat-deal-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:480px){ .cat-deal-grid { grid-template-columns: 1fr; } }
+  .cat-deal {
+    position:relative; display:block; border-radius:var(--r-xl); overflow:hidden;
+    min-height:200px; text-decoration:none;
+  }
+  .cat-deal img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease); }
+  .cat-deal:hover img { transform:scale(1.05); }
+  .cat-deal .cd-overlay {
+    position:relative; z-index:2; padding:24px 22px;
+    background:linear-gradient(to right,rgba(0,0,0,.65) 0%,rgba(0,0,0,.1) 80%);
+    min-height:200px; display:flex; flex-direction:column; justify-content:flex-end;
+  }
+  .cat-deal .cd-overlay .cd-tag { font-size:9px; text-transform:uppercase; letter-spacing:.1em; font-weight:700; color:var(--brand); margin-bottom:2px; }
+  .cat-deal .cd-overlay h3 { font-size:var(--text-xl); font-weight:700; color:white; margin:0 0 2px; line-height:1.15; }
+  .cat-deal .cd-overlay .cd-desc { font-size:var(--text-sm); color:rgba(255,255,255,.65); margin:0 0 8px; }
+  .cat-deal .cd-overlay .cd-cta { font-size:var(--text-sm); font-weight:600; color:white; display:inline-flex; align-items:center; gap:4px; border-bottom:1px solid rgba(255,255,255,.4); padding-bottom:2px; align-self:flex-start; }
+  .cat-deal:hover .cd-overlay .cd-cta { border-color:white; }
+
+  /* ── Banner CTA ── */
+  .dl-banner {
+    display:block; position:relative; border-radius:var(--r-xl); overflow:hidden;
+    min-height:200px; text-decoration:none;
+    background:linear-gradient(135deg,#1A1814 0%,#0B0A08 100%);
+  }
+  .dl-banner .dlb-overlay {
+    position:relative; z-index:2; padding:40px 36px;
+    min-height:200px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  }
+  .dl-banner .dlb-overlay h2 { font-size:clamp(24px,3vw,38px); font-weight:700; color:white; margin:0 0 6px; letter-spacing:-.02em; }
+  .dl-banner .dlb-overlay p { font-size:var(--text-md); color:rgba(255,255,255,.55); margin:0 0 20px; max-width:400px; }
+  .dl-banner .dlb-overlay .dlb-btn {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 28px; border:0; border-radius:var(--r-md);
+    background:var(--brand); color:white;
+    font-size:var(--text-md); font-weight:600;
+    text-decoration:none; transition:background var(--t);
+  }
+  .dl-banner .dlb-overlay .dlb-btn:hover { background:var(--brand-hover); }
+
+  /* ── T&C ── */
+  .dl-terms { background:var(--surface-2); border-top:1px solid var(--border); }
+  .dl-terms .wrap { max-width:720px; margin:0 auto; padding:32px; }
+  .dl-terms h4 { font-size:var(--text-xs); text-transform:uppercase; letter-spacing:.12em; color:var(--text-muted); margin:0 0 8px; }
+  .dl-terms p { font-size:var(--text-xs); color:var(--text-muted); line-height:1.6; margin:0; }
+</style>
+</head>
+<body>
+
+<div data-partial="header"></div>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section class="dl-hero">
+    <div class="wrap">
+      <span class="dl-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-2px;margin-right:4px"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><path d="M7 7h.01"/></svg> Limited time offers</span>
+      <h1>Deals worth waiting for</h1>
+      <p>Flash sales, coupon codes, and exclusive drops — curated from our makers. Nothing runs forever.</p>
+      <div class="dl-actions">
+        <a href="#flash" class="btn-primary">Active flash sales <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></a>
+        <a href="#coupons" class="btn-ghost">Browse coupons</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FLASH SALES ── -->
+  <section class="dl-section" id="flash">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-3px;margin-right:6px"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg> Flash sales</div>
+          <div class="sec-sub">These deals are ticking — once they're gone, they're gone.</div>
+        </div>
+        <span style="font-size:var(--text-sm);color:var(--text-muted);font-family:var(--font-mono)">4 active</span>
+      </div>
+
+      <div class="flash-grid">
+        <a href="/shop/product.html" class="flash-card">
+          <div class="fc-img">
+            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80" alt="" />
+            <div class="fc-timer">
+              <div class="ft-unit"><span class="ft-n" id="fh1">05</span><span class="ft-l">hrs</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fm1">42</span><span class="ft-l">min</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fs1">18</span><span class="ft-l">sec</span></div>
+            </div>
+          </div>
+          <div class="fc-body">
+            <span class="fc-vendor">North Field · Vintage</span>
+            <h3>Field watch — 1988 NOS, stainless steel</h3>
+            <div class="fc-price">
+              <span class="fc-old">$895</span>
+              <span class="fc-new">$640</span>
+              <span class="fc-off">-28%</span>
+            </div>
+            <div class="fc-progress"><span style="width:78%"></span></div>
+            <div class="fc-claim">Claim deal</div>
+          </div>
+        </a>
+
+        <a href="/shop/product.html" class="flash-card">
+          <div class="fc-img">
+            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80" alt="" />
+            <div class="fc-timer">
+              <div class="ft-unit"><span class="ft-n" id="fh2">12</span><span class="ft-l">hrs</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fm2">08</span><span class="ft-l">min</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fs2">44</span><span class="ft-l">sec</span></div>
+            </div>
+          </div>
+          <div class="fc-body">
+            <span class="fc-vendor">Quay &amp; Co. · Vintage</span>
+            <h3>Persol 714 — original 1960s tortoise</h3>
+            <div class="fc-price">
+              <span class="fc-old">$520</span>
+              <span class="fc-new">$380</span>
+              <span class="fc-off">-27%</span>
+            </div>
+            <div class="fc-progress"><span style="width:62%"></span></div>
+            <div class="fc-claim">Claim deal</div>
+          </div>
+        </a>
+
+        <a href="/shop/product.html" class="flash-card">
+          <div class="fc-img">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80" alt="" />
+            <div class="fc-timer">
+              <div class="ft-unit"><span class="ft-n" id="fh3">02</span><span class="ft-l">hrs</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fm3">31</span><span class="ft-l">min</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fs3">09</span><span class="ft-l">sec</span></div>
+            </div>
+          </div>
+          <div class="fc-body">
+            <span class="fc-vendor">Sundry Audio · Prototype</span>
+            <h3>Planar magnetic #004 — open-back cans</h3>
+            <div class="fc-price">
+              <span class="fc-old">$2,490</span>
+              <span class="fc-new">$1,820</span>
+              <span class="fc-off">-27%</span>
+            </div>
+            <div class="fc-progress"><span style="width:45%"></span></div>
+            <div class="fc-claim">Claim deal</div>
+          </div>
+        </a>
+
+        <a href="/shop/product.html" class="flash-card">
+          <div class="fc-img">
+            <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&q=80" alt="" />
+            <div class="fc-timer">
+              <div class="ft-unit"><span class="ft-n" id="fh4">23</span><span class="ft-l">hrs</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fm4">15</span><span class="ft-l">min</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fs4">30</span><span class="ft-l">sec</span></div>
+            </div>
+          </div>
+          <div class="fc-body">
+            <span class="fc-vendor">Halen Goods · Limited</span>
+            <h3>Horween leather weekender — waxed olive</h3>
+            <div class="fc-price">
+              <span class="fc-old">$1,290</span>
+              <span class="fc-new">$890</span>
+              <span class="fc-off">-31%</span>
+            </div>
+            <div class="fc-progress"><span style="width:88%"></span></div>
+            <div class="fc-claim">Claim deal</div>
+          </div>
+        </a>
+
+        <a href="/shop/product.html" class="flash-card">
+          <div class="fc-img">
+            <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80" alt="" />
+            <div class="fc-timer">
+              <div class="ft-unit"><span class="ft-n" id="fh5">08</span><span class="ft-l">hrs</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fm5">47</span><span class="ft-l">min</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fs5">22</span><span class="ft-l">sec</span></div>
+            </div>
+          </div>
+          <div class="fc-body">
+            <span class="fc-vendor">Murmur Atelier · Kiln #3</span>
+            <h3>Yunomi teacup set — shino glaze, set of 6</h3>
+            <div class="fc-price">
+              <span class="fc-old">$400</span>
+              <span class="fc-new">$280</span>
+              <span class="fc-off">-30%</span>
+            </div>
+            <div class="fc-progress"><span style="width:35%"></span></div>
+            <div class="fc-claim">Claim deal</div>
+          </div>
+        </a>
+
+        <a href="/shop/product.html" class="flash-card">
+          <div class="fc-img">
+            <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&q=80" alt="" />
+            <div class="fc-timer">
+              <div class="ft-unit"><span class="ft-n" id="fh6">15</span><span class="ft-l">hrs</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fm6">22</span><span class="ft-l">min</span></div>
+              <div class="ft-unit"><span class="ft-n" id="fs6">05</span><span class="ft-l">sec</span></div>
+            </div>
+          </div>
+          <div class="fc-body">
+            <span class="fc-vendor">Murmur Atelier · Estate</span>
+            <h3>1972 stoneware sake set — twelve pieces</h3>
+            <div class="fc-price">
+              <span class="fc-old">$1,890</span>
+              <span class="fc-new">$1,420</span>
+              <span class="fc-off">-25%</span>
+            </div>
+            <div class="fc-progress"><span style="width:72%"></span></div>
+            <div class="fc-claim">Claim deal</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COUPONS ── -->
+  <section class="dl-section" id="coupons" style="background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-3px;margin-right:6px"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><path d="M7 7h.01"/></svg> Coupon codes</div>
+          <div class="sec-sub">Exclusive codes from our makers and the Lahar team. Tap to copy.</div>
+        </div>
+      </div>
+
+      <div class="coupon-grid">
+        <div class="coupon-card">
+          <div class="cc-left">
+            <div class="cc-disc">15%</div>
+            <div class="cc-label">OFF</div>
+          </div>
+          <div class="cc-body">
+            <h3>Welcome to Lahar</h3>
+            <p>New to the marketplace? Grab 15% off your first order from any vendor.</p>
+            <span class="cc-meta">Min. spend $50 · Expires in 30 days</span>
+            <span class="cc-code" onclick="navigator.clipboard?.writeText('WELCOME15');this.querySelector('.cc-copy').textContent='Copied!'">WELCOME15 <span class="cc-copy"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</span></span>
+          </div>
+        </div>
+
+        <div class="coupon-card">
+          <div class="cc-left">
+            <div class="cc-disc">$25</div>
+            <div class="cc-label">OFF</div>
+          </div>
+          <div class="cc-body">
+            <h3>Free shipping upgrade</h3>
+            <p>Get $25 off your shipping — or upgrade to express for the same cost.</p>
+            <span class="cc-meta">No min. spend · Ends May 31</span>
+            <span class="cc-code" onclick="navigator.clipboard?.writeText('SHIPLAHAR');this.querySelector('.cc-copy').textContent='Copied!'">SHIPLAHAR <span class="cc-copy"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</span></span>
+          </div>
+        </div>
+
+        <div class="coupon-card">
+          <div class="cc-left">
+            <div class="cc-disc">10%</div>
+            <div class="cc-label">OFF</div>
+          </div>
+          <div class="cc-body">
+            <h3>Vendor pick — Murmur Atelier</h3>
+            <p>Exclusive 10% off all Murmur Atelier stoneware. Hand-thrown, wood-fired, one of a kind.</p>
+            <span class="cc-meta">No min. spend · 200 uses left</span>
+            <span class="cc-code" onclick="navigator.clipboard?.writeText('MURMUR10');this.querySelector('.cc-copy').textContent='Copied!'">MURMUR10 <span class="cc-copy"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</span></span>
+          </div>
+        </div>
+
+        <div class="coupon-card">
+          <div class="cc-left">
+            <div class="cc-disc">20%</div>
+            <div class="cc-label">OFF</div>
+          </div>
+          <div class="cc-body">
+            <h3>Bundle & save — ceramics</h3>
+            <p>Buy any 3 ceramic pieces from any vendor and save 20%. Mix and match across brands.</p>
+            <span class="cc-meta">Auto-applied at checkout · 3+ items</span>
+            <span class="cc-code" onclick="navigator.clipboard?.writeText('CERAMIC3');this.querySelector('.cc-copy').textContent='Copied!'">CERAMIC3 <span class="cc-copy"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</span></span>
+          </div>
+        </div>
+
+        <div class="coupon-card">
+          <div class="cc-left">
+            <div class="cc-disc">$50</div>
+            <div class="cc-label">OFF</div>
+          </div>
+          <div class="cc-body">
+            <h3>Furniture & lighting</h3>
+            <p>$50 off any furniture or lighting piece over $500. Handcrafted, not mass-produced.</p>
+            <span class="cc-meta">Min. spend $500 · 50 uses left</span>
+            <span class="cc-code" onclick="navigator.clipboard?.writeText('LAHARHOME');this.querySelector('.cc-copy').textContent='Copied!'">LAHARHOME <span class="cc-copy"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</span></span>
+          </div>
+        </div>
+
+        <div class="coupon-card">
+          <div class="cc-left">
+            <div class="cc-disc">5%</div>
+            <div class="cc-label">BACK</div>
+          </div>
+          <div class="cc-body">
+            <h3>Store credit bonus</h3>
+            <p>Earn 5% back as store credit on every purchase. Redeem on your next order — no limits.</p>
+            <span class="cc-meta">Auto-enrolled for all members · Forever</span>
+            <span class="cc-code" onclick="navigator.clipboard?.writeText('CREDIT5');this.querySelector('.cc-copy').textContent='Copied!'">CREDIT5 <span class="cc-copy"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CATEGORY DEALS ── -->
+  <section class="dl-section">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Shop by category</div>
+          <div class="sec-sub">Curated deals across every department — all limited, all authentic.</div>
+        </div>
+      </div>
+      <div class="cat-deal-grid">
+        <a href="/shop/category.html" class="cat-deal">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=80" alt="" />
+          <div class="cd-overlay">
+            <span class="cd-tag">Up to 30% off</span>
+            <h3>Home &amp; living</h3>
+            <span class="cd-desc">Ceramics, furniture, lighting</span>
+            <span class="cd-cta">Shop deals <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+        <a href="/shop/category.html" class="cat-deal">
+          <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80" alt="" />
+          <div class="cd-overlay">
+            <span class="cd-tag">Up to 28% off</span>
+            <h3>Accessories</h3>
+            <span class="cd-desc">Watches, eyewear, bags</span>
+            <span class="cd-cta">Shop deals <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+        <a href="/shop/category.html" class="cat-deal">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80" alt="" />
+          <div class="cd-overlay">
+            <span class="cd-tag">Up to 27% off</span>
+            <h3>Audio &amp; tech</h3>
+            <span class="cd-desc">Headphones, prototypes, vintage</span>
+            <span class="cd-cta">Shop deals <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+        <a href="/shop/category.html" class="cat-deal">
+          <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&q=80" alt="" />
+          <div class="cd-overlay">
+            <span class="cd-tag">Up to 25% off</span>
+            <h3>Ceramics</h3>
+            <span class="cd-desc">Stoneware, sake sets, teacups</span>
+            <span class="cd-cta">Shop deals <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BIG BANNER ── -->
+  <section class="tight">
+    <div class="wrap">
+      <a href="/account/signup.html" class="dl-banner">
+        <div class="dlb-overlay">
+          <h2>Get $25 off your first order</h2>
+          <p>Sign up for a Lahar account and we'll send you a welcome coupon — no strings, no spam.</p>
+          <span class="dlb-btn">Create free account <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── TERMS ── -->
+  <section class="dl-terms">
+    <div class="wrap">
+      <h4>Terms & conditions</h4>
+      <p>All discounts, flash sales, and coupon codes are subject to availability and may be withdrawn at any time. Flash sale prices are valid only while the timer is running or while stocks last. Coupon codes cannot be combined unless explicitly stated. Minimum spend requirements apply where noted. Store credit is non-transferable and has no cash value. Lahar Hub reserves the right to modify or cancel any promotion at its discretion. Vendor-specific promotions are managed by the individual maker; Lahar facilitates but does not guarantee availability.</p>
+    </div>
+  </section>
+
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+
+<script>
+/* Flash sale countdown timers */
+(function(){
+  var items = [
+    { h: 5, m: 42, s: 18, eh: 'fh1', em: 'fm1', es: 'fs1' },
+    { h: 12, m: 8, s: 44, eh: 'fh2', em: 'fm2', es: 'fs2' },
+    { h: 2, m: 31, s: 9, eh: 'fh3', em: 'fm3', es: 'fs3' },
+    { h: 23, m: 15, s: 30, eh: 'fh4', em: 'fm4', es: 'fs4' },
+    { h: 8, m: 47, s: 22, eh: 'fh5', em: 'fm5', es: 'fs5' },
+    { h: 15, m: 22, s: 5, eh: 'fh6', em: 'fm6', es: 'fs6' }
+  ];
+  function pad(n){return String(n).padStart(2,'0')}
+  setInterval(function(){
+    items.forEach(function(t){
+      t.s--;
+      if(t.s<0){t.s=59;t.m--;if(t.m<0){t.m=59;t.h--;if(t.h<0){t.h=0;t.m=0;t.s=0}}}
+      var eh=document.getElementById(t.eh),em=document.getElementById(t.em),es=document.getElementById(t.es);
+      if(eh)eh.textContent=pad(t.h);
+      if(em)em.textContent=pad(t.m);
+      if(es)es.textContent=pad(t.s);
+    });
+  },1000);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Help Center · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .h-help { overflow-x: hidden; }
+
+  .h-help-hero {
+    background: linear-gradient(160deg, #1A1814 0%, #0B0A08 100%);
+    color: white; padding: 0;
+    position: relative;
+    isolation: isolate;
+  }
+  .h-help-hero::after {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 600px 400px at 70% 30%, rgba(220,38,38,.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .h-help-hero .wrap { padding: 80px 32px 72px; position: relative; z-index: 1; }
+  .h-help-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 34px);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1.05;
+    margin: 0 0 10px;
+    color: white;
+  }
+  .h-help-hero p {
+    font-size: clamp(15px, 1.4vw, 17px);
+    color: rgba(255,255,255,.5);
+    margin: 0 0 28px;
+    max-width: 480px;
+    margin-left: 0;
+  }
+            .h-help-body { padding: 56px 0 72px; }
+  .h-help-body .wrap { max-width: var(--max); }
+
+  .h-help-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media (max-width: 860px) { .h-help-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .h-help-grid { grid-template-columns: 1fr; } }
+
+  .h-help-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 28px 24px;
+    text-decoration: none;
+    transition: transform var(--t-slow), box-shadow var(--t-slow);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .h-help-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--brand);
+    opacity: 0;
+    transition: opacity var(--t);
+  }
+  .h-help-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .h-help-card:hover::before { opacity: 1; }
+
+  .h-help-card .hhc-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+  .h-help-card .hhc-icon svg { width: 22px; height: 22px; }
+
+  .h-help-card h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--text);
+  }
+  .h-help-card p {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .h-help-bottom {
+    margin-top: 48px;
+    text-align: center;
+    padding: 36px 32px;
+    background: linear-gradient(135deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    position: relative;
+    overflow: hidden;
+  }
+  .h-help-bottom::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(220,38,38,.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .h-help-bottom h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: var(--text);
+  }
+  .h-help-bottom p {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin: 0 0 18px;
+  }
+  .h-help-bottom a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px;
+    background: var(--brand);
+    color: white;
+    border-radius: var(--r-pill);
+    font-weight: 600;
+    font-size: var(--text-md);
+    text-decoration: none;
+    transition: background var(--t), transform var(--t), box-shadow var(--t);
+  }
+  .h-help-bottom a:hover {
+    background: var(--brand-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-brand);
+  }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+<main class="h-help">
+  <section class="h-help-hero">
+    <div class="wrap">
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Help Center</span></div>
+      <h1>Help center</h1>
+      <p>Find answers, track orders, and get support.</p>
+    </div>
+  </section>
+  <section class="h-help-body">
+    <div class="wrap">
+      <div class="h-help-grid">
+        <a href="/account/orders.html" class="h-help-card">
+          <div class="hhc-icon" style="background:color-mix(in oklab,#2563EB 10%,transparent);color:#2563EB">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+          </div>
+          <h3>Order history</h3>
+          <p>View your past and current orders, check status, and track shipments.</p>
+        </a>
+        <a href="/account/order-tracking.html" class="h-help-card">
+          <div class="hhc-icon" style="background:color-mix(in oklab,#D97706 10%,transparent);color:#D97706">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Track an order</h3>
+          <p>Enter your order number to see real-time shipping updates and delivery status.</p>
+        </a>
+        <a href="/info/shipping.html" class="h-help-card">
+          <div class="hhc-icon" style="background:color-mix(in oklab,#059669 10%,transparent);color:#059669">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9h18l-1.5 11h-15L3 9z"/><path d="M8 9V5a4 4 0 1 1 8 0v4"/></svg>
+          </div>
+          <h3>Shipping &amp; returns</h3>
+          <p>Free returns within 30 days, worldwide shipping, and buyer protection details.</p>
+        </a>
+        <a href="/info/faq.html" class="h-help-card">
+          <div class="hhc-icon" style="background:color-mix(in oklab,#7C3AED 10%,transparent);color:#7C3AED">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3>FAQ</h3>
+          <p>Quick answers to the most common questions about orders, payments, and accounts.</p>
+        </a>
+        <a href="/info/contact.html" class="h-help-card">
+          <div class="hhc-icon" style="background:color-mix(in oklab,#DC2626 10%,transparent);color:#DC2626">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3>Contact us</h3>
+          <p>Get in touch with our support team. We typically respond within 24 hours.</p>
+        </a>
+        <a href="/info/become-a-vendor.html" class="h-help-card">
+          <div class="hhc-icon" style="background:color-mix(in oklab,#D97706 10%,transparent);color:#D97706">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <h3>Sell on Lahar</h3>
+          <p>Interested in becoming a vendor? Learn more about selling on the platform.</p>
+        </a>
+      </div>
+      <div class="h-help-bottom">
+        <h3>Still need help?</h3>
+        <p>Our team is here for you. Reach out and we'll get back to you within 24 hours.</p>
+        <a href="/info/contact.html">Contact support <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

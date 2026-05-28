@@ -88,13 +88,13 @@
         <select><option>USD $</option><option>EUR €</option><option>GBP £</option></select>
       </div>
       <div class="util-center">🎁 Free shipping over \$200 — use code <strong>LAHAR24</strong></div>
-      <div class="util-right"><a href="signin.html">Sign in</a><a href="signup.html">Register</a></div>
+      <div class="util-right"><a href="/account/signin.html">Sign in</a><a href="/account/signup.html">Register</a></div>
     </div>
   </div>
   <!-- Layer 2: Main -->
   <div class="header-main">
     <div class="header-main-inner">
-      <a href="index.html" class="brand-mark" aria-label="Lahar home">
+      <a href="/" class="brand-mark" aria-label="Lahar home">
         <img src="https://laharhub.com/uploads/images/logo_1770984823_.png" alt="Lahar" style="height:32px;width:auto;display:block" />
       </a>
       <div class="header-search-trigger" id="searchTrigger">
@@ -103,20 +103,20 @@
         <span class="kbd">⌘K</span>
       </div>
       <div class="header-actions">
-        <a href="become-a-vendor.html" class="header-sell-btn">Become a vendor</a>
-        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">
+        <a href="/info/become-a-vendor.html" class="header-sell-btn">Become a vendor</a>
+        <a href="/account/wishlist.html" class="icon-btn" aria-label="Wishlist">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>
           <span class="count">4</span>
         </a>
-        <a href="compare.html" class="icon-btn" aria-label="Compare">
+        <a href="/shop/compare.html" class="icon-btn" aria-label="Compare">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 12h18M3 17h12"/></svg>
           <span class="count">2</span>
         </a>
-        <a href="cart.html" class="icon-btn" aria-label="Cart">
+        <a href="/shop/cart.html" class="icon-btn" aria-label="Cart">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6h15l-2 11H8L6 6Z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6 5 3H2"/></svg>
           <span class="count">3</span>
         </a>
-        <a href="profile.html" class="icon-btn" aria-label="Profile">
+        <a href="/account/profile.html" class="icon-btn" aria-label="Profile">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
         </a>
       </div>
@@ -158,10 +158,11 @@
       <div class="cat-links">
         ${CATEGORIES.map(t => `<a href="${t.href}" class="${t.hot ? 'hot' : ''}">${t.label}</a>`).join('')}
         <span class="nav-sep"></span>
-        <a href="auctions.html">Auctions</a>
-        <a href="reels.html">Reels</a>
-        <a href="vendors.html">Vendors</a>
-        <a href="blog.html">Journal</a>
+        <a href="/shop/auctions.html">Auctions</a>
+        <a href="/shop/deals.html">Deals</a>
+        <a href="/info/reels.html">Reels</a>
+        <a href="/shop/vendors.html">Vendors</a>
+        <a href="/blog/blog.html">Journal</a>
       </div>
     </div>
   </div>
@@ -237,18 +238,6 @@
     const mount = document.querySelector('[data-partial="footer"]');
     if (!mount) return;
     mount.innerHTML = `
-      <section class="promo-strip">
-        <div class="wrap">
-          <div class="ps-left">
-            <h3>Never miss a drop.</h3>
-            <p>New products, flash sales, and vendor stories — straight to your inbox, once a week. No noise.</p>
-          </div>
-          <div class="ps-right">
-            <a href="signup.html" class="ps-cta primary">Join the list →</a>
-            <a href="category.html" class="ps-cta secondary">Shop new drops</a>
-          </div>
-        </div>
-      </section>
       <footer class="footer">
         <div class="wrap">
           <div class="footer-grid">
@@ -262,25 +251,25 @@
               <p class="editorial-block">A marketplace of considered makers — fashion, home, electronics, and the small things that take big care.</p>
 
               <div class="fg-social">
-                <a href="#" class="social-link" aria-label="Instagram">
+                <a href="https://instagram.com/laharhub" class="social-link" aria-label="Instagram">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg>
                 </a>
-                <a href="#" class="social-link" aria-label="X / Twitter">
+                <a href="https://twitter.com/laharhub" class="social-link" aria-label="X / Twitter">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4l6.5 8.5L4 20h2.5l5-5.5L16 20h5l-7-9.5L20.5 4H18l-4.5 5L9 4H4z"/></svg>
                 </a>
-                <a href="#" class="social-link" aria-label="Pinterest">
+                <a href="https://pinterest.com/laharhub" class="social-link" aria-label="Pinterest">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.5 2.8 8.3 6.8 9.7-.1-.8-.2-2.1 0-3 .2-.9 1.4-5.9 1.4-5.9s-.4-.7-.4-1.8c0-1.7 1-3 2.2-3s1.2.9 1.2 2c0 1.2-.8 3-1.2 4.5-.3 1.3.7 2.4 2 2.4 2.4 0 4-3 4-6.5 0-2.7-1.8-4.7-5-4.7-3.6 0-5.8 2.7-5.8 5.7 0 1 .4 2.2.9 2.8.1.1.1.2.1.3l-.3 1.5c0 .2-.2.3-.4.2-1.5-.6-2.2-2.2-2.2-4 0-3 2.4-6.5 7.5-6.5 4 0 6.6 2.9 6.6 6.1 0 4.1-2.3 7.2-5.7 7.2-1.1 0-2.2-.6-2.6-1.3l-.7 2.9c-.3.9-1 2-1.4 2.7A10 10 0 0 0 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
                 </a>
-                <a href="#" class="social-link" aria-label="TikTok">
+                <a href="https://tiktok.com/@laharhub" class="social-link" aria-label="TikTok">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M19 8a5 5 0 0 1-5-5h-2v11.5a2.5 2.5 0 1 1-3-2.5V10a4.5 4.5 0 1 0 5.5 4.4V9.4c.5.4 1.2.6 1.9.6h2.6"/></svg>
                 </a>
-                <a href="#" class="social-link" aria-label="YouTube">
+                <a href="https://youtube.com/@laharhub" class="social-link" aria-label="YouTube">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22.5 6.2a2.8 2.8 0 0 0-2-2C18.9 3.5 12 3.5 12 3.5s-6.9 0-8.5.7a2.8 2.8 0 0 0-2 2A30 30 0 0 0 1 12a30 30 0 0 0 .5 5.8 2.8 2.8 0 0 0 2 2c1.6.7 8.5.7 8.5.7s6.9 0 8.5-.7a2.8 2.8 0 0 0 2-2A30 30 0 0 0 23 12a30 30 0 0 0-.5-5.8z"/><polygon points="10 15.5 15.5 12 10 8.5 10 15.5" fill="currentColor"/></svg>
                 </a>
-                <a href="#" class="social-link" aria-label="LinkedIn">
+                <a href="https://linkedin.com/company/laharhub" class="social-link" aria-label="LinkedIn">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                 </a>
-                <a href="#" class="social-link" aria-label="Facebook">
+                <a href="https://facebook.com/laharhub" class="social-link" aria-label="Facebook">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                 </a>
               </div>
@@ -300,11 +289,11 @@
               </div>
 
               <div class="fg-apps">
-                <a href="#" class="app-badge" aria-label="Download on the App Store">
+                <a href="https://apps.apple.com/app/laharhub/id123456789" class="app-badge" aria-label="Download on the App Store">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="3"/><circle cx="12" cy="12" r="4"/><circle cx="16" cy="9" r=".8" fill="currentColor"/></svg>
                   <div class="ab-text"><span class="ab-l">Download on the</span><span class="ab-b">App Store</span></div>
                 </a>
-                <a href="#" class="app-badge" aria-label="Get it on Google Play">
+                <a href="https://play.google.com/store/apps/details?id=com.laharhub" class="app-badge" aria-label="Get it on Google Play">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="3 3 17 12 3 21 3 3"/><path d="M17 12l4-4"/><polygon points="3 3 17 12 3 21 3 3"/></svg>
                   <div class="ab-text"><span class="ab-l">Get it on</span><span class="ab-b">Google Play</span></div>
                 </a>
@@ -315,14 +304,15 @@
             <div>
               <h4>Shop</h4>
               <ul>
-                <li><a href="categories.html">All categories</a></li>
-                <li><a href="category.html">New arrivals</a></li>
-                <li><a href="category.html">Best sellers</a></li>
-                <li><a href="auctions.html">Live auctions</a></li>
-                <li><a href="vendors.html">Our vendors</a></li>
-                <li><a href="reels.html">Lahar reels</a></li>
-                <li><a href="blog.html">The journal</a></li>
-                <li><a href="#">Gift cards</a></li>
+                <li><a href="/shop/categories.html">All categories</a></li>
+                <li><a href="/shop/category.html">New arrivals</a></li>
+                <li><a href="/shop/category.html">Best sellers</a></li>
+                <li><a href="/shop/deals.html">Deals &amp; coupons</a></li>
+                <li><a href="/shop/auctions.html">Live auctions</a></li>
+                <li><a href="/shop/vendors.html">Our vendors</a></li>
+                <li><a href="/info/reels.html">Lahar reels</a></li>
+                <li><a href="/blog/blog.html">The journal</a></li>
+                <li><a href="/shop/gift-cards.html">Gift cards</a></li>
               </ul>
             </div>
 
@@ -330,14 +320,14 @@
             <div>
               <h4>Account</h4>
               <ul>
-                <li><a href="profile.html">My profile</a></li>
-                <li><a href="orders.html">Order history</a></li>
-                <li><a href="wishlist.html">Wishlist</a></li>
-                <li><a href="compare.html">Compare</a></li>
+                <li><a href="/account/profile.html">My profile</a></li>
+                <li><a href="/account/orders.html">Order history</a></li>
+                <li><a href="/account/wishlist.html">Wishlist</a></li>
+                <li><a href="/shop/compare.html">Compare</a></li>
                 <li><a href="#">Recently viewed</a></li>
                 <li><a href="#">Saved searches</a></li>
-                <li><a href="signin.html">Sign in</a></li>
-                <li><a href="signup.html">Create account</a></li>
+                <li><a href="/account/signin.html">Sign in</a></li>
+                <li><a href="/account/signup.html">Create account</a></li>
               </ul>
             </div>
 
@@ -345,13 +335,13 @@
             <div>
               <h4>Company</h4>
               <ul>
-                <li><a href="#">About us</a></li>
-                <li><a href="become-a-vendor.html">Become a vendor</a></li>
-                <li><a href="blog.html">Journal</a></li>
-                <li><a href="#">Press &amp; media</a></li>
-                <li><a href="#">Sustainability</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Affiliate program</a></li>
+                <li><a href="/info/about.html">About us</a></li>
+                <li><a href="/info/become-a-vendor.html">Become a vendor</a></li>
+                <li><a href="/blog/blog.html">Journal</a></li>
+                <li><a href="/info/press.html">Press &amp; media</a></li>
+                <li><a href="/info/sustainability.html">Sustainability</a></li>
+                <li><a href="/info/careers.html">Careers</a></li>
+                <li><a href="/info/affiliate.html">Affiliate program</a></li>
               </ul>
             </div>
 
@@ -359,14 +349,14 @@
             <div>
               <h4>Support</h4>
               <ul>
-                <li><a href="#">Help center</a></li>
-                <li><a href="order-tracking.html">Track order</a></li>
-                <li><a href="#">Shipping &amp; returns</a></li>
-                <li><a href="#">Contact us</a></li>
-                <li><a href="#">Trust &amp; safety</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Size guide</a></li>
-                <li><a href="#">Community</a></li>
+                <li><a href="/info/help.html">Help center</a></li>
+                <li><a href="/account/order-tracking.html">Track order</a></li>
+                <li><a href="/info/shipping.html">Shipping &amp; returns</a></li>
+                <li><a href="/info/contact.html">Contact us</a></li>
+                <li><a href="/legal/trust-safety.html">Trust &amp; safety</a></li>
+                <li><a href="/info/faq.html">FAQ</a></li>
+                <li><a href="/info/size-guide.html">Size guide</a></li>
+                <li><a href="/info/community.html">Community</a></li>
               </ul>
             </div>
 
@@ -420,11 +410,11 @@
             <div class="fb-left">
               <span class="fb-copy">© 2026 Lahar Hub. Made by makers, for the curious.</span>
               <div class="fb-legal">
-                <a href="#">Privacy policy</a>
-                <a href="#">Terms of service</a>
-                <a href="#">Cookie policy</a>
-                <a href="#">Accessibility</a>
-                <a href="#">Do not sell</a>
+                <a href="/legal/privacy.html">Privacy policy</a>
+                <a href="/legal/terms.html">Terms of service</a>
+                <a href="/legal/cookie.html">Cookie policy</a>
+                <a href="/legal/accessibility.html">Accessibility</a>
+                <a href="/legal/do-not-sell.html">Do not sell</a>
               </div>
             </div>
             <div class="fb-right">

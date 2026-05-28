@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Profile · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .prof-grid { display: grid; grid-template-columns: 280px 1fr; gap: 32px; align-items: flex-start; }
+  @media (max-width: 880px) { .prof-grid { grid-template-columns: 1fr; } }
+  .prof-side { position: sticky; top: 92px; }
+  .prof-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin-bottom: 16px; }
+  .prof-card .head { padding: 20px; text-align: center; border-bottom: 1px solid var(--border); }
+  .prof-card .head .avatar { width: 72px; height: 72px; margin: 0 auto 12px; }
+  .prof-card .head .name { font-family: var(--font-display); font-weight: 600; font-size: 18px; }
+  .prof-card .head .email { font-size: 13px; color: var(--text-muted); }
+  .prof-card .head .join { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .prof-nav { display: flex; flex-direction: column; }
+  .prof-nav a { display: flex; align-items: center; gap: 12px; padding: 14px 20px; font-size: 14px; color: var(--text-soft); border-bottom: 1px solid var(--border); transition: background var(--t), color var(--t); }
+  .prof-nav a:hover { background: var(--surface-2); color: var(--text); }
+  .prof-nav a.on { color: var(--text); font-weight: 600; background: var(--surface-2); border-right: 2px solid var(--brand); }
+  .prof-nav a:last-child { border-bottom: 0; }
+  .prof-nav a .count { margin-left: auto; font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+  .prof-main h2 { font-size: 24px; margin: 0 0 4px; }
+  .prof-dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 24px 0; }
+  @media (max-width: 720px) { .prof-dash-grid { grid-template-columns: 1fr 1fr; } }
+  .dash-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px; }
+  .dash-stat .num { font-family: var(--font-mono); font-size: 32px; font-weight: 700; line-height: 1; }
+  .dash-stat .lab { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+  .dash-stat .sub { font-size: 11px; color: var(--text-soft); margin-top: 8px; }
+  .recent-activity { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+  .act-item { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .act-item:last-child { border-bottom: 0; }
+  .act-item .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .act-item .dot.order { background: var(--info); }
+  .act-item .dot.wish { background: var(--brand); }
+  .act-item .dot.rev { background: var(--ok); }
+  .act-item .act-text { flex: 1; }
+  .act-item .act-text strong { font-weight: 600; }
+  .act-item .act-time { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+  .recents-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+  .recents-head h3 { font-size: 14px; margin: 0; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+
+<main style="padding:32px 0 64px">
+  <div class="wrap">
+    <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><span>Profile</span></div>
+
+    <div class="prof-grid">
+      <div class="prof-side">
+        <div class="prof-card">
+          <div class="head">
+            <span class="avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=140&q=80" alt=""/></span>
+            <div class="name">Priya Sharma</div>
+            <div class="email">priya@example.com</div>
+            <div class="join">Member since Dec 2024 · 18 orders</div>
+          </div>
+          <div class="prof-nav">
+            <a href="/account/profile.html" class="on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg> Overview</a>
+            <a href="/account/orders.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9h18l-1.5 11h-15L3 9z"/><path d="M8 9V5a4 4 0 1 1 8 0v4"/></svg> Orders<span class="count">12</span></a>
+            <a href="/account/wishlist.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg> Wishlist<span class="count">4</span></a>
+            <a href="/account/settings.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg> Settings</a>
+            <a href="/account/signin.html" style="color:var(--brand)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg> Sign out</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prof-main">
+        <h2>Overview</h2>
+        <p style="color:var(--text-muted);margin:0">Welcome back, Priya. Here's your activity this month.</p>
+
+        <div class="prof-dash-grid">
+          <div class="dash-stat">
+            <div class="num">3</div>
+            <div class="lab">Active orders</div>
+            <div class="sub">2 shipping · 1 in production</div>
+          </div>
+          <div class="dash-stat">
+            <div class="num">4</div>
+            <div class="lab">Wishlist items</div>
+            <div class="sub">2 with price drops</div>
+          </div>
+          <div class="dash-stat">
+            <div class="num">6</div>
+            <div class="lab">Reviews this year</div>
+            <div class="sub">2 pending</div>
+          </div>
+        </div>
+
+        <div class="recent-activity">
+          <div class="recents-head"><h3>Recent activity</h3><a href="/account/orders.html" class="sec-link" style="font-size:12px">View all</a></div>
+          <div class="act-item">
+            <span class="dot order"></span>
+            <div class="act-text"><strong>Order #LAH-4821</strong> shipped · arriving Jun 2</div>
+            <span class="act-time">2h ago</span>
+          </div>
+          <div class="act-item">
+            <span class="dot wish"></span>
+            <div class="act-text">Added <strong>Studio 60 over-ear</strong> to wishlist</div>
+            <span class="act-time">1d ago</span>
+          </div>
+          <div class="act-item">
+            <span class="dot rev"></span>
+            <div class="act-text">Reviewed <strong>Field runner · oat</strong> ★★★★☆</div>
+            <span class="act-time">3d ago</span>
+          </div>
+          <div class="act-item">
+            <span class="dot order"></span>
+            <div class="act-text"><strong>Order #LAH-4750</strong> is now in production · Murmur Atelier</div>
+            <span class="act-time">5d ago</span>
+          </div>
+          <div class="act-item">
+            <span class="dot wish"></span>
+            <div class="act-text">Price drop · <strong>Ceramic vase · S</strong> is now $56 (was $80)</div>
+            <span class="act-time">1w ago</span>
+          </div>
+          <div class="act-item">
+            <span class="dot rev"></span>
+            <div class="act-text">Reviewed <strong>Pebble buds Pro</strong> ★★★★★</div>
+            <span class="act-time">2w ago</span>
+          </div>
+        </div>
+
+        <h3 style="margin:32px 0 16px;font-size:18px">Saved addresses</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><strong style="font-size:14px">Home</strong><span class="badge badge-soft">Default</span></div>
+            <div style="font-size:13px;color:var(--text-soft);line-height:1.6">42 Cobble Hill Road<br />Brooklyn, NY 11201<br />United States</div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><strong style="font-size:14px">Office</strong></div>
+            <div style="font-size:13px;color:var(--text-soft);line-height:1.6">88 W 23rd St, Suite 410<br />New York, NY 10010<br />United States</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="newsletter-strip">
+        <div class="ns-left">
+          <h4>Refer a friend, get $20</h4>
+          <p>Share Lahar with someone who cares about craft. When they place their first order, you both get $20 credit.</p>
+        </div>
+        <div class="ns-right">
+          <input value="lahar.me/ref/adi_320" readonly onclick="this.select()" />
+          <button type="button">Copy link</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

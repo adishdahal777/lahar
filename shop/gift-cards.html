@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Gift Cards · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .gc-hero { background:linear-gradient(135deg,#1A1814 0%,#0B0A08 100%); color:white; padding:0; }
+  .gc-hero .wrap { padding:80px 32px 72px; text-align:center; }
+  .gc-hero h1 { font-family:var(--font-display); font-size:clamp(36px,5vw,60px); font-weight:700; letter-spacing:-.025em; line-height:1.05; margin:0 0 14px; }
+  .gc-hero p { font-size:var(--text-lg); color:rgba(255,255,255,.5); max-width:520px; margin:0 auto 28px; }
+  .gc-body { padding:48px 0 72px; }
+  .gc-body .wrap { max-width:600px; }
+  .gc-form { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-xl); padding:32px 30px; }
+  .gc-form .field { margin-bottom:16px; }
+  .gc-form label { font-size:var(--text-sm); font-weight:600; color:var(--text-soft); text-transform:uppercase; letter-spacing:.1em; margin-bottom:4px; display:block; }
+  .gc-form .gc-amounts { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+  .gc-form .gc-amounts button { padding:12px; border:1px solid var(--border); border-radius:var(--r-md); background:var(--surface); font-size:var(--text-lg); font-weight:600; cursor:pointer; transition:all var(--t); color:var(--text); }
+  .gc-form .gc-amounts button:hover, .gc-form .gc-amounts button.active { border-color:var(--brand); background:color-mix(in oklab,var(--brand) 6%,transparent); }
+  .gc-form .gc-custom { display:flex; gap:10px; }
+  .gc-form .gc-custom input { flex:1; }
+  .gc-form button[type=submit] { width:100%; padding:14px; border:0; border-radius:var(--r-md); background:var(--brand); color:white; font-size:var(--text-md); font-weight:600; cursor:pointer; transition:background var(--t); margin-top:8px; }
+  .gc-form button[type=submit]:hover { background:var(--brand-hover); }
+  .gc-info { text-align:center; margin-top:24px; }
+  .gc-info p { font-size:var(--text-sm); color:var(--text-soft); line-height:1.5; }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+<main>
+  <section class="gc-hero">
+    <div class="wrap">
+      <h1>Give the gift<br />of discovery.</h1>
+      <p>Lahar gift cards are redeemable across 320+ independent makers, from fashion to furniture.</p>
+    </div>
+  </section>
+  <section class="gc-body">
+    <div class="wrap">
+      <form class="gc-form">
+        <div class="field">
+          <label>Choose an amount</label>
+          <div class="gc-amounts">
+            <button type="button">$25</button>
+            <button type="button" class="active">$50</button>
+            <button type="button">$100</button>
+            <button type="button">$200</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Custom amount</label>
+          <div class="gc-custom">
+            <span style="padding:12px 0;font-size:var(--text-lg);font-weight:600;color:var(--text-soft)">$</span>
+            <input class="input" type="number" placeholder="Enter amount" min="10" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Recipient email</label>
+          <input class="input" type="email" placeholder="friend@example.com" />
+        </div>
+        <div class="field">
+          <label>Personal message (optional)</label>
+          <textarea class="input textarea" placeholder="Write a short note…" style="min-height:80px"></textarea>
+        </div>
+        <button type="submit">Purchase gift card</button>
+      </form>
+      <div class="gc-info">
+        <p>Gift cards are delivered by email within minutes and never expire. Redeemable on any product across the platform. <a href="/legal/terms.html" style="color:var(--brand)">Terms apply</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

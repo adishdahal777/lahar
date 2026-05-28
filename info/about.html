@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>About Us · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .ab-hero {
+    background: linear-gradient(160deg, #0F0C08 0%, #2A1F18 40%, #1A1814 100%);
+    color: white; padding: 0; position: relative; overflow: hidden;
+  }
+  .ab-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=60') center/cover no-repeat;
+    opacity: 0.08; pointer-events: none;
+  }
+  .ab-hero::after {
+    content: '';
+    position: absolute; top: -40%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(220,38,38,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .ab-hero .wrap { padding: 96px 32px 80px; position: relative; z-index: 1; }
+  .ab-hero .ab-eyebrow {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 16px;
+  }
+   .ab-hero h1 { font-size: clamp(22px, 2.8vw, 34px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 18px; max-width: 780px; }
+  .ab-hero h1 em { font-style: normal; background: linear-gradient(135deg, #DC2626, #FB7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .ab-hero p { font-size: 17px; color: rgba(255,255,255,0.5); max-width: 560px; line-height: 1.7; margin: 0; }
+
+  .ab-story {
+    padding: 0; position: relative;
+    background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),
+                url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=60') center/cover no-repeat;
+    color: white; min-height: 420px; display: flex; align-items: center;
+  }
+  .ab-story .wrap { padding: 80px 32px; position: relative; }
+  .ab-story h2 { font-size: clamp(32px,3.5vw,44px); color: white; margin: 0 0 20px; letter-spacing: -0.02em; }
+  .ab-story p { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.8; max-width: 720px; margin: 0 0 16px; }
+  .ab-story p:last-child { margin-bottom: 0; }
+  .ab-story strong { color: white; }
+
+  .ab-stats {
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 0;
+  }
+  .ab-stats-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width: 720px) { .ab-stats-inner { grid-template-columns: repeat(2, 1fr); } }
+  .ab-stat {
+    text-align: center; padding: 20px 16px;
+    border-right: 1px solid var(--border);
+  }
+  .ab-stats-inner > :last-child .ab-stat { border-right: 0; }
+  @media(max-width: 720px) { .ab-stat:nth-child(2) { border-right: 0; } }
+  .ab-stat .num {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 52px); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1;
+    margin-bottom: 6px;
+  }
+  .ab-stat .num.accent { color: var(--brand); }
+  .ab-stat .num.violet { color: var(--violet); }
+  .ab-stat .num.info { color: var(--info); }
+  .ab-stat .num.ok { color: var(--ok); }
+  .ab-stat .label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+  .ab-values { padding: 64px 0; }
+  .ab-values .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .ab-values .abv-header { text-align: center; margin-bottom: 40px; }
+  .ab-values .abv-header h2 { font-size: clamp(28px,3vw,38px); margin-bottom: 8px; }
+  .ab-values .abv-header p { font-size: var(--text-base); color: var(--text-soft); max-width: 560px; margin: 0 auto; }
+  .abv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+  @media(max-width: 720px) { .abv-grid { grid-template-columns: 1fr; } }
+  .abv-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--r-xl); padding: 32px 28px;
+    transition: transform var(--t), box-shadow var(--t);
+  }
+  .abv-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .abv-card .abv-icon {
+    width: 48px; height: 48px; border-radius: var(--r-lg);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .abv-card .abv-icon.p1 { background: color-mix(in oklab, var(--brand) 12%, transparent); color: var(--brand); }
+  .abv-card .abv-icon.p2 { background: color-mix(in oklab, var(--violet) 12%, transparent); color: var(--violet); }
+  .abv-card .abv-icon.p3 { background: color-mix(in oklab, var(--info) 12%, transparent); color: var(--info); }
+  .abv-card h3 { font-size: 18px; font-weight: 600; margin: 0 0 8px; }
+  .abv-card p { font-size: var(--text-base); color: var(--text-soft); margin: 0; line-height: 1.6; }
+
+  .ab-team {
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+    padding: 64px 0;
+  }
+  .ab-team .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .ab-team .abt-header { text-align: center; margin-bottom: 40px; }
+  .ab-team .abt-header h2 { font-size: clamp(28px,3vw,38px); margin-bottom: 8px; }
+  .ab-team .abt-header p { font-size: var(--text-base); color: var(--text-soft); }
+  .abt-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width: 900px) { .abt-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width: 500px) { .abt-grid { grid-template-columns: 1fr; } }
+  .abt-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--r-xl); padding: 28px 24px;
+    text-align: center;
+    transition: transform var(--t), box-shadow var(--t);
+  }
+  .abt-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .abt-card .abt-photo {
+    width: 80px; height: 80px; border-radius: 50%;
+    object-fit: cover; margin: 0 auto 16px;
+    border: 3px solid var(--surface);
+    box-shadow: 0 0 0 1px var(--border);
+  }
+  .abt-card h4 { font-size: 16px; font-weight: 600; margin: 0 0 2px; }
+  .abt-card .abt-role {
+    font-size: 12px; color: var(--text-muted);
+    font-family: var(--font-mono); letter-spacing: 0.02em;
+  }
+  .abt-card .abt-flag {
+    display: inline-block; margin-top: 10px;
+    font-size: 11px; color: var(--text-soft);
+    padding: 4px 12px;
+    background: color-mix(in oklab, var(--brand) 8%, transparent);
+    border-radius: var(--r-pill);
+  }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+<main>
+
+  <section class="ab-hero">
+    <div class="wrap">
+      <div class="ab-eyebrow">Est. 2019 · Copenhagen</div>
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>About</span></div>
+      <h1>Slow commerce,<br /><em>done differently.</em></h1>
+      <p>Lahar is a marketplace for considered makers — fashion, home, electronics, and the small things that take big care. We believe that buying should feel as good as making.</p>
+    </div>
+  </section>
+
+  <section class="ab-story">
+    <div class="wrap">
+      <h2>Our story</h2>
+      <p>Lahar started around a kitchen table in Vesterbro. Two founders, frustrated with the direction of online marketplaces — the race to the bottom on price, the disposable culture, the anonymity — decided to build something different.</p>
+      <p>They wanted a platform where every product had a story, every maker was known, and every transaction felt human. Four years later, Lahar is home to <strong>320+ independent makers</strong> across 42 countries, and we're still guided by that same principle: small batches, big care.</p>
+      <p>We don't try to compete with Amazon or Alibaba. We're not interested in infinite growth or same-day delivery. Instead, we focus on curation, craft, and connection — building a marketplace that works for the people who make and the people who buy.</p>
+    </div>
+  </section>
+
+  <section class="ab-stats">
+    <div class="wrap">
+      <div class="ab-stats-inner">
+        <div class="ab-stat">
+          <div class="num accent">320+</div>
+          <div class="label">Independent makers</div>
+        </div>
+        <div class="ab-stat">
+          <div class="num violet">42</div>
+          <div class="label">Countries represented</div>
+        </div>
+        <div class="ab-stat">
+          <div class="num info">4</div>
+          <div class="label">Years in business</div>
+        </div>
+        <div class="ab-stat">
+          <div class="num ok">12k+</div>
+          <div class="label">Products curated</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ab-values">
+    <div class="wrap">
+      <div class="abv-header">
+        <h2>What we believe</h2>
+        <p>These values shape every decision we make — from how we onboard vendors to how we handle returns.</p>
+      </div>
+      <div class="abv-grid">
+        <div class="abv-card">
+          <div class="abv-icon p1">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <h3>Craft over quantity</h3>
+          <p>We prioritise quality, provenance, and story over volume. Every maker is vetted, every product reviewed by our curation team before it goes live. We'd rather list 10 exceptional products than 1,000 average ones.</p>
+        </div>
+        <div class="abv-card">
+          <div class="abv-icon p2">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Patience as policy</h3>
+          <p>Good things take time. Made-to-order, slow shipping, thoughtful unboxing — we celebrate the wait instead of hiding from it. Every product on Lahar tells a story of hours, days, or weeks of skilled labour.</p>
+        </div>
+        <div class="abv-card">
+          <div class="abv-icon p3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Fair for everyone</h3>
+          <p>Low commissions (just 5%), transparent pricing, free returns — we built a platform that works for makers and buyers alike. No hidden fees, no algorithmic manipulation, no dark patterns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ab-team">
+    <div class="wrap">
+      <div class="abt-header">
+        <h2>Meet the team</h2>
+        <p>A small, distributed team spread across Copenhagen, Tokyo, and Melbourne.</p>
+      </div>
+      <div class="abt-grid">
+        <div class="abt-card">
+          <img class="abt-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="" />
+          <h4>Ravi Mehta</h4>
+          <div class="abt-role">Co-founder · Copenhagen</div>
+          <span class="abt-flag">Former: MADE Design</span>
+        </div>
+        <div class="abt-card">
+          <img class="abt-photo" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="" />
+          <h4>Aiko Tanaka</h4>
+          <div class="abt-role">Co-founder · Tokyo</div>
+          <span class="abt-flag">Former: Issey Miyake</span>
+        </div>
+        <div class="abt-card">
+          <img class="abt-photo" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="" />
+          <h4>Maya Krishnan</h4>
+          <div class="abt-role">Head of Curation · Copenhagen</div>
+          <span class="abt-flag">Former: Kinfolk</span>
+        </div>
+        <div class="abt-card">
+          <img class="abt-photo" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="" />
+          <h4>Elena Voss</h4>
+          <div class="abt-role">Community &amp; Ops · Melbourne</div>
+          <span class="abt-flag">Former: Eat Pray Love</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

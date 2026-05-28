@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>All Brands · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .br-hero { background:linear-gradient(135deg,#1A1814 0%,#0B0A08 100%); color:white; padding:0; }
+  .br-hero .wrap { padding:72px 32px 64px; }
+  .br-hero h1 { font-family:var(--font-display); font-size:clamp(32px,4vw,52px); font-weight:700; letter-spacing:-.025em; line-height:1.05; margin:0 0 8px; }
+  .br-hero p { font-size:var(--text-md); color:rgba(255,255,255,.5); margin:0; }
+  .br-body { padding:48px 0 72px; }
+  .br-body .wrap { max-width:1040px; }
+  .br-body .br-letters { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .br-body .br-letters a { width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:var(--r-md); border:1px solid var(--border); font-size:var(--text-sm); font-weight:600; color:var(--text-soft); text-decoration:none; transition:all var(--t); }
+  .br-body .br-letters a:hover, .br-body .br-letters a.active { background:var(--text); color:var(--bg); border-color:var(--text); }
+  .br-body .br-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  @media(max-width:900px){ .br-body .br-grid { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:500px){ .br-body .br-grid { grid-template-columns:1fr; } }
+  .br-body .br-grid .bs-card { display:flex; align-items:center; gap:16px; padding:18px; border-radius:var(--r-xl); border:1px solid var(--border); background:var(--surface); text-decoration:none; color:inherit; transition:all var(--t); }
+  .br-body .br-grid .bs-card:hover { border-color:var(--text); box-shadow:var(--shadow-sm); transform:translateY(-2px); }
+  .br-body .br-grid .bs-card img { width:56px; height:56px; border-radius:var(--r-lg); object-fit:cover; flex-shrink:0; background:var(--surface-3); }
+  .br-body .br-grid .bs-card .bs-body { flex:1; min-width:0; }
+  .br-body .br-grid .bs-card .bs-body .bs-name { font-weight:600; font-size:var(--text-base); }
+  .br-body .br-grid .bs-card .bs-body .bs-count { font-size:var(--text-sm); color:var(--text-muted); font-family:var(--font-mono); }
+  .br-body .br-grid .bs-card .bs-body .bs-tag { display:inline-block; font-size:var(--text-2xs); text-transform:uppercase; letter-spacing:.08em; color:var(--brand); font-weight:600; margin-top:2px; }
+  .br-body .br-filter { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+  .br-body .br-filter .pill { padding:6px 16px; border-radius:var(--r-pill); border:1px solid var(--border); background:var(--surface); font-size:var(--text-sm); font-weight:500; color:var(--text-soft); cursor:pointer; transition:all var(--t); }
+  .br-body .br-filter .pill:hover, .br-body .br-filter .pill.active { background:var(--text); color:var(--bg); border-color:var(--text); }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+<main>
+  <section class="br-hero">
+    <div class="wrap">
+      <h1>All brands</h1>
+      <p>Discover the makers, studios, and names behind every product on Lahar.</p>
+    </div>
+  </section>
+  <section class="br-body">
+    <div class="wrap">
+      <div class="br-filter">
+        <span class="pill active">All</span>
+        <span class="pill">Apparel</span>
+        <span class="pill">Accessories</span>
+        <span class="pill">Audio</span>
+        <span class="pill">Home</span>
+        <span class="pill">Beauty</span>
+      </div>
+      <div class="br-letters">
+        <a href="#" class="active">All</a>
+        <a href="#">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a><a href="#">F</a>
+        <a href="#">G</a><a href="#">H</a><a href="#" class="active">I</a><a href="#">J</a><a href="#">K</a><a href="#">L</a>
+        <a href="#">M</a><a href="#" class="active">N</a><a href="#">O</a><a href="#">P</a><a href="#">Q</a><a href="#">R</a>
+        <a href="#">S</a><a href="#">T</a><a href="#">U</a><a href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a><a href="#">Z</a>
+      </div>
+      <div class="br-grid">
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Pebble</div>
+            <div class="bs-count">6 products</div>
+            <span class="bs-tag">Official brand</span>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Halen Goods</div>
+            <div class="bs-count">184 products</div>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Murmur Atelier</div>
+            <div class="bs-count">72 products</div>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Sundry Audio</div>
+            <div class="bs-count">14 products</div>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">North Field</div>
+            <div class="bs-count">6 products</div>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Brindle Studio</div>
+            <div class="bs-count">28 products</div>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Quay &amp; Co.</div>
+            <div class="bs-count">51 products</div>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Field &amp; Form</div>
+            <div class="bs-count">34 products</div>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Loom &amp; Spool</div>
+            <div class="bs-count">63 products</div>
+            <span class="bs-tag">Official brand</span>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1508215223641-2fb1297d0f6f?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Ink &amp; Needle</div>
+            <div class="bs-count">22 products</div>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Ivory &amp; Birch</div>
+            <div class="bs-count">47 products</div>
+          </div>
+        </a>
+        <a href="/shop/brand.html" class="bs-card">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt=""/>
+          <div class="bs-body">
+            <div class="bs-name">Nomad Supply Co.</div>
+            <div class="bs-count">18 products</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

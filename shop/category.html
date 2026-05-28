@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Electronics · Earbuds — Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .cat-hero {
+    padding: 48px 0 36px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .cat-hero .row-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  .cat-hero h1 { font-size: clamp(40px, 5vw, 64px); }
+  .cat-hero .meta { display: flex; gap: 18px; align-items: center; font-size: 13px; color: var(--text-muted); }
+  .cat-hero .meta .n { font-family: var(--font-mono); font-weight: 700; color: var(--text); margin-right: 4px; }
+  .sub-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
+
+  .cat-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    align-items: flex-start;
+    padding-top: 36px;
+  }
+  @media (max-width: 880px) { .cat-layout { grid-template-columns: 1fr; } .filter-sidebar { display: none; } }
+
+  .filter-sidebar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 22px 22px 8px;
+    position: sticky;
+    top: 88px;
+  }
+  .filter-sidebar h4 { font-family: var(--font-display); font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; margin: 0 0 12px; color: var(--text-soft); }
+  .filter-grp { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .filter-grp:last-of-type { border-bottom: 0; }
+  .filter-grp .row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; }
+  .filter-grp .row input[type=checkbox] { accent-color: var(--brand); width: 16px; height: 16px; }
+  .filter-grp .row .ct { margin-left: auto; color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; }
+  .price-range { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .price-range input { width: 70px; padding: 7px 10px; }
+  .swatch-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--border); cursor: pointer; }
+  .swatch.on { border-color: var(--text); box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--text); }
+
+  .cat-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+  .cat-toolbar .count { font-size: 13px; color: var(--text-muted); }
+  .cat-toolbar .count .n { font-family: var(--font-mono); font-weight: 700; color: var(--text); }
+  .cat-toolbar .sort { display: flex; align-items: center; gap: 12px; }
+  .cat-toolbar .sort .seg { display: flex; gap: 4px; background: var(--surface-3); padding: 3px; border-radius: var(--r-md); }
+  .cat-toolbar .sort .seg button { background: transparent; border: 0; padding: 6px 10px; font-size: var(--text-sm); font-weight: 500; color: var(--text-soft); border-radius: var(--r-lg); cursor: pointer; }
+  .cat-toolbar .sort .seg button.on { background: var(--surface); color: var(--text); }
+
+  .applied { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; align-items: center; }
+  .applied .a-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; font-size: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-pill); }
+  .applied .clear { font-size: 12px; color: var(--brand); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+  .vendor-spot {
+    background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 24px;
+    margin: 32px 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  .vendor-spot .avatar { width: 64px; height: 64px; }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+
+<main>
+  <section class="cat-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/shop/categories.html">Categories</a><span class="sep">/</span><a href="/shop/categories.html">Electronics</a><span class="sep">/</span><span>Earbuds</span></div>
+      <div class="row-top" style="margin-top:16px">
+        <div>
+          <span class="eyebrow">Electronics · 42 vendors</span>
+          <h1 style="margin-top:8px">Earbuds<span style="color:var(--brand)">.</span></h1>
+          <p style="font-family:var(--font-editorial);font-style:italic;color:var(--text-soft);font-size:18px;max-width:520px;margin-top:14px">Buds we listened to, side by side, on the same playlist — at a desk and on a walk.</p>
+        </div>
+        <div class="meta">
+          <span><span class="n">128</span>products</span>
+          <span><span class="n">14</span>vendors</span>
+          <span><span class="n">4.7</span>avg rating</span>
+        </div>
+      </div>
+      <div class="sub-pills">
+        <span class="chip on">All earbuds</span>
+        <span class="chip">True wireless</span>
+        <span class="chip">Wired</span>
+        <span class="chip">Open-ear</span>
+        <span class="chip">Active noise cancelling</span>
+        <span class="chip">Bone conduction</span>
+        <span class="chip">Pro audio</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="cat-layout">
+
+        <aside class="filter-sidebar">
+          <div class="filter-grp">
+            <h4>Vendor</h4>
+            <div class="row"><input type="checkbox" id="v1" checked /><label for="v1">Sundry Audio</label><span class="ct">18</span></div>
+            <div class="row"><input type="checkbox" id="v2" /><label for="v2">North Field</label><span class="ct">12</span></div>
+            <div class="row"><input type="checkbox" id="v3" /><label for="v3">Halen Goods</label><span class="ct">8</span></div>
+            <div class="row"><input type="checkbox" id="v4" /><label for="v4">Quay & Co.</label><span class="ct">4</span></div>
+            <div class="row" style="color:var(--text-muted);font-size:12px;cursor:pointer">+ 10 more vendors</div>
+          </div>
+          <div class="filter-grp">
+            <h4>Price</h4>
+            <div class="price-range">
+              <input class="input" placeholder="$ min" />
+              <span style="color:var(--text-muted)">—</span>
+              <input class="input" placeholder="$ max" />
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+              <span class="chip btn-sm">Under $50</span>
+              <span class="chip btn-sm">$50–150</span>
+              <span class="chip btn-sm on">$150–400</span>
+              <span class="chip btn-sm">$400+</span>
+            </div>
+          </div>
+          <div class="filter-grp">
+            <h4>Color</h4>
+            <div class="swatch-row">
+              <span class="swatch on" style="background:#1A1814"></span>
+              <span class="swatch" style="background:#FFFFFF;border-color:#D6D2C7"></span>
+              <span class="swatch" style="background:#B49883"></span>
+              <span class="swatch" style="background:#3B5B6E"></span>
+              <span class="swatch" style="background:#7B4B36"></span>
+              <span class="swatch" style="background:#DC2626"></span>
+              <span class="swatch" style="background:#15803D"></span>
+            </div>
+          </div>
+          <div class="filter-grp">
+            <h4>Features</h4>
+            <div class="row"><input type="checkbox" id="f1" /><label for="f1">Active noise cancel</label><span class="ct">42</span></div>
+            <div class="row"><input type="checkbox" id="f2" /><label for="f2">Spatial audio</label><span class="ct">28</span></div>
+            <div class="row"><input type="checkbox" id="f3" /><label for="f3">Multi-point</label><span class="ct">22</span></div>
+            <div class="row"><input type="checkbox" id="f4" /><label for="f4">Wireless charging</label><span class="ct">14</span></div>
+            <div class="row"><input type="checkbox" id="f5" /><label for="f5">USB-C</label><span class="ct">96</span></div>
+            <div class="row"><input type="checkbox" id="f6" /><label for="f6">IP67 waterproof</label><span class="ct">38</span></div>
+          </div>
+          <div class="filter-grp">
+            <h4>Rating</h4>
+            <div class="row"><input type="radio" name="r" id="r5" /><label for="r5">★★★★★ only</label><span class="ct">22</span></div>
+            <div class="row"><input type="radio" name="r" id="r4" checked /><label for="r4">★★★★ &amp; up</label><span class="ct">88</span></div>
+            <div class="row"><input type="radio" name="r" id="r3" /><label for="r3">★★★ &amp; up</label><span class="ct">120</span></div>
+          </div>
+          <div class="filter-grp">
+            <h4>Vendor location</h4>
+            <div class="row"><input type="checkbox" /><label>Made in Europe</label></div>
+            <div class="row"><input type="checkbox" /><label>Made in North America</label></div>
+            <div class="row"><input type="checkbox" /><label>Made in Asia</label></div>
+          </div>
+        </aside>
+
+        <div>
+          <div class="cat-toolbar">
+            <div class="count"><span class="n">128</span> products · showing 1–24</div>
+            <div class="sort">
+              <span style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;font-weight:600">View</span>
+              <div class="seg">
+                <button class="on" aria-label="Grid"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
+                <button aria-label="List"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+              </div>
+              <select class="select" style="width:auto;padding:7px 32px 7px 12px;font-size:13px">
+                <option>Sort: Recommended</option>
+                <option>Price · low to high</option>
+                <option>Price · high to low</option>
+                <option>Rating</option>
+                <option>New arrivals</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="applied">
+            <span class="a-chip">Sundry Audio <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+            <span class="a-chip">$150–400 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+            <span class="a-chip">Black <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+            <span class="a-chip">★★★★ &amp; up <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+            <span class="clear">Clear all</span>
+          </div>
+
+          <div class="pgrid">
+            <!-- 12 product cards -->
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Pebble buds · onyx</h3><div class="pcard-vendor">Sundry Audio</div><span class="price">$189</span><span class="rating">4.7</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Pebble buds Pro · ANC</h3><div class="pcard-vendor">Sundry Audio</div><span class="price">$278</span><span class="rating">4.8</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Field studs · stem-mic</h3><div class="pcard-vendor">North Field</div><span class="price">$152</span><span class="rating">4.5</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1631176093617-63490a3d785a?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Pebble open-ear · sport</h3><div class="pcard-vendor">Sundry Audio</div><span class="price">$220</span><span class="rating">4.6</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Bone conductor · pearl</h3><div class="pcard-vendor">Halen Goods</div><span class="price">$305</span><span class="rating">4.4</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Wired buds · IEM-2</h3><div class="pcard-vendor">Quay & Co.</div><span class="price">$348</span><span class="rating">4.9</span></div></a>
+          </div>
+
+          <div class="vendor-spot">
+            <span class="avatar" style="width:64px;height:64px"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=140&q=80" alt=""/></span>
+            <div>
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.14em;font-weight:600;color:var(--text-muted)">Featured vendor in earbuds</div>
+              <div style="font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-0.005em;margin-top:4px">Sundry Audio · Brooklyn</div>
+              <p style="font-family:var(--font-editorial);font-style:italic;color:var(--text-soft);font-size:14px;line-height:1.5;margin:6px 0 0;max-width:620px">"Headphones for people who listen — not for people who shop for headphones." 18 products in this category.</p>
+            </div>
+            <a href="/shop/vendor.html" class="btn btn-secondary">Visit shop
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+
+          <div class="pgrid">
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Studio 60 — over-ear</h3><div class="pcard-vendor">Sundry Audio</div><span class="price">$329</span><span class="rating">4.7</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1545127398-14699f92334b?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Sport buds · sand</h3><div class="pcard-vendor">North Field</div><span class="price">$168</span><span class="rating">4.6</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">DAC-ready IEM</h3><div class="pcard-vendor">Quay & Co.</div><span class="price">$395</span><span class="rating">4.9</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1606400082777-ef05f3c5e0c4?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Travel buds · leather case</h3><div class="pcard-vendor">Halen Goods</div><span class="price">$240</span><span class="rating">4.3</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1599669454699-248893623440?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Pebble buds · ivory</h3><div class="pcard-vendor">Sundry Audio</div><span class="price">$189</span><span class="rating">4.7</span></div></a>
+            <a class="pcard vc" href="/shop/product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1655720828018-7461f09a06e2?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Mono band · single bud</h3><div class="pcard-vendor">North Field</div><span class="price">$84</span><span class="rating">4.2</span></div></a>
+          </div>
+
+          <!-- pagination -->
+          <div style="display:flex;justify-content:center;gap:6px;margin:48px 0 0;align-items:center">
+            <button class="icon-btn" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 6-6 6 6 6"/></svg></button>
+            <button class="icon-btn" style="background:var(--text);color:var(--bg);font-family:var(--font-mono);width:40px">1</button>
+            <button class="icon-btn" style="font-family:var(--font-mono)">2</button>
+            <button class="icon-btn" style="font-family:var(--font-mono)">3</button>
+            <span style="color:var(--text-muted);padding:0 8px">…</span>
+            <button class="icon-btn" style="font-family:var(--font-mono)">7</button>
+            <button class="icon-btn" aria-label="Next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <a href="/shop/category.html" class="ad-banner">
+        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=1400&q=80" alt="" />
+        <div class="ad-overlay">
+          <span class="ad-label">Summer Sale</span>
+          <h3 class="ad-title">Up to 40% off everything</h3>
+          <p class="ad-desc">Premium audio, fashion &amp; home — limited stock. Use code <strong style="color:white">SUNNY40</strong> at checkout.</p>
+          <span class="ad-cta">Shop the sale →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

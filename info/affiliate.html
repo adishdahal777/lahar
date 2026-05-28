@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Affiliate Program · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .af-hero {
+    background: linear-gradient(150deg, #1A0A0A 0%, #3B1212 30%, #1A1814 70%, #0F0C08 100%);
+    color: white; padding: 0; position: relative; overflow: hidden;
+  }
+  .af-hero::before {
+    content: '';
+    position: absolute; top: -40%; left: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(220,38,38,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .af-hero .wrap {
+    padding: 104px 32px 88px;
+    position: relative; z-index: 1;
+  }
+  .af-hero .af-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: var(--r-pill);
+    background: rgba(220,38,38,0.12);
+    border: 1px solid rgba(220,38,38,0.15);
+    font-size: 11px; color: #FB7171;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .af-hero h1 {
+    font-size: clamp(22px, 2.8vw, 34px); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 18px;
+    max-width: 720px;
+  }
+  .af-hero h1 .hl { color: var(--brand); }
+  .af-hero p {
+    font-size: 17px; color: rgba(255,255,255,0.5);
+    max-width: 540px; line-height: 1.7; margin: 0 0 32px;
+  }
+  .af-hero .af-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 32px; border-radius: var(--r-md);
+    background: var(--brand); color: white;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: background var(--t), transform var(--t), box-shadow var(--t);
+  }
+  .af-hero .af-cta:hover { background: var(--brand-hover); transform: translateY(-2px); box-shadow: var(--shadow-brand); }
+
+  .af-how {
+    padding: 64px 0;
+    background: var(--surface);
+  }
+  .af-how .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .af-how .afh-header { text-align: center; margin-bottom: 48px; }
+  .af-how .afh-header h2 { font-size: clamp(28px,3vw,38px); margin-bottom: 8px; }
+  .af-how .afh-header p { font-size: var(--text-base); color: var(--text-soft); max-width: 520px; margin: 0 auto; }
+  .afh-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+    position: relative;
+  }
+  @media(max-width: 720px) { .afh-steps { grid-template-columns: 1fr; } }
+  .afh-step {
+    text-align: center; padding: 32px 24px;
+    position: relative;
+  }
+  .afh-step .afh-circle {
+    width: 64px; height: 64px; margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 24px; font-weight: 700;
+    position: relative;
+  }
+  .afh-step .afh-circle.s1 { background: color-mix(in oklab, var(--brand) 12%, transparent); color: var(--brand); }
+  .afh-step .afh-circle.s2 { background: color-mix(in oklab, var(--violet) 12%, transparent); color: var(--violet); }
+  .afh-step .afh-circle.s3 { background: color-mix(in oklab, var(--ok) 12%, transparent); color: var(--ok); }
+  .afh-step h3 { font-size: 18px; font-weight: 600; margin: 0 0 8px; }
+  .afh-step p { font-size: var(--text-base); color: var(--text-soft); margin: 0; line-height: 1.6; max-width: 320px; margin: 0 auto; }
+  .afh-step .afh-arrow {
+    position: absolute; top: 48px; right: -20px;
+    color: var(--border-strong);
+  }
+  .afh-step:last-child .afh-arrow { display: none; }
+  @media(max-width: 720px) { .afh-step .afh-arrow { display: none; } }
+
+  .af-why {
+    padding: 64px 0;
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .af-why .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .af-why h2 { text-align: center; font-size: clamp(28px,3vw,38px); margin-bottom: 8px; }
+  .af-why > .wrap > p { text-align: center; font-size: var(--text-base); color: var(--text-soft); margin: 0 0 36px; }
+  .afw-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width: 720px) { .afw-grid { grid-template-columns: 1fr; } }
+  .afw-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--r-xl); padding: 32px 28px;
+    transition: transform var(--t), box-shadow var(--t);
+  }
+  .afw-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .afw-card .afw-icon {
+    width: 48px; height: 48px; border-radius: var(--r-lg);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .afw-card .afw-icon.c1 { background: color-mix(in oklab, var(--brand) 12%, transparent); color: var(--brand); }
+  .afw-card .afw-icon.c2 { background: color-mix(in oklab, var(--accent) 12%, transparent); color: var(--accent); }
+  .afw-card .afw-icon.c3 { background: color-mix(in oklab, var(--ok) 12%, transparent); color: var(--ok); }
+  .afw-card h3 { font-size: 18px; font-weight: 600; margin: 0 0 8px; }
+  .afw-card p { font-size: var(--text-base); color: var(--text-soft); margin: 0; line-height: 1.6; }
+  .afw-card .afw-highlight {
+    font-size: 32px; font-weight: 700;
+    font-family: var(--font-display);
+    line-height: 1; margin-bottom: 4px;
+  }
+  .afw-card .afw-highlight.h1 { color: var(--brand); }
+
+  .af-who {
+    padding: 64px 0;
+    background: var(--surface);
+  }
+  .af-who .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .af-who .afw-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap); align-items: center;
+  }
+  @media(max-width: 720px) { .af-who .afw-grid-2 { grid-template-columns: 1fr; } }
+  .af-who h2 { font-size: clamp(28px,3vw,38px); margin-bottom: 16px; }
+  .af-who p { font-size: 15px; color: var(--text-soft); line-height: 1.7; margin: 0 0 14px; }
+  .af-who p:last-child { margin-bottom: 0; }
+  .af-who .afw-list {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: var(--r-xl); padding: 32px;
+  }
+  .af-who .afw-list h4 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--text-muted); margin-bottom: 16px;
+  }
+  .af-who .afw-list ul { list-style: none; padding: 0; margin: 0; }
+  .af-who .afw-list li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: 14px; color: var(--text-soft);
+  }
+  .af-who .afw-list li:last-child { border-bottom: 0; }
+  .af-who .afw-list li svg { color: var(--ok); flex-shrink: 0; }
+
+  .af-cta-sec {
+    padding: 64px 0;
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+  }
+  .af-cta-sec .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .af-cta-card {
+    background: linear-gradient(135deg, #1A1814 0%, #2A1F18 100%);
+    border-radius: var(--r-xl);
+    padding: 56px 48px;
+    text-align: center;
+    color: white;
+  }
+  .af-cta-card h3 { font-size: clamp(28px,3vw,38px); color: white; margin: 0 0 8px; }
+  .af-cta-card p { font-size: 16px; color: rgba(255,255,255,0.5); margin: 0 0 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .af-cta-card .af-apply {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 36px; border-radius: var(--r-md);
+    background: var(--brand); color: white;
+    font-size: 16px; font-weight: 600; text-decoration: none;
+    transition: background var(--t), transform var(--t);
+  }
+  .af-cta-card .af-apply:hover { background: var(--brand-hover); transform: translateY(-2px); }
+  .af-cta-card .af-cta-note { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 16px; }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+<main>
+
+  <section class="af-hero">
+    <div class="wrap">
+      <div class="af-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Affiliate program
+      </div>
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Affiliate Program</span></div>
+      <h1>Earn <span class="hl">10%</span> on every<br />sale you refer.</h1>
+      <p>Join the Lahar Affiliate Program. Share products you love, earn commission on every purchase — no inventory, no overhead, no guesswork.</p>
+      <a href="/info/contact.html" class="af-cta">
+        Apply to join
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="af-how">
+    <div class="wrap">
+      <div class="afh-header">
+        <h2>How it works</h2>
+        <p>Three simple steps to start earning commission on every sale you refer.</p>
+      </div>
+      <div class="afh-steps">
+        <div class="afh-step">
+          <div class="afh-circle s1">1</div>
+          <h3>Sign up</h3>
+          <p>Fill out our quick application form. Tell us about your platform, audience, and what you love about Lahar.</p>
+          <span class="afh-arrow">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+        <div class="afh-step">
+          <div class="afh-circle s2">2</div>
+          <h3>Share your link</h3>
+          <p>Get your unique affiliate link and share it with your audience — on your blog, newsletter, social media, or anywhere else.</p>
+          <span class="afh-arrow">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+        <div class="afh-step">
+          <div class="afh-circle s3">3</div>
+          <h3>Earn commission</h3>
+          <p>When someone clicks your link and makes a purchase, you earn 10% of the order total — including shipping and upsells.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="af-why">
+    <div class="wrap">
+      <h2>Why join</h2>
+      <p>Everything you need to succeed as a Lahar affiliate.</p>
+      <div class="afw-grid">
+        <div class="afw-card">
+          <div class="afw-icon c1">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div class="afw-highlight h1">10%</div>
+          <h3>Commission</h3>
+          <p>Earn 10% on every sale, including upsells and repeat purchases from your referrals within 30 days. No caps, no tiers.</p>
+        </div>
+        <div class="afw-card">
+          <div class="afw-icon c2">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Real-time tracking</h3>
+          <p>Your own dashboard shows clicks, conversions, and earnings updated in real time. Know exactly what's working and what's not.</p>
+        </div>
+        <div class="afw-card">
+          <div class="afw-icon c3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Monthly payouts</h3>
+          <p>Commission is paid out every month via PayPal or bank transfer. Minimum payout threshold is just $50 — you'll reach it fast.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="af-who">
+    <div class="wrap">
+      <div class="afw-grid-2">
+        <div>
+          <h2>Who can join?</h2>
+          <p>Bloggers, content creators, newsletter writers, influencers, and anyone with an engaged audience who loves quality design and slow commerce.</p>
+          <p>We don't require a minimum follower count — we care about fit, not size. Whether you have 500 or 50,000 subscribers, if your audience aligns with our values, we'd love to work with you.</p>
+          <p>Our best affiliates are people who genuinely love Lahar and share our mission of slow commerce. You don't need to be a professional marketer — just someone who believes in buying better.</p>
+        </div>
+        <div class="afw-list">
+          <h4>You're a great fit if...</h4>
+          <ul>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              You have an active blog, newsletter, or social following
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Your audience cares about design, quality, and sustainability
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              You believe in slow commerce and ethical consumption
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              You're excited to share products with real stories behind them
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="af-cta-sec">
+    <div class="wrap">
+      <div class="af-cta-card">
+        <h3>Ready to start?</h3>
+        <p>Send us a quick message telling us about your platform and audience. We review every application personally and respond within 48 hours.</p>
+        <a href="/info/contact.html" class="af-apply">
+          Apply now
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <div class="af-cta-note">Already an affiliate? <a href="/account/signin.html" style="color:rgba(255,255,255,0.6);text-decoration:underline">Sign in to your dashboard</a></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Accessibility · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  .a11y-hero {
+    background: linear-gradient(160deg, #1A1814 0%, #14181A 35%, #0B0A08 100%);
+    color: white; padding: 0; position: relative; overflow: hidden;
+  }
+  .a11y-hero::before {
+    content: ''; position: absolute; top: -30%; left: -5%;
+    width: 450px; height: 450px;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in oklab, #38BDF8 8%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .a11y-hero .wrap { padding: 80px 32px 72px; position: relative; }
+  .a11y-hero .a11y-hero-icon {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  }
+  .a11y-hero .a11y-hero-icon svg { width: 28px; height: 28px; color: #38BDF8; }
+  .a11y-hero .a11y-hero-icon span {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em;
+    color: color-mix(in oklab, #38BDF8 70%, transparent);
+  }
+  .a11y-hero h1 { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 34px); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; margin: 0 0 10px; }
+  .a11y-hero p { font-size: var(--text-md); color: rgba(255,255,255,.5); margin: 0; max-width: 520px; }
+
+  .a11y-section { padding: 56px 0; }
+  .a11y-section.alt { background: color-mix(in oklab, var(--surface-2) 60%, var(--surface)); }
+  .a11y-section h2 {
+    font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+    margin: 0 0 20px; letter-spacing: -.01em; color: var(--text);
+  }
+  .a11y-section h2 svg { width: 22px; height: 22px; color: var(--info); flex-shrink: 0; }
+  .a11y-section p { font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0 0 14px; }
+  .a11y-section p:last-child { margin-bottom: 0; }
+
+  .a11y-commit {
+    background: linear-gradient(135deg, color-mix(in oklab, var(--info) 6%, var(--surface)), var(--surface));
+    border: 1px solid color-mix(in oklab, var(--info) 20%, var(--border));
+    border-radius: var(--r-xl); padding: 36px 40px;
+    text-align: center;
+  }
+  .a11y-commit svg { width: 32px; height: 32px; color: var(--info); margin-bottom: 12px; }
+  .a11y-commit h3 { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 700; margin: 0 0 8px; }
+  .a11y-commit p { font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0 auto; max-width: 680px; }
+
+  .a11y-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
+  @media (max-width: 960px) { .a11y-grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .a11y-grid-4 { grid-template-columns: 1fr; } }
+  .a11y-wcag-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 24px; text-align: center;
+    transition: box-shadow var(--t), transform var(--t);
+  }
+  .a11y-wcag-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+  .a11y-wcag-card .wcag-icon { margin-bottom: 12px; }
+  .a11y-wcag-card .wcag-icon svg { width: 28px; height: 28px; color: var(--info); }
+  .a11y-wcag-card h3 { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin: 0 0 6px; }
+  .a11y-wcag-card p { font-size: var(--text-sm); line-height: 1.6; color: var(--text-soft); margin: 0; }
+
+  .a11y-effort-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 28px; display: flex; gap: 20px; align-items: flex-start;
+  }
+  @media (max-width: 600px) { .a11y-effort-card { flex-direction: column; } }
+  .a11y-effort-card svg { width: 24px; height: 24px; color: var(--ok); flex-shrink: 0; margin-top: 2px; }
+  .a11y-effort-card h3 { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; margin: 0 0 6px; }
+  .a11y-effort-card p { font-size: var(--text-base); line-height: 1.7; color: var(--text-soft); margin: 0 0 6px; }
+  .a11y-effort-card ul { list-style: none; padding: 0; margin: 8px 0 0; }
+  .a11y-effort-card ul li {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 6px 0; font-size: var(--text-sm); line-height: 1.6; color: var(--text-soft);
+  }
+  .a11y-effort-card ul li::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--ok); flex-shrink: 0; margin-top: 8px;
+  }
+
+  .a11y-feedback {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap);
+  }
+  @media (max-width: 720px) { .a11y-feedback { grid-template-columns: 1fr; } }
+  .a11y-feedback-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 28px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .a11y-feedback-card svg { width: 22px; height: 22px; color: var(--brand); flex-shrink: 0; margin-top: 2px; }
+  .a11y-feedback-card h3 { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin: 0 0 4px; }
+  .a11y-feedback-card p { font-size: var(--text-sm); line-height: 1.6; color: var(--text-soft); margin: 0; }
+  .a11y-feedback-card a { color: var(--brand); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div data-partial="header"></div>
+
+<main>
+
+  <section class="a11y-hero">
+    <div class="wrap">
+      <div class="a11y-hero-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="6" r="2.5"/><path d="M6 12l4 2 2 6 2-6 4-2"/></svg>
+        <span>Inclusive Design</span>
+      </div>
+      <div class="crumbs" style="margin-bottom:10px"><a href="/">Home</a><span class="sep">/</span><span>Accessibility</span></div>
+      <h1>Accessibility</h1>
+      <p>Making Lahar usable for everyone.</p>
+    </div>
+  </section>
+
+  <section class="a11y-section">
+    <div class="wrap">
+      <div class="a11y-commit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h3>Our commitment to accessibility</h3>
+        <p>Lahar is committed to ensuring digital accessibility for people of all abilities. We are actively working to conform to WCAG 2.1 Level AA standards and believe that great design is inclusive design. Accessibility is not a checklist — it is a continuous practice embedded in our design system, development workflow, and quality assurance process.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="a11y-section alt">
+    <div class="wrap">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> WCAG 2.1 principles</h2>
+      <div class="a11y-grid-4">
+        <div class="a11y-wcag-card">
+          <div class="wcag-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Perceivable</h3>
+          <p>All non-text content has text alternatives. Videos include captions and transcripts. Content adapts to different screen sizes and orientations without loss of information.</p>
+        </div>
+        <div class="a11y-wcag-card">
+          <div class="wcag-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+          </div>
+          <h3>Operable</h3>
+          <p>All functionality is available via keyboard. Users have sufficient time to read content. No content flashes more than three times per second. Navigation is consistent and predictable.</p>
+        </div>
+        <div class="a11y-wcag-card">
+          <div class="wcag-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3>Understandable</h3>
+          <p>Text content is readable and uses plain language. Navigation and interactive elements behave predictably. Input fields provide clear labels and helpful error suggestions.</p>
+        </div>
+        <div class="a11y-wcag-card">
+          <div class="wcag-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <h3>Robust</h3>
+          <p>Our platform is built with semantic HTML and ARIA landmarks. Content is compatible with current and future assistive technologies including screen readers, switch devices, and voice control.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="a11y-section">
+    <div class="wrap">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Ongoing efforts</h2>
+      <div class="a11y-effort-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        <div>
+          <h3>What we're doing — and what we test</h3>
+          <p>Accessibility is built into every phase of our product development. Our design system enforces minimum colour contrast ratios (4.5:1 for normal text, 3:1 for large text). We test regularly with:</p>
+          <ul>
+            <li>Screen readers: VoiceOver (macOS, iOS), NVDA (Windows), and ChromeVox</li>
+            <li>Keyboard-only navigation — full tab order, skip links, and focus indicators</li>
+            <li>System font scaling up to 200% without loss of functionality</li>
+            <li>Reduced motion, high contrast, and dark mode preferences</li>
+            <li>Automated accessibility audits running on every pull request via axe-core</li>
+            <li>Quarterly manual audits by an external accessibility consultant</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="a11y-section alt">
+    <div class="wrap">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Feedback</h2>
+      <div class="a11y-feedback">
+        <div class="a11y-feedback-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          <div>
+            <h3>Report an issue</h3>
+            <p>If you encounter any accessibility barriers on Lahar — a confusing form, an unlabeled button, or content that's hard to read — please let us know. Every report helps us improve.</p>
+            <p style="margin-top:8px"><a href="mailto:accessibility@laharhub.com">accessibility@laharhub.com</a></p>
+          </div>
+        </div>
+        <div class="a11y-feedback-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <div>
+            <h3>Response commitment</h3>
+            <p>We acknowledge all accessibility reports within <strong>48 hours</strong>. Critical issues affecting core functionality are triaged within 24 hours and patched within 5 business days. We'll keep you updated on our progress every step of the way.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="/js/partials.js"></script>
+</body>
+</html>
