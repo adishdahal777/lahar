@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Order history · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+  .ord-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+  .ord-tabs .tab { padding: 14px 20px; font-size: 14px; font-weight: 500; color: var(--text-soft); border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; }
+  .ord-tabs .tab.on { color: var(--text); border-color: var(--brand); font-weight: 600; }
+  .ord-tabs .tab .count { font-family: var(--font-mono); font-size: 12px; margin-left: 4px; color: var(--text-muted); font-weight: 400; }
+  .ord-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    margin-bottom: 16px;
+    transition: border var(--t), box-shadow var(--t);
+  }
+  .ord-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
+  .ord-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+    gap: 16px; flex-wrap: wrap;
+  }
+  .ord-head .left { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .ord-head .ord-id { font-family: var(--font-mono); font-size: 14px; font-weight: 700; }
+  .ord-head .ord-date { font-size: 13px; color: var(--text-muted); }
+  .ord-head .ord-status { display: flex; align-items: center; gap: 6px; }
+  .ord-body { padding: 20px 24px; }
+  .ord-item { display: flex; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .ord-item:last-child { border-bottom: 0; }
+  .ord-item .thumb { width: 56px; aspect-ratio: 1; border-radius: var(--r-md); overflow: hidden; background: var(--surface-3); flex: none; }
+  .ord-item .thumb img { width:100%; height:100%; object-fit:cover; }
+  .ord-item .info { flex: 1; }
+  .ord-item .info .name { font-weight: 600; font-size: 14px; }
+  .ord-item .info .var { font-size: 12px; color: var(--text-muted); }
+  .ord-item .qty { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); }
+  .ord-item .price { font-family: var(--font-mono); font-weight: 700; font-size: 14px; }
+  .ord-foot {
+    padding: 14px 24px;
+    border-top: 1px solid var(--border);
+    background: var(--surface-2);
+    display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .ord-foot .total { font-family: var(--font-mono); font-weight: 700; font-size: 15px; }
+  .ord-foot .actions { display: flex; gap: 8px; }
+  .ord-status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: var(--r-pill); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
+  .ord-status-badge.delivered { background: color-mix(in oklab, var(--ok) 12%, transparent); color: var(--ok); }
+  .ord-status-badge.shipped { background: color-mix(in oklab, var(--info) 12%, transparent); color: var(--info); }
+  .ord-status-badge.processing { background: color-mix(in oklab, var(--warning) 12%, transparent); color: var(--warning); }
+  .ord-empty { text-align: center; padding: 80px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); }
+  .ord-empty .icon { width: 56px; height: 56px; border-radius: 50%; background: var(--surface-3); display: grid; place-items: center; margin: 0 auto 16px; }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+
+<main style="padding:32px 0 64px">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a><span class="sep">/</span><a href="profile.html">Profile</a><span class="sep">/</span><span>Order history</span></div>
+    <h1 style="margin:18px 0 6px">Order history</h1>
+    <p style="color:var(--text-muted);margin-bottom:24px">12 orders placed · 6 delivered this year</p>
+
+    <div class="ord-tabs">
+      <div class="tab on">All orders <span class="count">12</span></div>
+      <div class="tab">To receive <span class="count">3</span></div>
+      <div class="tab">Delivered <span class="count">6</span></div>
+      <div class="tab">Cancelled <span class="count">1</span></div>
+      <div class="tab">Returns <span class="count">2</span></div>
+    </div>
+
+    <div class="ord-card">
+      <div class="ord-head">
+        <div class="left">
+          <span class="ord-id">#LAH-4821</span>
+          <span class="ord-date">Placed May 22, 2026</span>
+          <span class="ord-status"><span class="ord-status-badge shipped">Shipped</span></span>
+        </div>
+        <div class="ord-eta" style="font-size:13px;color:var(--text-soft)">Arrives Tue, Jun 2</div>
+      </div>
+      <div class="ord-body">
+        <div class="ord-item">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=120&q=80" alt=""/></div>
+          <div class="info"><div class="name">Pebble buds Pro · ANC</div><div class="var">Onyx · Medium tips · +3yr warranty</div></div>
+          <span class="qty">×1</span>
+          <span class="price">$296</span>
+        </div>
+        <div class="ord-item">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=120&q=80" alt=""/></div>
+          <div class="info"><div class="name">Studio 60 over-ear · matte</div><div class="var">Sand · XLR 3m</div></div>
+          <span class="qty">×1</span>
+          <span class="price">$329</span>
+        </div>
+      </div>
+      <div class="ord-foot">
+        <div class="actions">
+          <a href="order-tracking.html" class="btn btn-primary btn-sm">Track order</a>
+          <a href="#" class="btn btn-secondary btn-sm">View invoice</a>
+          <a href="#" class="btn btn-ghost btn-sm">Get help</a>
+        </div>
+        <div>Order total · <span class="total">$625.00</span></div>
+      </div>
+    </div>
+
+    <div class="ord-card">
+      <div class="ord-head">
+        <div class="left">
+          <span class="ord-id">#LAH-4750</span>
+          <span class="ord-date">Placed May 14, 2026</span>
+          <span class="ord-status"><span class="ord-status-badge processing">Processing</span></span>
+        </div>
+        <div class="ord-eta" style="font-size:13px;color:var(--text-soft)">Est. shipping Jun 10</div>
+      </div>
+      <div class="ord-body">
+        <div class="ord-item">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=120&q=80" alt=""/></div>
+          <div class="info"><div class="name">Ceramic table vase · S</div><div class="var">Ash glaze · 12cm · ×2</div></div>
+          <span class="qty">×2</span>
+          <span class="price">$112</span>
+        </div>
+      </div>
+      <div class="ord-foot">
+        <div class="actions">
+          <a href="order-tracking.html" class="btn btn-primary btn-sm">Track order</a>
+          <a href="#" class="btn btn-secondary btn-sm">View invoice</a>
+        </div>
+        <div>Order total · <span class="total">$130.00</span></div>
+      </div>
+    </div>
+
+    <div class="ord-card">
+      <div class="ord-head">
+        <div class="left">
+          <span class="ord-id">#LAH-4682</span>
+          <span class="ord-date">Placed May 2, 2026</span>
+          <span class="ord-status"><span class="ord-status-badge delivered">Delivered</span></span>
+        </div>
+        <div style="font-size:13px;color:var(--text-soft)">Delivered May 12</div>
+      </div>
+      <div class="ord-body">
+        <div class="ord-item">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=120&q=80" alt=""/></div>
+          <div class="info"><div class="name">Field runner · oat</div><div class="var">US 10 · Wide</div></div>
+          <span class="qty">×1</span>
+          <span class="price">$148</span>
+        </div>
+      </div>
+      <div class="ord-foot">
+        <div class="actions">
+          <a href="#" class="btn btn-secondary btn-sm">Buy again</a>
+          <a href="#" class="btn btn-secondary btn-sm">Write a review</a>
+          <a href="#" class="btn btn-ghost btn-sm">View invoice</a>
+        </div>
+        <div>Order total · <span class="total">$148.00</span></div>
+      </div>
+    </div>
+
+    <div class="ord-card">
+      <div class="ord-head">
+        <div class="left">
+          <span class="ord-id">#LAH-4621</span>
+          <span class="ord-date">Placed Apr 18, 2026</span>
+          <span class="ord-status"><span class="ord-status-badge delivered">Delivered</span></span>
+        </div>
+        <div style="font-size:13px;color:var(--text-soft)">Delivered Apr 28</div>
+      </div>
+      <div class="ord-body">
+        <div class="ord-item">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=120&q=80" alt=""/></div>
+          <div class="info"><div class="name">Hand-thrown mug · clay</div><div class="var">Matte · 350ml</div></div>
+          <span class="qty">×2</span>
+          <span class="price">$56</span>
+        </div>
+        <div class="ord-item">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=120&q=80" alt=""/></div>
+          <div class="info"><div class="name">Brass candlestick</div><div class="var">Tall</div></div>
+          <span class="qty">×1</span>
+          <span class="price">$72</span>
+        </div>
+      </div>
+      <div class="ord-foot">
+        <div class="actions">
+          <a href="#" class="btn btn-secondary btn-sm">Buy again</a>
+          <a href="#" class="btn btn-secondary btn-sm">Write a review</a>
+          <a href="#" class="btn btn-ghost btn-sm">View invoice</a>
+        </div>
+        <div>Order total · <span class="total">$128.00</span></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px">
+      <button class="btn btn-secondary">Load 8 more orders</button>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap">
+      <a href="category.html" class="ad-banner-sm">
+        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=80" alt="" />
+        <div class="ad-overlay">
+          <span class="ad-label">Flash Sale</span>
+          <div class="ad-title">Up to 40% off — 24 hours only</div>
+          <span class="ad-cta">Shop now →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="js/partials.js"></script>
+</body>
+</html>

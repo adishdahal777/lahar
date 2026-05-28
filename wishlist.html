@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Wishlist · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+  .wl-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; align-items: flex-start; }
+  @media (max-width: 880px) { .wl-layout { grid-template-columns: 1fr; } }
+  .wl-empty {
+    text-align: center; padding: 80px 32px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+  }
+  .wl-empty .icon { width: 56px; height: 56px; border-radius: 50%; background: var(--brand-tint); color: var(--brand); display: grid; place-items: center; margin: 0 auto 16px; }
+  .wl-empty h2 { font-size: 24px; margin: 0 0 8px; }
+  .wl-empty p { color: var(--text-muted); max-width: 360px; margin: 0 auto 24px; }
+  .wl-share { display: flex; gap: 8px; margin-top: 24px; padding: 14px 18px; background: var(--surface-2); border-radius: var(--r-md); }
+  .wl-share input { flex: 1; border: 0; background: transparent; font-size: 13px; font-family: var(--font-mono); outline: 0; }
+  .wl-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+  .wl-actions { display: flex; gap: 8px; }
+  .wl-item { display: grid; grid-template-columns: 100px 1fr auto; gap: 20px; padding: 20px; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .wl-item:last-child { border-bottom: 0; }
+  .wl-img { aspect-ratio: 1; border-radius: var(--r-md); overflow: hidden; background: var(--surface-3); }
+  .wl-img img { width:100%; height:100%; object-fit: cover; }
+  .wl-info .title { font-family: var(--font-display); font-weight: 600; font-size: 16px; margin: 0 0 4px; }
+  .wl-info .var { font-size: 12px; color: var(--text-muted); }
+  .wl-info .price { font-family: var(--font-mono); font-weight: 700; font-size: 16px; margin-top: 4px; display: block; }
+  .wl-info .price-strike { font-size: 12px; color: var(--text-muted); text-decoration: line-through; margin-left: 6px; font-family: var(--font-mono); }
+  .wl-info .stock { font-size: 12px; margin-top: 6px; display: inline-flex; align-items: center; gap: 4px; }
+  .wl-info .stock.ok { color: var(--ok); }
+  .wl-info .stock.low { color: var(--warning); }
+  .wl-info .stock.out { color: var(--danger); }
+  .wl-actions-row { display: flex; gap: 14px; margin-top: 10px; font-size: 12px; }
+  .wl-actions-row a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
+  .wl-actions-row a:hover { color: var(--text); }
+  .wl-side { position: sticky; top: 92px; }
+  .wl-side-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; margin-bottom: 16px; }
+  .wl-side-card .num { font-family: var(--font-mono); font-size: 40px; font-weight: 700; line-height: 1; }
+  .wl-side-card .lab { font-size: 13px; color: var(--text-muted); }
+  .wl-folder { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--border); border-radius: var(--r-md); cursor: pointer; }
+  .wl-folder.on { border-color: var(--text); background: var(--surface-2); }
+  .wl-folder .f-icon { width: 36px; height: 36px; border-radius: var(--r-sm); background: var(--surface-3); display: grid; place-items: center; }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+
+<main style="padding:32px 0 64px">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Wishlist</span></div>
+    <h1 style="margin:18px 0 6px">Your wishlist</h1>
+    <p style="color:var(--text-muted);margin-bottom:32px">4 items saved · 2 expiring soon</p>
+
+    <div class="wl-layout">
+      <div>
+        <div class="wl-head">
+          <div style="display:flex;gap:12px;align-items:center">
+            <span class="chip on">All items (4)</span>
+            <span class="chip">Favorites (2)</span>
+            <span class="chip">For later (2)</span>
+          </div>
+          <div class="wl-actions">
+            <button class="btn btn-secondary btn-sm">Sort</button>
+            <button class="btn btn-secondary btn-sm">Select</button>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden">
+          <div class="wl-item">
+            <div class="wl-img"><img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=200&q=80" alt=""/></div>
+            <div class="wl-info">
+              <h3 class="title">Pebble buds Pro · ANC</h3>
+              <div class="var">Onyx · Medium tips · +3yr warranty</div>
+              <span><span class="price">$278</span><span class="price-strike">$348</span></span>
+              <div class="stock ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5L20 7"/></svg> In stock</div>
+              <div class="wl-actions-row">
+                <a href="cart.html">Move to cart</a>
+                <a href="#">Share</a>
+                <a href="#" style="color:var(--danger)">Remove</a>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <a href="cart.html" class="btn btn-primary btn-sm">Add to cart</a>
+            </div>
+          </div>
+
+          <div class="wl-item">
+            <div class="wl-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80" alt=""/></div>
+            <div class="wl-info">
+              <h3 class="title">Field runner · oat</h3>
+              <div class="var">Size US 10 · Wide</div>
+              <span class="price">$148</span>
+              <div class="stock low"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> Only 3 left</div>
+              <div class="wl-actions-row">
+                <a href="cart.html">Move to cart</a>
+                <a href="#">Notify when low</a>
+                <a href="#" style="color:var(--danger)">Remove</a>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <a href="cart.html" class="btn btn-primary btn-sm">Add to cart</a>
+            </div>
+          </div>
+
+          <div class="wl-item">
+            <div class="wl-img"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=200&q=80" alt=""/></div>
+            <div class="wl-info">
+              <h3 class="title">Ceramic table vase · S</h3>
+              <div class="var">Ash glaze · 12cm</div>
+              <span><span class="price">$56</span><span class="price-strike">$80</span></span>
+              <div class="stock ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5L20 7"/></svg> Made to order</div>
+              <div class="wl-actions-row">
+                <a href="cart.html">Move to cart</a>
+                <a href="#" style="color:var(--danger)">Remove</a>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <a href="cart.html" class="btn btn-primary btn-sm">Add to cart</a>
+            </div>
+          </div>
+
+          <div class="wl-item">
+            <div class="wl-img"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80" alt=""/></div>
+            <div class="wl-info">
+              <h3 class="title">Studio 60 over-ear · matte</h3>
+              <div class="var">Sand · XLR 3m cable</div>
+              <span class="price">$329</span>
+              <div class="stock out"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 8l8 8M8 16l8-8"/></svg> Sold out</div>
+              <div class="wl-actions-row">
+                <a href="#">Notify when back</a>
+                <a href="#" style="color:var(--danger)">Remove</a>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <span class="badge badge-outline" style="cursor:default">Sold out</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="wl-share">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--text-muted);align-self:center"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.5 13.5 7 4M15.5 6.5l-7 4"/></svg>
+          <input value="lahar.hub/wishlist/priya-4a2b" readonly />
+          <button class="btn btn-secondary btn-sm" style="white-space:nowrap">Copy link</button>
+        </div>
+      </div>
+
+      <div class="wl-side">
+        <div class="wl-side-card">
+          <div class="num">4</div>
+          <div class="lab">Items saved</div>
+          <div style="margin-top:14px;font-size:13px;color:var(--text-soft)">
+            <div style="display:flex;justify-content:space-between;padding:4px 0"><span>Total value</span><span class="mono" style="font-weight:700">$811.00</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0"><span>Potential savings</span><span class="mono" style="color:var(--brand);font-weight:700">−$94.00</span></div>
+          </div>
+          <a href="cart.html" class="btn btn-primary btn-block" style="margin-top:18px">Add all to cart</a>
+        </div>
+        <div class="wl-side-card">
+          <h4 style="font-size:14px;margin:0 0 12px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted)">Collections</h4>
+          <div class="wl-folder on"><span class="f-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h5l2 3h7v11H5V4z"/></svg></span><div><strong>All items</strong><div style="font-size:11px;color:var(--text-muted)">4 items</div></div></div>
+          <div class="wl-folder" style="margin-top:8px"><span class="f-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h5l2 3h7v11H5V4z"/></svg></span><div><strong>Gift ideas</strong><div style="font-size:11px;color:var(--text-muted)">2 items</div></div></div>
+          <div class="wl-folder" style="margin-top:8px"><span class="f-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h5l2 3h7v11H5V4z"/></svg></span><div><strong>Birthday</strong><div style="font-size:11px;color:var(--text-muted)">1 item</div></div></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:10px">+ New collection</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap">
+      <a href="category.html" class="ad-banner">
+        <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=1400&q=80" alt="" />
+        <div class="ad-overlay">
+          <span class="ad-label">Flash Sale</span>
+          <h3 class="ad-title">Items in your wishlist — now on sale</h3>
+          <p class="ad-desc">3 of your saved items dropped in price. Free shipping on orders over $200.</p>
+          <span class="ad-cta">View sale items →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="js/partials.js"></script>
+</body>
+</html>

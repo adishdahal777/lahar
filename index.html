@@ -1,0 +1,2309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Lahar · A curated marketplace</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+<style>
+  /* ── HOME-only ── */
+  .hero { padding: 24px 0 48px; position: relative; }
+  .hero-grid { display: grid; grid-template-columns: 3fr 1fr; gap: 20px; align-items: stretch; }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+
+  /* ── carousel wrapper (75/25 height split) ── */
+  .hero-carousel { display:flex; flex-direction:column; border-radius:var(--r-xl); overflow:hidden; background:var(--surface-3); min-height:400px; }
+
+  /* top 75% — slides */
+  .carousel-slides { position:relative; flex:3; overflow:hidden; min-height:240px; }
+  .hero-slide { position:absolute; inset:0; opacity:0; transition:opacity .6s ease; pointer-events:none; }
+  .hero-slide.active { opacity:1; pointer-events:auto; }
+  .hero-slide img { width:100%; height:100%; object-fit:cover; }
+  .hero-slide-content { position:absolute; inset:0; padding:32px 40px; display:flex; flex-direction:column; justify-content:flex-end; gap:10px; background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.15) 50%,transparent 80%); }
+  .hero-slide-content h2 { font-size:clamp(22px,3vw,38px); line-height:1.04; letter-spacing:-.03em; font-weight:700; margin:0; color:white; max-width:480px; }
+  .hero-slide-content .eyebrow { color:rgba(255,255,255,.7); font-size:11px; text-transform:uppercase; letter-spacing:.12em; font-weight:600; display:inline-flex; align-items:center; gap:6px; }
+  .hero-slide-content .eyebrow::before { content:''; width:5px;height:5px;border-radius:50%;background:var(--brand); }
+  .hero-slide-content p { color:rgba(255,255,255,.8); font-size:13.5px; margin:0; max-width:380px; line-height:1.5; }
+  .hero-slide-content .hero-cta { display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+  .hero-slide-content .btn { border:0; padding:9px 18px; font-size:13px; }
+  .hero-slide-content .btn-primary { background:var(--brand); color:white; }
+  .hero-slide-content .btn-secondary { background:rgba(255,255,255,.18); backdrop-filter:blur(6px); color:white; }
+  .hero-slide-content .btn-secondary:hover { background:rgba(255,255,255,.28); }
+
+  .carousel-arrows { position:absolute; inset:0; z-index:2; pointer-events:none; }
+  .carousel-arrows button { position:absolute; top:50%; transform:translateY(-50%); pointer-events:auto; width:34px; height:34px; border-radius:50%; border:0; background:rgba(255,255,255,.2); backdrop-filter:blur(6px); color:white; cursor:pointer; display:grid; place-items:center; transition:background var(--t); }
+  .carousel-arrows button:hover { background:rgba(255,255,255,.35); }
+  .carousel-arrows .prev { left:12px; }
+  .carousel-arrows .next { right:12px; }
+
+  /* bottom 25% — info bar */
+  .hero-info-bar { flex:1; display:flex; align-items:center; justify-content:space-between; padding:12px 24px; background:var(--surface); border-top:1px solid var(--border); min-height:70px; }
+  .hero-info-bar .carousel-dots { display:flex; gap:8px; }
+  .hero-info-bar .carousel-dots button { width:8px; height:8px; border-radius:50%; border:2px solid var(--border); background:transparent; cursor:pointer; padding:0; transition:all var(--t); }
+  .hero-info-bar .carousel-dots button.active { background:var(--brand); border-color:var(--brand); }
+  .hero-info-stats { display:flex; gap:20px; align-items:center; }
+  .hero-info-stats .stat { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-muted); white-space:nowrap; }
+  .hero-info-stats .stat strong { color:var(--text); font-size:14px; font-family:var(--font-mono); }
+  .hero-info-stats .stat .sep { width:3px;height:3px;border-radius:50%;background:var(--border); }
+
+  /* ── flash stack (3 landscape cards) ── */
+  .flash-stack { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-xl); padding:14px 14px 10px; display:flex; flex-direction:column; gap:8px; }
+  .flash-stack-header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:2px; }
+  .flash-stack-header .label { font-size:10px; text-transform:uppercase; letter-spacing:.12em; font-weight:700; color:var(--brand); display:flex; align-items:center; gap:4px; }
+  .flash-stack-header .mini-timer { display:flex; align-items:center; gap:2px; font-family:var(--font-mono); font-size:13px; font-weight:700; }
+  .flash-stack-header .mini-timer .sep { color:var(--text-muted); margin:0 1px; font-size:11px; }
+
+  .flash-card { display:flex; gap:8px; align-items:center; padding:8px; border-radius:var(--r-md); background:var(--surface-2); transition:background var(--t); cursor:pointer; text-decoration:none; color:inherit; }
+  .flash-card:hover { background:var(--surface-3); }
+  .flash-card .fc-img { width:44px; height:44px; border-radius:var(--r-sm); object-fit:cover; flex-shrink:0; background:var(--surface-3); }
+  .flash-card .fc-body { flex:1; min-width:0; }
+  .flash-card .fc-body .fc-title { font-size:13px; font-weight:600; margin:0 0 2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .flash-card .fc-body .fc-meta { display:flex; align-items:center; gap:8px; }
+  .flash-card .fc-body .fc-meta .fc-price { font-family:var(--font-mono); font-size:15px; font-weight:700; color:var(--brand); }
+  .flash-card .fc-body .fc-meta .fc-strike { font-size:11px; color:var(--text-muted); }
+  .flash-card .fc-body .fc-meta .fc-saved { font-size:10px; font-weight:600; color:var(--ok); }
+  .flash-card .fc-btn { flex-shrink:0; }
+  .flash-card .fc-btn .btn { padding:5px 10px; font-size:11px; }
+
+  /* hero variants */
+  :root[data-hero="editorial"] .hero-grid { grid-template-columns:1fr; }
+  :root[data-hero="editorial"] .flash-stack { display:none; }
+  :root[data-hero="editorial"] .hero-carousel { min-height:360px; }
+  :root[data-hero="editorial"] .carousel-slides { flex:1; }
+  :root[data-hero="editorial"] .hero-slide-content { justify-content:center; align-items:center; text-align:center; background:linear-gradient(to bottom,rgba(0,0,0,.4),rgba(0,0,0,.2)); }
+  :root[data-hero="editorial"] .hero-slide-content h2 { max-width:640px; font-family:var(--font-editorial,serif); font-style:italic; font-weight:500; }
+  :root[data-hero="editorial"] .hero-slide-content p { display:none; }
+  :root[data-hero="editorial"] .hero-info-bar { display:none; }
+
+  :root[data-hero="poster"] .hero { padding:0; }
+  :root[data-hero="poster"] .hero-grid { grid-template-columns:1fr; }
+  :root[data-hero="poster"] .flash-stack { display:none; }
+  :root[data-hero="poster"] .hero-carousel { border-radius:0; min-height:520px; }
+  :root[data-hero="poster"] .carousel-slides { flex:1; }
+  :root[data-hero="poster"] .hero-slide-content { background:linear-gradient(to right,rgba(0,0,0,.65) 0%,rgba(0,0,0,.25) 50%,transparent 80%); justify-content:center; }
+  :root[data-hero="poster"] .hero-slide-content .eyebrow { color:var(--brand); }
+  :root[data-hero="poster"] .hero-slide-content .eyebrow::before { background:var(--brand); }
+  :root[data-hero="poster"] .hero-info-bar { display:none; }
+
+  /* ── hero trust strip ── */
+  .hero-info-strip { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; }
+  .his-item { background:var(--surface); padding:18px 16px; display:flex; align-items:center; gap:12px; }
+  .his-item .his-icon { width:36px; height:36px; border-radius:var(--r-pill); background:var(--surface-2); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .his-item .his-icon svg { width:18px; height:18px; color:var(--brand); display:block; }
+  .his-item .his-body { min-width:0; }
+  .his-item .his-body .his-title { font-size:var(--text-md); font-weight:600; }
+  .his-item .his-body .his-sub { font-size:var(--text-xs); color:var(--text-muted); margin-top:1px; }
+  @media(max-width:900px){ .hero-info-strip { grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:600px){ .hero-info-strip { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:400px){ .hero-info-strip { grid-template-columns:1fr; } }
+
+  /* ── promo banners ── */
+  .promo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap); }
+  @media(max-width:900px){ .promo-grid { grid-template-columns:1fr; } }
+  .promo-card { position:relative; border-radius:var(--r-xl); overflow:hidden; min-height:220px; display:flex; align-items:flex-end; text-decoration:none; color:inherit; background:var(--surface-3); }
+  .promo-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease); }
+  .promo-card:hover img { transform:scale(1.06); }
+  .promo-card .promo-overlay { position:relative; z-index:2; padding:28px 24px; background:linear-gradient(to top,rgba(0,0,0,.7) 0%,rgba(0,0,0,.1) 80%,transparent 100%); width:100%; }
+  .promo-card .promo-label { font-size:var(--text-sm); text-transform:uppercase; letter-spacing:.12em; font-weight:700; color:var(--brand); display:inline-block; margin-bottom:6px; }
+  .promo-card .promo-title { font-size:var(--text-2xl); font-weight:700; color:white; line-height:1.15; letter-spacing:-.02em; margin:0 0 4px; }
+  .promo-card .promo-desc { font-size:var(--text-base); color:rgba(255,255,255,.75); margin:0 0 12px; max-width:280px; line-height:1.4; }
+  .promo-card .promo-cta { font-size:var(--text-base); font-weight:600; color:white; display:inline-flex; align-items:center; gap:6px; border-bottom:1px solid rgba(255,255,255,.4); padding-bottom:2px; transition:border var(--t); }
+  .promo-card:hover .promo-cta { border-color:white; }
+
+  /* ── categories grid ── */
+  .cats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 1100px) { .cats-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px) { .cats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .cg {
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--surface-3);
+    color: white;
+  }
+  .cg img { width:100%; height:100%; object-fit: cover; transition: transform 600ms var(--ease); }
+  .cg:hover img { transform: scale(1.06); }
+  .cg::after { content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.05) 50%, transparent 75%); }
+  .cg-meta {
+    position: absolute; left: 18px; bottom: 16px; z-index: 2;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .cg-name { font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
+  .cg-count { font-family: var(--font-mono); font-size: 11px; opacity: 0.75; }
+
+  /* ── brand carousel ── */
+  .brand-rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 170px;
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .brand-card {
+    scroll-snap-align: start;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    padding: 22px 16px 18px;
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    transition: border var(--t), box-shadow var(--t), transform var(--t);
+    cursor: pointer; text-decoration: none; color: inherit;
+  }
+  .brand-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: var(--border-strong); }
+  .brand-card .b-logo {
+    width: 60px; height: 60px; border-radius: var(--r-pill);
+    object-fit: cover; background: var(--surface-3);
+  }
+  .brand-card .b-name { font-weight: 600; font-size: 14px; text-align: center; line-height: 1.2; }
+  .brand-card .b-count { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+
+  /* ── brand chip style for inline brands ── */
+  .brand-chips {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .brand-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px 8px 10px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; text-decoration: none; color: inherit;
+    transition: border var(--t), background var(--t);
+  }
+  .brand-chip:hover { border-color: var(--text); background: var(--surface-2); }
+  .brand-chip .bc-logo { width: 28px; height: 28px; border-radius: var(--r-pill); object-fit: cover; background: var(--surface-3); }
+  .brand-chip .bc-count { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-left: 2px; }
+
+  /* section header */
+  .sec-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 32px;
+    gap: 24px;
+  }
+  .sec-head .sec-title { font-family: var(--font-display); font-size: clamp(26px, 3vw, 36px); letter-spacing: -0.015em; font-weight: 600; }
+  .sec-head .sec-sub { font-family: var(--font-editorial); font-style: italic; color: var(--text-soft); font-size: 18px; margin-top: 8px; }
+  .sec-head .sec-link {
+    font-size: 13px; font-weight: 600; color: var(--text);
+    display: inline-flex; gap: 6px; align-items: center;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--text);
+  }
+
+  /* compact card section heading */
+  .cat-head { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+  .cat-head .chip.cat-label { font-size:11px; text-transform:uppercase; letter-spacing:0.12em; background:var(--brand); color:white; border-color:var(--brand); pointer-events:none; }
+  .cat-head h3 { font-size:20px; font-weight:600; margin:0; }
+  .cat-head .count { font-family:var(--font-mono); font-size:12px; color:var(--text-muted); margin-left:auto; }
+  .compact-rail { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:var(--gap-sm); }
+  @media (max-width:1100px) { .compact-rail { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+  @media (max-width:720px) { .compact-rail { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:420px) { .compact-rail { grid-template-columns:1fr 1fr; } }
+  .ven-cat-block { margin-bottom:48px; }
+  .ven-cat-block:last-child { margin-bottom:0; }
+  .ven-cat-head { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+  .ven-cat-head .avatar { width:36px; height:36px; }
+  .ven-cat-head .vname { font-weight:600; font-size:15px; }
+  .ven-cat-head .vcount { font-size:12px; color:var(--text-muted); font-family:var(--font-mono); }
+
+  /* ── REELS (TikTok-style) ── */
+  .reels-rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 280px;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .reel {
+    aspect-ratio: 9/16;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: #000;
+    scroll-snap-align: start;
+    display: flex;
+  }
+  .reel > img { width:100%; height:100%; object-fit: cover; position:absolute; inset:0; transition: transform 600ms var(--ease); }
+  .reel:hover > img { transform: scale(1.04); }
+  .reel::after { content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.2) 100%); pointer-events:none; }
+
+  /* top badges */
+  .reel-badges { position:absolute; top:12px; left:12px; z-index:3; display:flex; gap:6px; }
+  .reel-badges .badge { font-size:10px; padding:3px 8px; border-radius:var(--r-pill); }
+
+  /* right action strip (TikTok style) */
+  .reel-actions {
+    position:absolute; right:10px; bottom:140px; z-index:3;
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+  }
+  .reel-actions .ra {
+    display:flex; flex-direction:column; align-items:center; gap:3px;
+    color:white; text-decoration:none;
+  }
+  .reel-actions .ra svg { width:24px; height:24px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.3)); }
+  .reel-actions .ra .rav { font-size:11px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.5); }
+  .reel-actions .ra .avatar { width:36px; height:36px; border-radius:50%; border:2px solid white; object-fit:cover; }
+  .reel-actions .ra .follow { font-size:18px; font-weight:300; color:var(--brand); text-shadow:0 1px 2px rgba(0,0,0,0.4); line-height:1; margin-top:-4px; }
+
+  /* bottom info */
+  .reel-info {
+    position:absolute; left:14px; right:60px; bottom:16px; z-index:3;
+    color:white;
+  }
+  .reel-info .ri-vendor {
+    display:flex; align-items:center; gap:8px; margin-bottom:6px;
+  }
+  .reel-info .ri-vendor .avatar { width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.5); object-fit:cover; }
+  .reel-info .ri-vendor .riname { font-size:13px; font-weight:600; text-shadow:0 1px 4px rgba(0,0,0,0.5); }
+  .reel-info .ri-vendor .rifollow { font-size:10px; font-weight:600; color:var(--brand); margin-left:auto; text-shadow:0 1px 4px rgba(0,0,0,0.5); }
+  .reel-info .ri-desc { font-size:12px; line-height:1.4; margin-bottom:8px; opacity:0.9; text-shadow:0 1px 4px rgba(0,0,0,0.5); }
+  .reel-info .ri-music {
+    display:flex; align-items:center; gap:6px; font-size:11px; opacity:0.7; margin-bottom:10px;
+  }
+  .reel-info .ri-music svg { width:14px; height:14px; }
+  .reel-info .ri-product {
+    display:flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(8px);
+    padding:7px 10px;
+    border-radius:var(--r-md);
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .reel-info .ri-product .rip-img { width:32px; height:32px; border-radius:var(--r-sm); object-fit:cover; background:rgba(255,255,255,0.08); }
+  .reel-info .ri-product .rip-name { font-size:11px; font-weight:600; flex:1; text-shadow:0 1px 2px rgba(0,0,0,0.3); }
+  .reel-info .ri-product .rip-price { font-family:var(--font-mono); font-size:11px; font-weight:700; }
+
+  /* ── AUCTIONS ── */
+  .auct-section { background: linear-gradient(135deg, #1A1814 0%, #0B0A08 100%); color: white; }
+  :root[data-theme="dark"] .auct-section { background: linear-gradient(135deg, #14120F 0%, #0B0A08 100%); }
+  .auct-section .sec-head .sec-title { color: white; }
+  .auct-section .sec-head .sec-sub { color: rgba(255,255,255,0.55); }
+  .auct-section .sec-head .sec-link { color: white; border-bottom-color: rgba(255,255,255,0.4); }
+  .auct {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border var(--t), transform var(--t), box-shadow var(--t);
+    text-decoration: none; color: white;
+  }
+  .auct:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.18); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+  .auct-img { aspect-ratio: 5/4; position: relative; overflow: hidden; background: rgba(255,255,255,0.04); }
+  .auct-img img { width:100%; height:100%; object-fit: cover; transition: transform 600ms var(--ease); }
+  .auct:hover .auct-img img { transform: scale(1.04); }
+  .auct-img::after { content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 50%); }
+  .auct-img .auct-badge { position: absolute; top: 14px; left: 14px; z-index: 2; display:flex; gap:6px; }
+  .auct-img .auct-badge .badge { font-size:10px; padding:4px 10px; border-radius:var(--r-pill); font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+  .auct-img .auct-badge .badge-live { background:var(--brand); color:white; }
+  .auct-img .auct-badge .badge-preview { background:var(--accent); color:white; }
+  .auct-img .auct-bidders {
+    position: absolute; right: 14px; top: 14px; z-index: 2;
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    border-radius: var(--r-pill);
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .auct-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .auct-body .auct-vendor { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.14em; opacity: 0.5; font-weight: 600; }
+  .auct-body .auct-title { font-family: var(--font-display); font-weight: 600; font-size: 15px; letter-spacing: -0.005em; line-height: 1.3; margin: 0; }
+  .auct-body .auct-bar { height: 4px; border-radius: 999px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; margin: 2px 0; }
+  .auct-body .auct-bar > span { position: absolute; left: 0; top: 0; bottom: 0; background: var(--brand); border-radius: inherit; }
+  .auct-body .auct-bar-labels { display: flex; justify-content: space-between; font-size: 10px; font-family: var(--font-mono); opacity: 0.45; }
+  .auct-bid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border-radius: var(--r-md);
+    border: 1px solid rgba(255,255,255,0.06);
+    margin-top: auto;
+  }
+  .auct-bid .l { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.45; font-weight: 600; }
+  .auct-bid .v { font-family: var(--font-mono); font-size: 16px; font-weight: 700; line-height: 1.2; margin-top: 2px; }
+  .auct-bid .v.brand { color: var(--brand); }
+  .auct-btn { width:100%; border-radius: var(--r-md); padding: 10px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: white; cursor: pointer; transition: background var(--t), border var(--t); text-align: center; margin-top: 4px; }
+  .auct-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+  .auct-btn.primary { background: var(--brand); border-color: var(--brand); color: white; }
+  .auct-btn.primary:hover { background: var(--brand-hover); }
+
+  /* Owl Carousel overrides for dark theme auction section */
+  .auct-section .owl-theme .owl-dots .owl-dot span { background:rgba(255,255,255,.2); }
+  .auct-section .owl-theme .owl-dots .owl-dot.active span { background:var(--brand); }
+  .auct-section .owl-theme .owl-nav { position:absolute; top:-48px; right:0; display:flex; gap:8px; }
+  .auct-section .owl-theme .owl-nav button { width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.08) !important; color:white !important; font-size:18px !important; display:flex; align-items:center; justify-content:center; transition:background var(--t); margin:0; }
+  .auct-section .owl-theme .owl-nav button:hover { background:rgba(255,255,255,.2) !important; }
+  .auct-section .owl-theme .owl-nav button.owl-prev,
+  .auct-section .owl-theme .owl-nav button.owl-next { margin:0; }
+  .auct-section .owl-theme .owl-nav .owl-prev { order:1; }
+  .auct-section .owl-theme .owl-nav .owl-next { order:2; }
+  .auct-section .owl-carousel .owl-stage-outer { padding:4px 0; }
+  .auct-section .owl-item .auct { margin:0 6px; }
+
+  /* vendor strip */
+  .ven-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 1100px) { .ven-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .ven-grid { grid-template-columns: 1fr; } }
+  .ven-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    transition: all var(--t);
+    cursor: pointer;
+  }
+  .ven-card:hover { border-color: var(--text); box-shadow: var(--shadow-sm); }
+  .vcard-head { display:flex; align-items:center; gap:12px; padding:20px 20px 0; }
+  .vcard-head .avatar { width:44px; height:44px; flex-shrink:0; }
+  .vcard-head .vh-body { flex:1; min-width:0; }
+  .vcard-head .vname { font-weight:700; font-size:16px; }
+  .vcard-head .vloc { font-size:12px; color:var(--text-muted); font-family:var(--font-mono); margin-top:2px; }
+  .vcard-head .vh-rating { display:flex; align-items:center; gap:4px; font-size:14px; font-weight:700; color:var(--text); }
+  .vcard-head .vh-rating svg { color:var(--warning); width:16px; height:16px; }
+  .vcard-head .vh-follow { padding:5px 14px; border-radius:var(--r-pill); border:1px solid var(--border); background:none; font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; transition:all var(--t); }
+  .vcard-head .vh-follow:hover { border-color:var(--brand); color:var(--brand); }
+  .vcard-bio { font-family:var(--font-editorial); font-style:italic; font-size:13px; color:var(--text-soft); line-height:1.5; margin:0; padding:12px 20px 0; }
+  .vcard-meta { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:10px 20px 0; }
+  .vcard-meta .tag { display:inline-block; padding:3px 10px; border-radius:var(--r-pill); background:var(--surface-3); font-size:10px; font-weight:600; color:var(--text-soft); }
+  .vcard-meta .stat { font-size:12px; color:var(--text-muted); margin-left:auto; }
+  .vcard-meta .stat strong { color:var(--text); font-weight:700; font-family:var(--font-mono); }
+  .vcard-products { padding:14px 20px 0; }
+  .vcard-products .vcp-label { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); font-weight:600; margin-bottom:8px; }
+  .vcard-products .vcp-row { display:flex; gap:8px; flex-wrap:wrap; }
+  .vcard-products .vcp-item { display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; color:inherit; width:80px; text-align:center; }
+  .vcard-products .vcp-item img { width:72px; height:72px; border-radius:var(--r-md); object-fit:cover; background:var(--surface-3); transition:transform var(--t); }
+  .vcard-products .vcp-item img:hover { transform:scale(1.05); }
+  .vcard-products .vcp-item .vcp-name { font-size:10px; font-weight:500; line-height:1.2; color:var(--text-soft); }
+  .vcard-products .vcp-item .vcp-price { font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--text); }
+  .vcard-bottom { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--border); margin-top:14px; }
+  .vcb-reels { padding:14px 20px; border-right:1px solid var(--border); }
+  .vcb-label { display:flex; align-items:center; gap:5px; font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); font-weight:600; margin-bottom:8px; }
+  .vcb-label svg { width:13px; height:13px; flex-shrink:0; }
+  .vcr-row { display:flex; gap:6px; flex-wrap:wrap; }
+  .vcr-row a { position:relative; display:block; text-decoration:none; }
+  .vcr-row img { width:52px; height:52px; border-radius:var(--r-sm); object-fit:cover; background:var(--surface-3); transition:transform var(--t); }
+  .vcr-row img:hover { transform:scale(1.06); }
+  .vcr-row .vcr-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .vcr-row .vcr-play svg { width:16px; height:16px; opacity:0.85; }
+  .vcr-more { font-size:10px; color:var(--text-muted); margin-top:6px; }
+  .vcb-feedback { padding:14px 20px; }
+  .vcf-item { display:flex; gap:8px; }
+  .vcf-avatar { width:24px; height:24px; border-radius:50%; object-fit:cover; flex-shrink:0; margin-top:2px; }
+  .vcf-body { flex:1; min-width:0; }
+  .vcf-text { font-size:11px; color:var(--text-soft); line-height:1.4; }
+  .vcf-text .vcf-name { font-weight:600; color:var(--text); }
+  .vcf-stars { display:flex; gap:1px; margin-top:3px; }
+  .vcf-stars svg { width:12px; height:12px; color:var(--warning); }
+  .pagination {
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    margin-top:28px;
+  }
+  .pagination .icon-btn { width:36px; height:36px; border-radius:var(--r-md); }
+  .pagination .icon-btn:hover { background:var(--surface-3); }
+  .ven-card-click { cursor:pointer; }
+
+  /* editorial story strip */
+  .journal-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:var(--gap); }
+  @media(max-width:900px){ .journal-grid { grid-template-columns:1fr; } }
+  .jc-featured { background:var(--text); border-radius:var(--r-2xl); overflow:hidden; display:flex; flex-direction:column; text-decoration:none; color:var(--bg); transition:box-shadow var(--t), transform var(--t); }
+  .jc-featured:hover { box-shadow:var(--shadow-lg); transform:translateY(-2px); }
+  .jc-featured .jf-img { aspect-ratio:16/10; position:relative; overflow:hidden; background:#000; }
+  .jc-featured .jf-img img { width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease); }
+  .jc-featured:hover .jf-img img { transform:scale(1.04); }
+  .jc-featured .jf-img .jf-tag { position:absolute; top:14px; left:14px; z-index:2; font-size:10px; text-transform:uppercase; letter-spacing:.08em; font-weight:700; padding:4px 12px; border-radius:var(--r-pill); background:var(--brand); color:white; }
+  .jc-featured .jf-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.5),transparent 60%); }
+  .jc-featured .jf-body { padding:28px 28px 30px; display:flex; flex-direction:column; gap:10px; flex:1; }
+  .jc-featured .jf-body .jf-meta { display:flex; gap:14px; font-size:var(--text-xs); color:rgba(255,255,255,.5); font-family:var(--font-mono); }
+  .jc-featured .jf-body h3 { font-family:var(--font-editorial); font-style:italic; font-weight:500; color:var(--bg); font-size:clamp(20px,2.4vw,28px); line-height:1.15; letter-spacing:-.01em; margin:0; }
+  .jc-featured .jf-body p { color:rgba(255,255,255,.65); font-size:var(--text-base); line-height:1.55; margin:0; }
+  .jc-featured .jf-body .jf-author { display:flex; align-items:center; gap:10px; margin-top:auto; padding-top:10px; border-top:1px solid rgba(255,255,255,.08); }
+  .jc-featured .jf-body .jf-author .ja-avatar { width:28px; height:28px; border-radius:50%; object-fit:cover; }
+  .jc-featured .jf-body .jf-author .ja-name { font-size:var(--text-sm); font-weight:600; color:rgba(255,255,255,.85); }
+  .jc-featured .jf-body .jf-author .ja-role { font-size:var(--text-xs); color:rgba(255,255,255,.4); }
+
+  .jc-side { display:flex; flex-direction:column; gap:var(--gap-sm); }
+  .jc-card { display:grid; grid-template-columns:1fr 1.2fr; gap:0; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; text-decoration:none; color:inherit; transition:box-shadow var(--t), transform var(--t); }
+  .jc-card:hover { box-shadow:var(--shadow-sm); transform:translateY(-1px); }
+  .jc-card .jcc-img { aspect-ratio:4/3; overflow:hidden; background:var(--surface-3); }
+  .jc-card .jcc-img img { width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease); }
+  .jc-card:hover .jcc-img img { transform:scale(1.05); }
+  .jc-card .jcc-body { padding:16px 18px; display:flex; flex-direction:column; gap:6px; justify-content:center; }
+  .jc-card .jcc-body .jcc-tag { font-size:9px; text-transform:uppercase; letter-spacing:.1em; font-weight:700; color:var(--brand); }
+  .jc-card .jcc-body h4 { font-size:var(--text-base); font-weight:600; line-height:1.3; margin:0; }
+  .jc-card .jcc-body .jcc-meta { font-size:var(--text-xs); color:var(--text-muted); font-family:var(--font-mono); }
+
+  /* trust strip */
+  .trust {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 28px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+  }
+  @media (max-width: 720px) { .trust { grid-template-columns: 1fr 1fr; } }
+  .trust .t-it { display: flex; gap: 14px; align-items: flex-start; }
+  .trust .t-icon { width: 36px; height: 36px; border-radius: var(--r-sm); background: var(--surface-3); display: grid; place-items: center; flex: none; color: var(--text); }
+  .trust .t-it strong { display: block; font-size: 14px; }
+  .trust .t-it span { font-size: 12px; color: var(--text-muted); line-height: 1.5; display: block; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div data-partial="header"></div>
+
+<main>
+
+  <!-- ── HERO: CAROUSEL(75/25 height) + FLASH STACK ── -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <!-- 75% — Carousel with 75/25 height split -->
+        <div class="hero-carousel" id="heroCarousel">
+          <div class="carousel-slides">
+            <div class="hero-slide active" data-slide="0">
+              <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80" alt="" />
+              <div class="hero-slide-content">
+                <span class="eyebrow">Spring 2026 · The Quiet Edit</span>
+                <h2>A marketplace of considered things.</h2>
+                <p>Fashion, home, and electronics — 12,400 products from 320 independent vendors, each one approved by hand.</p>
+                <div class="hero-cta">
+                  <a href="categories.html" class="btn btn-primary">Start browsing
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </a>
+                  <a href="vendors.html" class="btn btn-secondary">Meet our vendors</a>
+                </div>
+              </div>
+            </div>
+            <div class="hero-slide" data-slide="1">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1200&q=80" alt="" />
+              <div class="hero-slide-content">
+                <span class="eyebrow">New drops · Audio</span>
+                <h2>Hear what you've been missing.</h2>
+                <p>Hand-tuned drivers, machined aluminum — Sundry Audio's latest over-ears land at 25% off this week.</p>
+                <div class="hero-cta">
+                  <a href="category.html" class="btn btn-primary">Shop audio
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="hero-slide" data-slide="2">
+              <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1200&q=80" alt="" />
+              <div class="hero-slide-content">
+                <span class="eyebrow">Ceramics · Murmur Atelier</span>
+                <h2>Made by hand, fired in Kyoto.</h2>
+                <p>Small-batch stoneware from a single kiln. Every piece is one of twelve.</p>
+                <div class="hero-cta">
+                  <a href="category.html" class="btn btn-primary">Explore ceramics
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-arrows">
+              <button class="prev" id="carPrev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></button>
+              <button class="next" id="carNext" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+          <div class="hero-info-bar">
+            <div class="carousel-dots" id="carDots"></div>
+            <div class="hero-info-stats">
+              <span class="stat"><strong>320</strong> Vendors</span>
+              <span class="stat"><span class="sep"></span><strong>12.4k</strong> Products</span>
+              <span class="stat"><span class="sep"></span><strong>38</strong> Countries</span>
+              <span class="stat"><span class="sep"></span><strong>Free</strong> Shipping over $200</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 25% — Flash Stack (5 landscape cards) -->
+        <div class="flash-stack">
+          <div class="flash-stack-header">
+            <span class="label">⚡ Flash sale</span>
+            <span class="mini-timer">Ends in <span id="fh">05</span><span class="sep">:</span><span id="fm">42</span><span class="sep">:</span><span id="fs">18</span></span>
+          </div>
+          <a href="product.html" class="flash-card">
+            <img class="fc-img" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150&q=80" alt="" />
+            <div class="fc-body">
+              <div class="fc-title">Studio 60 over-ear</div>
+              <div class="fc-meta">
+                <span class="fc-price">$229</span>
+                <span class="fc-strike">$329</span>
+                <span class="fc-saved">−30%</span>
+              </div>
+            </div>
+            <span class="fc-btn"><span class="btn btn-primary">→</span></span>
+          </a>
+          <a href="product.html" class="flash-card">
+            <img class="fc-img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=150&q=80" alt="" />
+            <div class="fc-body">
+              <div class="fc-title">Soft field bag · tan</div>
+              <div class="fc-meta">
+                <span class="fc-price">$189</span>
+                <span class="fc-strike">$248</span>
+                <span class="fc-saved">−24%</span>
+              </div>
+            </div>
+            <span class="fc-btn"><span class="btn btn-primary">→</span></span>
+          </a>
+          <a href="product.html" class="flash-card">
+            <img class="fc-img" src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=150&q=80" alt="" />
+            <div class="fc-body">
+              <div class="fc-title">Ceramic vase · S</div>
+              <div class="fc-meta">
+                <span class="fc-price">$42</span>
+                <span class="fc-strike">$56</span>
+                <span class="fc-saved">−25%</span>
+              </div>
+            </div>
+            <span class="fc-btn"><span class="btn btn-primary">→</span></span>
+          </a>
+          <a href="product.html" class="flash-card">
+            <img class="fc-img" src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=150&q=80" alt="" />
+            <div class="fc-body">
+              <div class="fc-title">Linen tee · oatmeal</div>
+              <div class="fc-meta">
+                <span class="fc-price">$39</span>
+                <span class="fc-strike">$54</span>
+                <span class="fc-saved">−28%</span>
+              </div>
+            </div>
+            <span class="fc-btn"><span class="btn btn-primary">→</span></span>
+          </a>
+          <a href="product.html" class="flash-card">
+            <img class="fc-img" src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=150&q=80" alt="" />
+            <div class="fc-body">
+              <div class="fc-title">Pebble buds · wireless</div>
+              <div class="fc-meta">
+                <span class="fc-price">$149</span>
+                <span class="fc-strike">$189</span>
+                <span class="fc-saved">−21%</span>
+              </div>
+            </div>
+            <span class="fc-btn"><span class="btn btn-primary">→</span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRUST STRIP ── -->
+  <section class="tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="hero-info-strip">
+        <div class="his-item">
+          <div class="his-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M15 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M3 4h3l3.68 11.16A2 2 0 0 0 11.6 16H18"/><path d="M16 12V2"/><path d="M13 5l3-3 3 3"/></svg>
+          </div>
+          <div class="his-body">
+            <div class="his-title">Free shipping</div>
+            <div class="his-sub">On orders over $200</div>
+          </div>
+        </div>
+        <div class="his-item">
+          <div class="his-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="his-body">
+            <div class="his-title">30-day returns</div>
+            <div class="his-sub">No questions asked</div>
+          </div>
+        </div>
+        <div class="his-item">
+          <div class="his-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="his-body">
+            <div class="his-title">24/7 support</div>
+            <div class="his-sub">Real humans, real fast</div>
+          </div>
+        </div>
+        <div class="his-item">
+          <div class="his-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div class="his-body">
+            <div class="his-title">Price match</div>
+            <div class="his-sub">We'll beat any price</div>
+          </div>
+        </div>
+        <div class="his-item">
+          <div class="his-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="his-body">
+            <div class="his-title">Secure checkout</div>
+            <div class="his-sub">256-bit encrypted</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROMO BANNERS ── -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="promo-grid">
+        <a href="category.html" class="promo-card">
+          <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=80" alt="" />
+          <div class="promo-overlay">
+            <span class="promo-label">Summer Sale</span>
+            <h3 class="promo-title">Up to 40% off footwear</h3>
+            <p class="promo-desc">Premium sneakers, boots &amp; loafers from our top vendors. Limited stock.</p>
+            <span class="promo-cta">Shop sale →</span>
+          </div>
+        </a>
+        <a href="category.html" class="promo-card">
+          <img src="https://images.unsplash.com/photo-1530229540764-5f6e5957e9b1?w=800&q=80" alt="" />
+          <div class="promo-overlay">
+            <span class="promo-label">New Drops</span>
+            <h3 class="promo-title">Spring 2026 · Audio</h3>
+            <p class="promo-desc">Hand-tuned drivers, bamboo housings, and zero compromises.</p>
+            <span class="promo-cta">Discover →</span>
+          </div>
+        </a>
+        <a href="vendors.html" class="promo-card">
+          <img src="https://images.unsplash.com/photo-1543932924-73e38f34b1f8?w=800&q=80" alt="" />
+          <div class="promo-overlay">
+            <span class="promo-label">Vendor Spotlight</span>
+            <h3 class="promo-title">Meet our makers</h3>
+            <p class="promo-desc">320 independent craftspeople from 38 countries. Every product approved by hand.</p>
+            <span class="promo-cta">Explore vendors →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SHOP CATEGORIES ── -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Shop the categories</div>
+          <div class="sec-sub">eight worlds, hand-curated</div>
+        </div>
+        <a href="categories.html" class="sec-link">All categories
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="cats-grid">
+        <a href="category.html" class="cg">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80" alt="" />
+          <div class="cg-meta">
+            <span class="cg-name">Fashion</span>
+            <span class="cg-count">2,840 products</span>
+          </div>
+        </a>
+        <a href="category.html" class="cg">
+          <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=600&q=80" alt="" />
+          <div class="cg-meta">
+            <span class="cg-name">Home &amp; Living</span>
+            <span class="cg-count">1,620 products</span>
+          </div>
+        </a>
+        <a href="category.html" class="cg">
+          <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=600&q=80" alt="" />
+          <div class="cg-meta">
+            <span class="cg-name">Electronics</span>
+            <span class="cg-count">980 products</span>
+          </div>
+        </a>
+        <a href="category.html" class="cg">
+          <img src="https://images.unsplash.com/photo-1522335789203-aaad9d4ec96f?w=600&q=80" alt="" />
+          <div class="cg-meta">
+            <span class="cg-name">Beauty</span>
+            <span class="cg-count">740 products</span>
+          </div>
+        </a>
+        <a href="category.html" class="cg">
+          <img src="https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=600&q=80" alt="" />
+          <div class="cg-meta">
+            <span class="cg-name">Wellness</span>
+            <span class="cg-count">510 products</span>
+          </div>
+        </a>
+        <a href="category.html" class="cg">
+          <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=80" alt="" />
+          <div class="cg-meta">
+            <span class="cg-name">Sports &amp; Outdoors</span>
+            <span class="cg-count">860 products</span>
+          </div>
+        </a>
+        <a href="category.html" class="cg">
+          <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=600&q=80" alt="" />
+          <div class="cg-meta">
+            <span class="cg-name">Books &amp; Media</span>
+            <span class="cg-count">1,340 products</span>
+          </div>
+        </a>
+        <a href="category.html" class="cg">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="" />
+          <div class="cg-meta">
+            <span class="cg-name">Art &amp; Collectibles</span>
+            <span class="cg-count">420 products</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SHOP BY BRAND ─────────────────────────── -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Shop by brand</div>
+          <div class="sec-sub">the names our community trusts most</div>
+        </div>
+        <a href="brands.html" class="sec-link">All brands
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="brand-rail">
+        <a href="brand.html" class="brand-card">
+          <img class="b-logo" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80" alt="" />
+          <span class="b-name">Halen Goods</span>
+          <span class="b-count">184 products</span>
+        </a>
+        <a href="brand.html" class="brand-card">
+          <img class="b-logo" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80" alt="" />
+          <span class="b-name">Murmur Atelier</span>
+          <span class="b-count">72 products</span>
+        </a>
+        <a href="brand.html" class="brand-card">
+          <img class="b-logo" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80" alt="" />
+          <span class="b-name">Sundry Audio</span>
+          <span class="b-count">14 products</span>
+        </a>
+        <a href="brand.html" class="brand-card">
+          <img class="b-logo" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=120&q=80" alt="" />
+          <span class="b-name">North Field</span>
+          <span class="b-count">6 products</span>
+        </a>
+        <a href="brand.html" class="brand-card">
+          <img class="b-logo" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&q=80" alt="" />
+          <span class="b-name">Brindle Studio</span>
+          <span class="b-count">28 products</span>
+        </a>
+        <a href="brand.html" class="brand-card">
+          <img class="b-logo" src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=120&q=80" alt="" />
+          <span class="b-name">Quay &amp; Co.</span>
+          <span class="b-count">51 products</span>
+        </a>
+        <a href="brand.html" class="brand-card">
+          <img class="b-logo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80" alt="" />
+          <span class="b-name">Field &amp; Form</span>
+          <span class="b-count">34 products</span>
+        </a>
+        <a href="brand.html" class="brand-card">
+          <img class="b-logo" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&q=80" alt="" />
+          <span class="b-name">Loom &amp; Spool</span>
+          <span class="b-count">63 products</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SHOP BY CATEGORY (compact cards) ────────────────── -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Shop by category</div>
+          <div class="sec-sub">curated product rows from every department</div>
+        </div>
+        <a href="categories.html" class="sec-link">All categories
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <!-- ── Audio / Electronics ── -->
+      <div class="ven-cat-block">
+        <div class="cat-head">
+          <span class="chip cat-label">Electronics</span>
+          <h3>Audio &amp; accessories</h3>
+          <span class="count">44 products</span>
+          <a href="category.html" style="margin-left:auto;font-size:13px;font-weight:500;white-space:nowrap">View all →</a>
+        </div>
+        <div class="compact-rail">
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Studio 60 over-ear</h3>
+              <div class="pcard-vendor">Sundry Audio</div>
+              <span class="price">$329</span>
+              <span class="rating">4.7 · 421</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Pebble buds · true wireless</h3>
+              <div class="pcard-vendor">Sundry Audio</div>
+              <span class="price">$189</span>
+              <span class="rating">4.7 · 312</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Lens adapter 24-70</h3>
+              <div class="pcard-vendor">Sundry Audio</div>
+              <span class="price">$1,180</span>
+              <span class="rating">4.8 · 88</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Field watch · 38mm sand</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$418</span>
+              <span class="rating">4.9 · 1.2k</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Tactical backpack · 28L</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$188</span>
+              <span class="rating">4.9 · 446</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Digital pouch · olive</h3>
+              <div class="pcard-vendor">Field &amp; Form</div>
+              <span class="price">$34</span>
+              <span class="rating">4.6 · 203</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Ceramics / Home ── -->
+      <div class="ven-cat-block">
+        <div class="cat-head">
+          <span class="chip cat-label" style="background:var(--accent);border-color:var(--accent)">Home</span>
+          <h3>Ceramics &amp; tableware</h3>
+          <span class="count">72 products</span>
+          <a href="category.html" style="margin-left:auto;font-size:13px;font-weight:500;white-space:nowrap">View all →</a>
+        </div>
+        <div class="compact-rail">
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Ceramic vase · S</h3>
+              <div class="pcard-vendor">Murmur Atelier</div>
+              <span class="price">$56</span>
+              <span class="rating">4.9 · 88</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Hand-thrown mug · clay</h3>
+              <div class="pcard-vendor">Quay &amp; Co.</div>
+              <span class="price">$28</span>
+              <span class="rating">5.0 · 64</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Brass candlestick · tall</h3>
+              <div class="pcard-vendor">Quay &amp; Co.</div>
+              <span class="price">$72</span>
+              <span class="rating">5.0 · 41</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1542728928-1413d1894ed1?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Merino wool throw</h3>
+              <div class="pcard-vendor">Brindle Studio</div>
+              <span class="price">$210</span>
+              <span class="rating">4.9 · 132</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Stoneware plate set · 4</h3>
+              <div class="pcard-vendor">Murmur Atelier</div>
+              <span class="price">$94</span>
+              <span class="rating">5.0 · 207</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Reading chair · cane back</h3>
+              <div class="pcard-vendor">Brindle Studio</div>
+              <span class="price">$1,240</span>
+              <span class="rating">4.8 · 310</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Bags / Accessories ── -->
+      <div class="ven-cat-block">
+        <div class="cat-head">
+          <span class="chip cat-label" style="background:#555;border-color:#555">Accessories</span>
+          <h3>Bags &amp; carry</h3>
+          <span class="count">184 products</span>
+          <a href="category.html" style="margin-left:auto;font-size:13px;font-weight:500;white-space:nowrap">View all →</a>
+        </div>
+        <div class="compact-rail">
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Soft field bag · tan</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$248</span>
+              <span class="rating">4.9 · 543</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Field runner · oat</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$148</span>
+              <span class="rating">4.8 · 124</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1592503254549-d83d24a4dfab?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Mesh slip-on · khaki</h3>
+              <div class="pcard-vendor">Field &amp; Form</div>
+              <span class="price">$98</span>
+              <span class="rating">4.5 · 87</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Canvas tote · natural</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$62</span>
+              <span class="rating">4.9 · 482</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Mini pouch · set of 3</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$44</span>
+              <span class="rating">4.8 · 231</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Bath salt set · 3 scents</h3>
+              <div class="pcard-vendor">Murmur Atelier</div>
+              <span class="price">$26</span>
+              <span class="rating">4.9 · 76</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Outdoors / Sport ── -->
+      <div class="ven-cat-block">
+        <div class="cat-head">
+          <span class="chip cat-label" style="background:var(--green,#2b8a3e);border-color:var(--green,#2b8a3e)">Outdoors</span>
+          <h3>Field &amp; travel gear</h3>
+          <span class="count">38 products</span>
+          <a href="category.html" style="margin-left:auto;font-size:13px;font-weight:500;white-space:nowrap">View all →</a>
+        </div>
+        <div class="compact-rail">
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Linen overshirt · olive</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$120</span>
+              <span class="rating">4.6 · 342</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Linen tee · oatmeal</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$54</span>
+              <span class="rating">4.7 · 198</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Expedition pack · 45L</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$320</span>
+              <span class="rating">4.8 · 510</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Travel organizer · charcoal</h3>
+              <div class="pcard-vendor">Field &amp; Form</div>
+              <span class="price">$38</span>
+              <span class="rating">4.5 · 167</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Sling bag · waxed canvas</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$86</span>
+              <span class="rating">4.9 · 404</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Duffel weekender · sand</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$196</span>
+              <span class="rating">4.8 · 361</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SHOP BY VENDOR (compact cards) ────────────────── -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Shop by vendor</div>
+          <div class="sec-sub">every maker's full catalog in one row</div>
+        </div>
+        <a href="vendors.html" class="sec-link">All vendors
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <!-- ── Sundry Audio ── -->
+      <div class="ven-cat-block">
+        <div class="ven-cat-head">
+          <span class="avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt="" /></span>
+          <div>
+            <span class="vname"><a href="vendor.html" style="color:inherit;text-decoration:none">Sundry Audio</a></span>
+            <span class="vcount">14 products · 4.7 ★</span>
+          </div>
+          <a href="vendor.html" style="margin-left:auto;font-size:13px;font-weight:500;white-space:nowrap">Visit shop →</a>
+        </div>
+        <div class="compact-rail">
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Studio 60 over-ear</h3>
+              <div class="pcard-vendor">Sundry Audio</div>
+              <span class="price">$329</span>
+              <span class="rating">4.7 · 421</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Pebble buds · true wireless</h3>
+              <div class="pcard-vendor">Sundry Audio</div>
+              <span class="price">$189</span>
+              <span class="rating">4.7 · 312</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Lens adapter 24-70</h3>
+              <div class="pcard-vendor">Sundry Audio</div>
+              <span class="price">$1,180</span>
+              <span class="rating">4.8 · 88</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Cable organizer · waxed</h3>
+              <div class="pcard-vendor">Sundry Audio</div>
+              <span class="price">$24</span>
+              <span class="rating">4.5 · 103</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Field watch · Sundry edition</h3>
+              <div class="pcard-vendor">Sundry Audio</div>
+              <span class="price">$488</span>
+              <span class="rating">5.0 · 28</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Hard case · molded foam</h3>
+              <div class="pcard-vendor">Sundry Audio</div>
+              <span class="price">$68</span>
+              <span class="rating">4.6 · 76</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Murmur Atelier ── -->
+      <div class="ven-cat-block">
+        <div class="ven-cat-head">
+          <span class="avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt="" /></span>
+          <div>
+            <span class="vname"><a href="vendor.html" style="color:inherit;text-decoration:none">Murmur Atelier</a></span>
+            <span class="vcount">72 products · 5.0 ★</span>
+          </div>
+          <a href="vendor.html" style="margin-left:auto;font-size:13px;font-weight:500;white-space:nowrap">Visit shop →</a>
+        </div>
+        <div class="compact-rail">
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Ceramic vase · S</h3>
+              <div class="pcard-vendor">Murmur Atelier</div>
+              <span class="price">$56</span>
+              <span class="rating">4.9 · 88</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Bath salt set · 3 scents</h3>
+              <div class="pcard-vendor">Murmur Atelier</div>
+              <span class="price">$26</span>
+              <span class="rating">4.9 · 76</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Stoneware plate set · 4</h3>
+              <div class="pcard-vendor">Murmur Atelier</div>
+              <span class="price">$94</span>
+              <span class="rating">5.0 · 207</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Brass incense holder</h3>
+              <div class="pcard-vendor">Murmur Atelier</div>
+              <span class="price">$42</span>
+              <span class="rating">4.8 · 53</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Hand-thrown bowl · clay</h3>
+              <div class="pcard-vendor">Murmur Atelier</div>
+              <span class="price">$38</span>
+              <span class="rating">5.0 · 91</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1542728928-1413d1894ed1?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Linen tablecloth · natural</h3>
+              <div class="pcard-vendor">Murmur Atelier</div>
+              <span class="price">$82</span>
+              <span class="rating">4.9 · 119</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Halen Goods ── -->
+      <div class="ven-cat-block">
+        <div class="ven-cat-head">
+          <span class="avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="" /></span>
+          <div>
+            <span class="vname"><a href="vendor.html" style="color:inherit;text-decoration:none">Halen Goods</a></span>
+            <span class="vcount">184 products · 4.9 ★</span>
+          </div>
+          <a href="vendor.html" style="margin-left:auto;font-size:13px;font-weight:500;white-space:nowrap">Visit shop →</a>
+        </div>
+        <div class="compact-rail">
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Soft field bag · tan</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$248</span>
+              <span class="rating">4.9 · 543</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Field runner · oat</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$148</span>
+              <span class="rating">4.8 · 124</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Linen overshirt · olive</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$120</span>
+              <span class="rating">4.6 · 342</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Linen tee · oatmeal</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$54</span>
+              <span class="rating">4.7 · 198</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Canvas tote · natural</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$62</span>
+              <span class="rating">4.9 · 482</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Waxed duffel · sand</h3>
+              <div class="pcard-vendor">Halen Goods</div>
+              <span class="price">$196</span>
+              <span class="rating">4.8 · 361</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── North Field ── -->
+      <div class="ven-cat-block">
+        <div class="ven-cat-head">
+          <span class="avatar"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&q=80" alt="" /></span>
+          <div>
+            <span class="vname"><a href="vendor.html" style="color:inherit;text-decoration:none">North Field</a></span>
+            <span class="vcount">6 products · 4.9 ★</span>
+          </div>
+          <a href="vendor.html" style="margin-left:auto;font-size:13px;font-weight:500;white-space:nowrap">Visit shop →</a>
+        </div>
+        <div class="compact-rail">
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Field watch · 38mm sand</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$418</span>
+              <span class="rating">4.9 · 1.2k</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Expedition pack · 45L</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$320</span>
+              <span class="rating">4.8 · 510</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Sling bag · waxed canvas</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$86</span>
+              <span class="rating">4.9 · 404</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Weekender · waxed canvas</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$268</span>
+              <span class="rating">4.9 · 312</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Trail runner · sand</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$168</span>
+              <span class="rating">4.8 · 220</span>
+            </div>
+          </a>
+          <a class="pcard vc" href="product.html">
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&q=80" alt="" /></div>
+            <div class="pcard-body">
+              <h3 class="pcard-title">Belt · bridle leather</h3>
+              <div class="pcard-vendor">North Field</div>
+              <span class="price">$74</span>
+              <span class="rating">4.9 · 143</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REELS (TikTok-style feed) ── -->
+  <section class="tight" style="background:var(--surface-2);border-top:1px solid var(--border)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Lahar reels <span class="badge badge-live" style="vertical-align:middle;margin-left:8px">LIVE</span></div>
+          <div class="sec-sub">vendors filming what they make, at the bench</div>
+        </div>
+        <a href="reels.html" class="sec-link">Open reels feed
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="reels-rail">
+
+        <a href="reels.html" class="reel">
+          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&q=80" alt="" />
+          <div class="reel-badges"><span class="badge badge-live">LIVE</span><span class="badge" style="background:rgba(255,255,255,0.15);color:white;">Sewing</span></div>
+          <div class="reel-actions">
+            <span class="ra"><svg viewBox="0 0 24 24" fill="white"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg><span class="rav">12k</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3.5-7.1L21 4l-1 4-4-.5"/></svg><span class="rav">284</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M8 6V3h8v3"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></span>
+            <span class="ra"><img class="avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80" alt=""/><span class="follow">+</span></span>
+          </div>
+          <div class="reel-info">
+            <div class="ri-vendor">
+              <span class="avatar" style="background-image:url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80);background-size:cover;"></span>
+              <span class="riname">halen.goods</span>
+              <span class="rifollow">Follow</span>
+            </div>
+            <div class="ri-desc">Stitching the soft field bag — start to finish · full build at the bench</div>
+            <div class="ri-music"><svg viewBox="0 0 24 24" fill="white"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> original sound — halen.goods</div>
+            <div class="ri-product">
+              <img class="rip-img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=80&q=80" alt="" />
+              <span class="rip-name">Soft field bag · tan</span>
+              <span class="rip-price">$248</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="reels.html" class="reel">
+          <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=500&q=80" alt="" />
+          <div class="reel-badges"><span class="badge" style="background:rgba(255,255,255,0.15);color:white;">Featured</span></div>
+          <div class="reel-actions">
+            <span class="ra"><svg viewBox="0 0 24 24" fill="white"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg><span class="rav">8.4k</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3.5-7.1L21 4l-1 4-4-.5"/></svg><span class="rav">180</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M8 6V3h8v3"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></span>
+            <span class="ra"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80" alt=""/><span class="follow">+</span></span>
+          </div>
+          <div class="reel-info">
+            <div class="ri-vendor">
+              <span class="avatar" style="background-image:url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80);background-size:cover;"></span>
+              <span class="riname">murmur.atelier</span>
+              <span class="rifollow">Follow</span>
+            </div>
+            <div class="ri-desc">A vase, in twelve minutes · from clay to kiln ready</div>
+            <div class="ri-music"><svg viewBox="0 0 24 24" fill="white"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> pottery lofi · murmur</div>
+            <div class="ri-product">
+              <img class="rip-img" src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=80&q=80" alt="" />
+              <span class="rip-name">Ceramic vase · S</span>
+              <span class="rip-price">$56</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="reels.html" class="reel">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" alt="" />
+          <div class="reel-badges"><span class="badge" style="background:rgba(255,255,255,0.15);color:white;">Unboxing</span></div>
+          <div class="reel-actions">
+            <span class="ra"><svg viewBox="0 0 24 24" fill="white"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg><span class="rav">24k</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3.5-7.1L21 4l-1 4-4-.5"/></svg><span class="rav">612</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M8 6V3h8v3"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></span>
+            <span class="ra"><img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80" alt=""/><span class="follow">+</span></span>
+          </div>
+          <div class="reel-info">
+            <div class="ri-vendor">
+              <span class="avatar" style="background-image:url(https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80);background-size:cover;"></span>
+              <span class="riname">sundry.audio</span>
+              <span class="rifollow">Follow</span>
+            </div>
+            <div class="ri-desc">The Studio 60, unboxed · what's inside the box matters</div>
+            <div class="ri-music"><svg viewBox="0 0 24 24" fill="white"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> original sound — sundry.audio</div>
+            <div class="ri-product">
+              <img class="rip-img" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=80&q=80" alt="" />
+              <span class="rip-name">Studio 60 over-ear</span>
+              <span class="rip-price">$329</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="reels.html" class="reel">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=500&q=80" alt="" />
+          <div class="reel-badges"><span class="badge" style="background:rgba(255,255,255,0.15);color:white;">Craftsmanship</span></div>
+          <div class="reel-actions">
+            <span class="ra"><svg viewBox="0 0 24 24" fill="white"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg><span class="rav">4.1k</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3.5-7.1L21 4l-1 4-4-.5"/></svg><span class="rav">72</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M8 6V3h8v3"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></span>
+            <span class="ra"><img class="avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&q=80" alt=""/><span class="follow">+</span></span>
+          </div>
+          <div class="reel-info">
+            <div class="ri-vendor">
+              <span class="avatar" style="background-image:url(https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&q=80);background-size:cover;"></span>
+              <span class="riname">brindle.studio</span>
+              <span class="rifollow">Follow</span>
+            </div>
+            <div class="ri-desc">A chair built to last 80 years · joinery detail</div>
+            <div class="ri-music"><svg viewBox="0 0 24 24" fill="white"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> workshop sounds · brindle</div>
+            <div class="ri-product">
+              <img class="rip-img" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=80&q=80" alt="" />
+              <span class="rip-name">Reading chair</span>
+              <span class="rip-price">$1,240</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="reels.html" class="reel">
+          <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&q=80" alt="" />
+          <div class="reel-badges"><span class="badge" style="background:rgba(255,255,255,0.15);color:white;">Behind the scene</span></div>
+          <div class="reel-actions">
+            <span class="ra"><svg viewBox="0 0 24 24" fill="white"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg><span class="rav">6.8k</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3.5-7.1L21 4l-1 4-4-.5"/></svg><span class="rav">140</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M8 6V3h8v3"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></span>
+            <span class="ra"><img class="avatar" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=120&q=80" alt=""/><span class="follow">+</span></span>
+          </div>
+          <div class="reel-info">
+            <div class="ri-vendor">
+              <span class="avatar" style="background-image:url(https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&q=80);background-size:cover;"></span>
+              <span class="riname">north.field</span>
+              <span class="rifollow">Follow</span>
+            </div>
+            <div class="ri-desc">The field watch — gear inside · what makes it tick</div>
+            <div class="ri-music"><svg viewBox="0 0 24 24" fill="white"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> ticking movement — original</div>
+            <div class="ri-product">
+              <img class="rip-img" src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=80&q=80" alt="" />
+              <span class="rip-name">Field watch 38mm</span>
+              <span class="rip-price">$418</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="reels.html" class="reel">
+          <img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=500&q=80" alt="" />
+          <div class="reel-badges"><span class="badge" style="background:rgba(255,255,255,0.15);color:white;">Studio</span></div>
+          <div class="reel-actions">
+            <span class="ra"><svg viewBox="0 0 24 24" fill="white"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg><span class="rav">3.2k</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3.5-7.1L21 4l-1 4-4-.5"/></svg><span class="rav">56</span></span>
+            <span class="ra"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M8 6V3h8v3"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></span>
+            <span class="ra"><img class="avatar" src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=120&q=80" alt=""/><span class="follow">+</span></span>
+          </div>
+          <div class="reel-info">
+            <div class="ri-vendor">
+              <span class="avatar" style="background-image:url(https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=80&q=80);background-size:cover;"></span>
+              <span class="riname">quay.and.co</span>
+              <span class="rifollow">Follow</span>
+            </div>
+            <div class="ri-desc">Throwing 30 mugs in a row · centering technique</div>
+            <div class="ri-music"><svg viewBox="0 0 24 24" fill="white"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> wheel turning · studio ambience</div>
+            <div class="ri-product">
+              <img class="rip-img" src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=80&q=80" alt="" />
+              <span class="rip-name">Hand-thrown mug</span>
+              <span class="rip-price">$28</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── AUCTIONS ── -->
+  <section class="auct-section tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Live auctions</div>
+          <div class="sec-sub">limited drops, single-piece estates, vintage finds</div>
+        </div>
+        <a href="auctions.html" class="sec-link">See all auctions
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="owl-carousel owl-theme auct-grid">
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-live">Live</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M15 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-2-4-5-4.5"/></svg> 42</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">Murmur Atelier · Estate</span>
+            <h3 class="auct-title">1972 stoneware sake set — twelve pieces</h3>
+            <div class="auct-bar"><span style="width:72%"></span></div>
+            <div class="auct-bar-labels">
+              <span>72% met</span>
+              <span>Ends 02h 14m</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Current bid</div><div class="v brand">$1,420</div></div>
+              <div><div class="l">Min. next</div><div class="v">$1,470</div></div>
+            </div>
+            <div class="auct-btn primary">Place a bid</div>
+          </div>
+        </a>
+
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-live">Live</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M15 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-2-4-5-4.5"/></svg> 28</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">North Field · Vintage</span>
+            <h3 class="auct-title">Field watch — 1988 NOS, stainless steel</h3>
+            <div class="auct-bar"><span style="width:48%"></span></div>
+            <div class="auct-bar-labels">
+              <span>48% met</span>
+              <span>Ends 04h 21m</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Current bid</div><div class="v brand">$640</div></div>
+              <div><div class="l">Ends in</div><div class="v">04:21</div></div>
+            </div>
+            <div class="auct-btn primary">Place a bid</div>
+          </div>
+        </a>
+
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-preview">Preview</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 2"/></svg> 312</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">Brindle Studio · Edition</span>
+            <h3 class="auct-title">Reading chair — prototype #002</h3>
+            <div class="auct-bar"><span style="width:0%"></span></div>
+            <div class="auct-bar-labels">
+              <span>Not yet open</span>
+              <span>Opens Fri 17:00</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Starts at</div><div class="v brand">$800</div></div>
+              <div><div class="l">Opens</div><div class="v">Fri 17:00</div></div>
+            </div>
+            <div class="auct-btn">Notify me</div>
+          </div>
+        </a>
+
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-live">Live</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M15 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-2-4-5-4.5"/></svg> 56</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">Halen Goods · Limited</span>
+            <h3 class="auct-title">Horween leather weekender — waxed olive</h3>
+            <div class="auct-bar"><span style="width:91%"></span></div>
+            <div class="auct-bar-labels">
+              <span>91% met</span>
+              <span>Ends 58m</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Current bid</div><div class="v brand">$890</div></div>
+              <div><div class="l">Min. next</div><div class="v">$920</div></div>
+            </div>
+            <div class="auct-btn primary">Place a bid</div>
+          </div>
+        </a>
+
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-live">Live</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M15 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-2-4-5-4.5"/></svg> 131</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">Quay &amp; Co. · Vintage</span>
+            <h3 class="auct-title">Persol 714 — original 1960s tortoise</h3>
+            <div class="auct-bar"><span style="width:65%"></span></div>
+            <div class="auct-bar-labels">
+              <span>65% met</span>
+              <span>Ends 06h 12m</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Current bid</div><div class="v brand">$380</div></div>
+              <div><div class="l">Min. next</div><div class="v">$400</div></div>
+            </div>
+            <div class="auct-btn primary">Place a bid</div>
+          </div>
+        </a>
+
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-live">Live</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M15 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-2-4-5-4.5"/></svg> 73</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">Sundry Audio · Prototype</span>
+            <h3 class="auct-title">Planar magnetic #004 — open-back cans</h3>
+            <div class="auct-bar"><span style="width:33%"></span></div>
+            <div class="auct-bar-labels">
+              <span>33% met</span>
+              <span>Ends 1d 08h</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Current bid</div><div class="v brand">$1,820</div></div>
+              <div><div class="l">Min. next</div><div class="v">$1,880</div></div>
+            </div>
+            <div class="auct-btn primary">Place a bid</div>
+          </div>
+        </a>
+
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-live">Live</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M15 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-2-4-5-4.5"/></svg> 97</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">Murmur Atelier · Kiln #3</span>
+            <h3 class="auct-title">Yunomi teacup set — shino glaze, set of 6</h3>
+            <div class="auct-bar"><span style="width:55%"></span></div>
+            <div class="auct-bar-labels">
+              <span>55% met</span>
+              <span>Ends 12h 44m</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Current bid</div><div class="v brand">$280</div></div>
+              <div><div class="l">Min. next</div><div class="v">$300</div></div>
+            </div>
+            <div class="auct-btn primary">Place a bid</div>
+          </div>
+        </a>
+
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-preview">Preview</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 2"/></svg> 524</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">Route 66 · Rare</span>
+            <h3 class="auct-title">Mid-century sideboard — walnut, 1962</h3>
+            <div class="auct-bar"><span style="width:0%"></span></div>
+            <div class="auct-bar-labels">
+              <span>Preview only</span>
+              <span>Opens Mon 10:00</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Estimate</div><div class="v brand">$2,400</div></div>
+              <div><div class="l">Opens</div><div class="v">Mon 10:00</div></div>
+            </div>
+            <div class="auct-btn">Notify me</div>
+          </div>
+        </a>
+
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-live">Live</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M15 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-2-4-5-4.5"/></svg> 47</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">Quay &amp; Co. · Impossible find</span>
+            <h3 class="auct-title">Leica M6 — 1994, serviced, box + papers</h3>
+            <div class="auct-bar"><span style="width:82%"></span></div>
+            <div class="auct-bar-labels">
+              <span>82% met</span>
+              <span>Ends 1d 14h</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Current bid</div><div class="v brand">$3,600</div></div>
+              <div><div class="l">Min. next</div><div class="v">$3,700</div></div>
+            </div>
+            <div class="auct-btn primary">Place a bid</div>
+          </div>
+        </a>
+
+        <a href="auctions.html" class="auct">
+          <div class="auct-img">
+            <img src="https://images.unsplash.com/photo-1594226801341-41427b4a5f4d?w=600&q=80" alt="" />
+            <div class="auct-badge"><span class="badge-live">Live</span></div>
+            <span class="auct-bidders"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M15 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-2-4-5-4.5"/></svg> 201</span>
+          </div>
+          <div class="auct-body">
+            <span class="auct-vendor">Brindle Studio · One of a kind</span>
+            <h3 class="auct-title">Wool &amp; linen cocoon coat — sample piece</h3>
+            <div class="auct-bar"><span style="width:40%"></span></div>
+            <div class="auct-bar-labels">
+              <span>40% met</span>
+              <span>Ends 2d 06h</span>
+            </div>
+            <div class="auct-bid">
+              <div><div class="l">Current bid</div><div class="v brand">$750</div></div>
+              <div><div class="l">Min. next</div><div class="v">$800</div></div>
+            </div>
+            <div class="auct-btn primary">Place a bid</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── THE LAHAR JOURNAL ────────────────────────── -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">The Lahar journal</div>
+          <div class="sec-sub">stories from the studio floor</div>
+        </div>
+        <a href="#" class="sec-link">All articles
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="journal-grid">
+        <a href="#" class="jc-featured">
+          <div class="jf-img">
+            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=900&q=80" alt="" />
+            <span class="jf-tag">Featured story</span>
+          </div>
+          <div class="jf-body">
+            <div class="jf-meta"><span>Vol. 04 · May 19, 2026</span><span>12 min read</span></div>
+            <h3>"The slow shelf: why we stopped chasing newness — and started shopping our makers."</h3>
+            <p>A conversation with the four founders of Murmur Atelier on stoneware, patience, and the studio that takes six months to fire one kiln.</p>
+            <div class="jf-author">
+              <img class="ja-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="" />
+              <div>
+                <div class="ja-name">Ravi Mehta</div>
+                <div class="ja-role">Co-founder · Lahar Hub</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="jc-side">
+          <a href="#" class="jc-card">
+            <div class="jcc-img"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300&q=80" alt="" /></div>
+            <div class="jcc-body">
+              <span class="jcc-tag">Field test</span>
+              <h4>North Field 1988 NOS — 10 years of daily wear, reviewed</h4>
+              <span class="jcc-meta">Aiko Tanaka · 8 min read</span>
+            </div>
+          </a>
+          <a href="#" class="jc-card">
+            <div class="jcc-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&q=80" alt="" /></div>
+            <div class="jcc-body">
+              <span class="jcc-tag">Maker spotlight</span>
+              <h4>The tannery in Porto where Halen Goods sources every hide</h4>
+              <span class="jcc-meta">Lahar team · 14 min read</span>
+            </div>
+          </a>
+          <a href="#" class="jc-card">
+            <div class="jcc-img"><img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=300&q=80" alt="" /></div>
+            <div class="jcc-body">
+              <span class="jcc-tag">Design notes</span>
+              <h4>Prototype #002: the reading chair Brindle Studio can't stop refining</h4>
+              <span class="jcc-meta">Maya Krishnan · 6 min read</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VENDOR SPOTLIGHT ─────────────────────────── -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Vendor spotlight</div>
+          <div class="sec-sub">320 independent makers — meet a few</div>
+        </div>
+        <a href="vendors.html" class="sec-link">All vendors
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="ven-grid">
+
+        <div class="ven-card" onclick="window.location='vendor.html'">
+          <div class="vcard-head">
+            <span class="avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80" alt=""/></span>
+            <div class="vh-body">
+              <div class="vname">Halen Goods</div>
+              <div class="vloc">Lisbon, PT · since 2019</div>
+            </div>
+            <div class="vh-rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.9</div>
+            <button class="vh-follow" onclick="event.preventDefault();event.stopPropagation();this.textContent=this.textContent==='Follow'?'Following':'Follow'">Follow</button>
+          </div>
+          <p class="vcard-bio">"We make four bags a week, by hand, with leather from a single tannery in Porto. Every stitch is two needles, one thread — saddler's style."</p>
+          <div class="vcard-meta">
+            <span class="tag">Bags</span><span class="tag">Leather</span><span class="tag">Accessories</span>
+            <span class="stat"><strong>184</strong> products</span>
+            <span class="stat"><strong>2.1k</strong> followers</span>
+          </div>
+          <div class="vcard-products">
+            <div class="vcp-label">Top selling</div>
+            <div class="vcp-row">
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=120&q=80" alt=""/>
+                <span class="vcp-name">Field bag tan</span>
+                <span class="vcp-price">$248</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=120&q=80" alt=""/>
+                <span class="vcp-name">Digital pouch</span>
+                <span class="vcp-price">$34</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=120&q=80" alt=""/>
+                <span class="vcp-name">Bridle belt</span>
+                <span class="vcp-price">$74</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=120&q=80" alt=""/>
+                <span class="vcp-name">Tactical 28L</span>
+                <span class="vcp-price">$188</span>
+              </a>
+            </div>
+          </div>
+          <div class="vcard-bottom">
+            <div class="vcb-reels">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Reels</div>
+              <div class="vcr-row">
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+              </div>
+              <div class="vcr-more">+4 more reels</div>
+            </div>
+            <div class="vcb-feedback">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Feedback</div>
+              <div class="vcf-item">
+                <img class="vcf-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt=""/>
+                <div class="vcf-body">
+                  <div class="vcf-text"><span class="vcf-name">Sundry Audio</span> "Best leather I've owned. Period."</div>
+                  <div class="vcf-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ven-card" onclick="window.location='vendor.html'">
+          <div class="vcard-head">
+            <span class="avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80" alt=""/></span>
+            <div class="vh-body">
+              <div class="vname">Murmur Atelier</div>
+              <div class="vloc">Kyoto, JP · since 2014</div>
+            </div>
+            <div class="vh-rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 5.0</div>
+            <button class="vh-follow" onclick="event.preventDefault();event.stopPropagation();this.textContent=this.textContent==='Follow'?'Following':'Follow'">Follow</button>
+          </div>
+          <p class="vcard-bio">"Stoneware in small batches. Six month firings. Twelve pieces a kiln. We make less, but what we make lasts."</p>
+          <div class="vcard-meta">
+            <span class="tag">Ceramics</span><span class="tag">Stoneware</span><span class="tag">Tableware</span>
+            <span class="stat"><strong>72</strong> products</span>
+            <span class="stat"><strong>8.4k</strong> followers</span>
+          </div>
+          <div class="vcard-products">
+            <div class="vcp-label">Top selling</div>
+            <div class="vcp-row">
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=120&q=80" alt=""/>
+                <span class="vcp-name">Vase · S</span>
+                <span class="vcp-price">$56</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=120&q=80" alt=""/>
+                <span class="vcp-name">Mug · clay</span>
+                <span class="vcp-price">$28</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=120&q=80" alt=""/>
+                <span class="vcp-name">Candlestick</span>
+                <span class="vcp-price">$72</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1542728928-1413d1894ed1?w=120&q=80" alt=""/>
+                <span class="vcp-name">Serving bowl</span>
+                <span class="vcp-price">$94</span>
+              </a>
+            </div>
+          </div>
+          <div class="vcard-bottom">
+            <div class="vcb-reels">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Reels</div>
+              <div class="vcr-row">
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+              </div>
+              <div class="vcr-more">+6 more reels</div>
+            </div>
+            <div class="vcb-feedback">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Feedback</div>
+              <div class="vcf-item">
+                <img class="vcf-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt=""/>
+                <div class="vcf-body">
+                  <div class="vcf-text"><span class="vcf-name">Halen Goods</span> "Every piece feels like it has a soul."</div>
+                  <div class="vcf-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ven-card" onclick="window.location='vendor.html'">
+          <div class="vcard-head">
+            <span class="avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80" alt=""/></span>
+            <div class="vh-body">
+              <div class="vname">Sundry Audio</div>
+              <div class="vloc">Brooklyn, US · since 2021</div>
+            </div>
+            <div class="vh-rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.7</div>
+            <button class="vh-follow" onclick="event.preventDefault();event.stopPropagation();this.textContent=this.textContent==='Follow'?'Following':'Follow'">Follow</button>
+          </div>
+          <p class="vcard-bio">"Headphones for people who listen — not for people who shop for headphones."</p>
+          <div class="vcard-meta">
+            <span class="tag">Audio</span><span class="tag">Earbuds</span><span class="tag">Headphones</span>
+            <span class="stat"><strong>14</strong> products</span>
+            <span class="stat"><strong>12k</strong> followers</span>
+          </div>
+          <div class="vcard-products">
+            <div class="vcp-label">Top selling</div>
+            <div class="vcp-row">
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=120&q=80" alt=""/>
+                <span class="vcp-name">Studio 60</span>
+                <span class="vcp-price">$329</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=120&q=80" alt=""/>
+                <span class="vcp-name">Pebble buds</span>
+                <span class="vcp-price">$189</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=120&q=80" alt=""/>
+                <span class="vcp-name">Lens adapter</span>
+                <span class="vcp-price">$1,180</span>
+              </a>
+            </div>
+          </div>
+          <div class="vcard-bottom">
+            <div class="vcb-reels">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Reels</div>
+              <div class="vcr-row">
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+              </div>
+              <div class="vcr-more">+1 more reel</div>
+            </div>
+            <div class="vcb-feedback">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Feedback</div>
+              <div class="vcf-item">
+                <img class="vcf-avatar" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&q=80" alt=""/>
+                <div class="vcf-body">
+                  <div class="vcf-text"><span class="vcf-name">North Field</span> "Sound quality is unreal for the size."</div>
+                  <div class="vcf-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ven-card" onclick="window.location='vendor.html'">
+          <div class="vcard-head">
+            <span class="avatar"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=120&q=80" alt=""/></span>
+            <div class="vh-body">
+              <div class="vname">North Field</div>
+              <div class="vloc">Bristol, UK · since 2017</div>
+            </div>
+            <div class="vh-rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.9</div>
+            <button class="vh-follow" onclick="event.preventDefault();event.stopPropagation();this.textContent=this.textContent==='Follow'?'Following':'Follow'">Follow</button>
+          </div>
+          <p class="vcard-bio">"One watch design. Three colors. Made to be repaired, not replaced."</p>
+          <div class="vcard-meta">
+            <span class="tag">Watches</span><span class="tag">Accessories</span><span class="tag">Tools</span>
+            <span class="stat"><strong>6</strong> products</span>
+            <span class="stat"><strong>4.8k</strong> followers</span>
+          </div>
+          <div class="vcard-products">
+            <div class="vcp-label">Top selling</div>
+            <div class="vcp-row">
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=120&q=80" alt=""/>
+                <span class="vcp-name">Field watch</span>
+                <span class="vcp-price">$418</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=120&q=80" alt=""/>
+                <span class="vcp-name">Tactical 28L</span>
+                <span class="vcp-price">$188</span>
+              </a>
+            </div>
+          </div>
+          <div class="vcard-bottom">
+            <div class="vcb-reels">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Reels</div>
+              <div class="vcr-row">
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+              </div>
+              <div class="vcr-more">+3 more reels</div>
+            </div>
+            <div class="vcb-feedback">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Feedback</div>
+              <div class="vcf-item">
+                <img class="vcf-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt=""/>
+                <div class="vcf-body">
+                  <div class="vcf-text"><span class="vcf-name">Sundry Audio</span> "Precision engineering. My daily wear."</div>
+                  <div class="vcf-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ven-card" onclick="window.location='vendor.html'">
+          <div class="vcard-head">
+            <span class="avatar"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=120&q=80" alt=""/></span>
+            <div class="vh-body">
+              <div class="vname">Quay &amp; Co.</div>
+              <div class="vloc">Copenhagen, DK · since 2020</div>
+            </div>
+            <div class="vh-rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 5.0</div>
+            <button class="vh-follow" onclick="event.preventDefault();event.stopPropagation();this.textContent=this.textContent==='Follow'?'Following':'Follow'">Follow</button>
+          </div>
+          <p class="vcard-bio">"Everyday objects with a Danish foot — thrown, turned, and finished by hand in a cobblestone workshop."</p>
+          <div class="vcard-meta">
+            <span class="tag">Ceramics</span><span class="tag">Home</span><span class="tag">Kitchen</span>
+            <span class="stat"><strong>48</strong> products</span>
+            <span class="stat"><strong>3.2k</strong> followers</span>
+          </div>
+          <div class="vcard-products">
+            <div class="vcp-label">Top selling</div>
+            <div class="vcp-row">
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=120&q=80" alt=""/>
+                <span class="vcp-name">Candlestick</span>
+                <span class="vcp-price">$72</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=120&q=80" alt=""/>
+                <span class="vcp-name">Mug · clay</span>
+                <span class="vcp-price">$28</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1542728928-1413d1894ed1?w=120&q=80" alt=""/>
+                <span class="vcp-name">Serving bowl</span>
+                <span class="vcp-price">$94</span>
+              </a>
+            </div>
+          </div>
+          <div class="vcard-bottom">
+            <div class="vcb-reels">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Reels</div>
+              <div class="vcr-row">
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+              </div>
+              <div class="vcr-more">+2 more reels</div>
+            </div>
+            <div class="vcb-feedback">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Feedback</div>
+              <div class="vcf-item">
+                <img class="vcf-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&q=80" alt=""/>
+                <div class="vcf-body">
+                  <div class="vcf-text"><span class="vcf-name">Brindle Studio</span> "Danish design at its finest. Bought three."</div>
+                  <div class="vcf-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ven-card" onclick="window.location='vendor.html'">
+          <div class="vcard-head">
+            <span class="avatar"><img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&q=80" alt=""/></span>
+            <div class="vh-body">
+              <div class="vname">Brindle Studio</div>
+              <div class="vloc">Melbourne, AU · since 2016</div>
+            </div>
+            <div class="vh-rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.8</div>
+            <button class="vh-follow" onclick="event.preventDefault();event.stopPropagation();this.textContent=this.textContent==='Follow'?'Following':'Follow'">Follow</button>
+          </div>
+          <p class="vcard-bio">"Furniture built to outlive its owner — jointed, waxed, and signed."</p>
+          <div class="vcard-meta">
+            <span class="tag">Furniture</span><span class="tag">Wood</span><span class="tag">Lighting</span>
+            <span class="stat"><strong>26</strong> products</span>
+            <span class="stat"><strong>6.1k</strong> followers</span>
+          </div>
+          <div class="vcard-products">
+            <div class="vcp-label">Top selling</div>
+            <div class="vcp-row">
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=120&q=80" alt=""/>
+                <span class="vcp-name">Reading chair</span>
+                <span class="vcp-price">$1,240</span>
+              </a>
+              <a href="product.html" class="vcp-item" onclick="event.stopPropagation()">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=120&q=80" alt=""/>
+                <span class="vcp-name">Sofa · two-seat</span>
+                <span class="vcp-price">$2,800</span>
+              </a>
+            </div>
+          </div>
+          <div class="vcard-bottom">
+            <div class="vcb-reels">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Reels</div>
+              <div class="vcr-row">
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+                <a href="reels.html" onclick="event.stopPropagation()"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=120&q=80" alt=""/><span class="vcr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></a>
+              </div>
+              <div class="vcr-more">+5 more reels</div>
+            </div>
+            <div class="vcb-feedback">
+              <div class="vcb-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Feedback</div>
+              <div class="vcf-item">
+                <img class="vcf-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt=""/>
+                <div class="vcf-body">
+                  <div class="vcf-text"><span class="vcf-name">Murmur Atelier</span> "Heirloom quality. Worth every cent."</div>
+                  <div class="vcf-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pagination">
+        <button class="icon-btn" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 6-6 6 6 6"/></svg></button>
+        <button class="icon-btn" style="background:var(--text);color:var(--bg);font-family:var(--font-mono);width:40px">1</button>
+        <button class="icon-btn" style="font-family:var(--font-mono)">2</button>
+        <button class="icon-btn" style="font-family:var(--font-mono)">3</button>
+        <span style="color:var(--text-muted);padding:0 8px">…</span>
+        <button class="icon-btn" style="font-family:var(--font-mono)">36</button>
+        <button class="icon-btn" aria-label="Next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRUST STRIP ─────────────────────────── -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="trust">
+        <div class="t-it">
+          <span class="t-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <div><strong>Every vendor vetted</strong><span>We meet (or video-meet) every maker before they list. Real people, real workshops.</span></div>
+        </div>
+        <div class="t-it">
+          <span class="t-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9h18l-1.5 11h-15L3 9z"/><path d="M8 9V5a4 4 0 1 1 8 0v4"/></svg></span>
+          <div><strong>Free returns · 30 days</strong><span>Change your mind? We cover the label, every order, every category.</span></div>
+        </div>
+        <div class="t-it">
+          <span class="t-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 11h20"/></svg></span>
+          <div><strong>Pay how you like</strong><span>Cards, wallets, BNPL, and store credit — split across vendors automatically.</span></div>
+        </div>
+        <div class="t-it">
+          <span class="t-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 2"/></svg></span>
+          <div><strong>Carbon-honest shipping</strong><span>We offset every order; vendors near you ship first, by design.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="js/partials.js"></script>
+<script>
+/* hero carousel */
+(function(){const c=document.getElementById('heroCarousel');if(!c)return;const s=c.querySelectorAll('.hero-slide'),d=c.querySelector('#carDots'),p=c.querySelector('#carPrev'),n=c.querySelector('#carNext');if(!d)return;let i=0,t;
+s.forEach((_,x)=>{const b=document.createElement('button');b.className=x===0?'dot active':'dot';b.addEventListener('click',()=>go(x));d.appendChild(b)});
+function go(x){s[i].classList.remove('active');d.children[i].classList.remove('active');i=x;s[i].classList.add('active');d.children[i].classList.add('active')}
+p.addEventListener('click',()=>{go((i-1+s.length)%s.length);reset()});n.addEventListener('click',()=>{go((i+1)%s.length);reset()});
+function reset(){clearInterval(t);t=setInterval(()=>go((i+1)%s.length),5000)}t=setInterval(()=>go((i+1)%s.length),5000);
+})();
+
+/* flash countdown */
+(function(){let h=5,m=42,s=18;const eh=document.getElementById('fh'),em=document.getElementById('fm'),es=document.getElementById('fs');if(!eh)return;
+setInterval(()=>{s--;if(s<0){s=59;m--;if(m<0){m=59;h--;if(h<0){h=0;m=0;s=0}}}
+eh.textContent=String(h).padStart(2,'0');em.textContent=String(m).padStart(2,'0');es.textContent=String(s).padStart(2,'0')},1000)})();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+$('.owl-carousel').owlCarousel({
+  loop: true,
+  margin: 0,
+  nav: true,
+  dots: true,
+  autoplay: true,
+  autoplayTimeout: 5000,
+  autoplayHoverPause: true,
+  responsive: {
+    0: { items: 1, stagePadding: 40 },
+    540: { items: 2, stagePadding: 20 },
+    900: { items: 3, stagePadding: 0 },
+    1200: { items: 4, stagePadding: 0 }
+  }
+});
+</script>
+
+</body>
+</html>

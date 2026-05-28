@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The kiln that waits — Lahar Journal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+  /* ── ARTICLE HERO ── */
+  .article-hero {
+    position:relative;
+    min-height:520px;
+    display:flex; align-items:flex-end;
+    overflow:hidden;
+    background:#0B0A08;
+  }
+  .article-hero img {
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+  }
+  .article-hero::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.7) 0%,rgba(0,0,0,.3) 40%,rgba(0,0,0,.1) 100%);
+  }
+  .article-hero .ah-overlay {
+    position:relative; z-index:2;
+    padding:60px 0 48px;
+    color:white;
+  }
+  .article-hero .ah-tag {
+    display:inline-block;
+    font-size:10px; text-transform:uppercase; letter-spacing:.08em; font-weight:700;
+    padding:4px 14px; border-radius:var(--r-pill);
+    background:var(--brand); color:white; margin-bottom:16px;
+  }
+  .article-hero h1 {
+    font-family:var(--font-editorial); font-style:italic; font-weight:500;
+    font-size:clamp(28px,4vw,52px); line-height:1.08; letter-spacing:-.02em;
+    margin:0 0 16px; max-width:800px;
+  }
+  .article-hero .ah-meta {
+    display:flex; gap:20px; align-items:center; flex-wrap:wrap;
+    font-size:var(--text-sm);
+  }
+  .article-hero .ah-meta .ah-author { display:flex; align-items:center; gap:10px; }
+  .article-hero .ah-meta .ah-author img { width:36px; height:36px; border-radius:50%; object-fit:cover; position:static; }
+  .article-hero .ah-meta .ah-author .ahan-name { font-weight:600; }
+  .article-hero .ah-meta .ah-author .ahan-role { font-size:var(--text-xs); opacity:.55; }
+  .article-hero .ah-meta .ah-divider { width:1px; height:24px; background:rgba(255,255,255,.25); }
+  .article-hero .ah-meta .ah-stat { opacity:.6; font-family:var(--font-mono); font-size:var(--text-xs); }
+
+  /* ── ARTICLE BODY ── */
+  .article-body {
+    max-width:720px; margin:0 auto;
+    padding:40px 32px 48px;
+  }
+  @media(max-width:600px){ .article-body { padding:28px 18px 36px; } }
+
+  .article-body p {
+    font-size:var(--text-lg); line-height:1.7;
+    margin:0 0 20px; color:var(--text);
+  }
+  .article-body h2 {
+    font-family:var(--font-display); font-size:var(--text-5xl);
+    font-weight:600; letter-spacing:-.015em;
+    margin:40px 0 12px; line-height:1.15;
+  }
+  .article-body h3 {
+    font-family:var(--font-display); font-size:var(--text-2xl);
+    font-weight:600; letter-spacing:-.01em;
+    margin:32px 0 10px; line-height:1.2;
+  }
+  .article-body blockquote {
+    margin:32px 0; padding:20px 24px;
+    border-left:3px solid var(--brand);
+    background:var(--surface-2);
+    border-radius:0 var(--r-md) var(--r-md) 0;
+    font-family:var(--font-editorial); font-style:italic;
+    font-size:var(--text-xl); color:var(--text-soft);
+    line-height:1.5;
+  }
+  .article-body blockquote cite {
+    display:block; margin-top:8px;
+    font-size:var(--text-sm); font-style:normal;
+    color:var(--text-muted); font-family:var(--font-sans);
+  }
+  .article-body figure {
+    margin:32px 0; border-radius:var(--r-xl); overflow:hidden;
+    background:var(--surface-2);
+  }
+  .article-body figure img { width:100%; display:block; }
+  .article-body figure figcaption {
+    font-size:var(--text-xs); color:var(--text-muted);
+    text-align:center; padding:10px 16px;
+    font-family:var(--font-mono);
+  }
+  .article-body ul, .article-body ol { margin:0 0 20px; padding-left:24px; }
+  .article-body li { font-size:var(--text-lg); line-height:1.7; margin-bottom:6px; }
+  .article-body .tip-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    margin:32px 0;
+  }
+  @media(max-width:600px){ .article-body .tip-grid { grid-template-columns:1fr; } }
+  .article-body .tip-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-lg); padding:16px 18px;
+  }
+  .article-body .tip-card .tip-n {
+    font-size:9px; text-transform:uppercase; letter-spacing:.12em;
+    font-weight:700; color:var(--brand); font-family:var(--font-mono);
+  }
+  .article-body .tip-card p {
+    font-size:var(--text-base); margin:4px 0 0; line-height:1.45;
+  }
+
+  /* ── TAGS ── */
+  .article-tags {
+    max-width:720px; margin:0 auto;
+    padding:0 32px 32px;
+    display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .article-tags .atag {
+    font-size:11px; padding:4px 14px;
+    border-radius:var(--r-pill);
+    border:1px solid var(--border);
+    background:var(--surface);
+    text-decoration:none; color:var(--text-soft);
+    transition:all var(--t);
+  }
+  .article-tags .atag:hover { border-color:var(--text); color:var(--text); }
+
+  /* ── AUTHOR BIO ── */
+  .article-author {
+    max-width:720px; margin:0 auto;
+    padding:0 32px 40px;
+  }
+  .article-author .aa-card {
+    display:flex; gap:18px; align-items:flex-start;
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:var(--r-xl); padding:24px 26px;
+  }
+  @media(max-width:500px){ .article-author .aa-card { flex-direction:column; align-items:center; text-align:center; } }
+  .article-author .aa-card img {
+    width:56px; height:56px; border-radius:50%; object-fit:cover; flex-shrink:0;
+  }
+  .article-author .aa-card .aa-body { flex:1; }
+  .article-author .aa-card .aa-body .aa-name { font-weight:600; font-size:var(--text-md); }
+  .article-author .aa-card .aa-body .aa-role { font-size:var(--text-xs); color:var(--text-muted); font-family:var(--font-mono); }
+  .article-author .aa-card .aa-body p { font-size:var(--text-sm); color:var(--text-soft); margin:6px 0 0; line-height:1.5; }
+  .article-author .aa-card .aa-body .aa-link { font-size:var(--text-sm); font-weight:600; display:inline-flex; align-items:center; gap:4px; margin-top:8px; color:var(--brand); text-decoration:none; }
+  .article-author .aa-card .aa-body .aa-link:hover { text-decoration:underline; }
+
+  /* ── SEPARATOR ── */
+  .article-sep { max-width:720px; margin:0 auto; padding:0 32px; }
+  .article-sep hr { border:0; height:1px; background:var(--border); }
+
+  /* ── RELATED ── */
+  .bl-card {
+    display:flex; flex-direction:column;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-xl); overflow:hidden;
+    text-decoration:none; color:inherit;
+    transition:box-shadow var(--t),transform var(--t);
+  }
+  .bl-card:hover { box-shadow:var(--shadow-sm); transform:translateY(-2px); }
+  .bl-card .bl-img { aspect-ratio:16/10; overflow:hidden; background:var(--surface-3); }
+  .bl-card .bl-img img { width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease); }
+  .bl-card:hover .bl-img img { transform:scale(1.05); }
+  .bl-card .bl-body { padding:18px 20px 20px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .bl-card .bl-body .bl-tag { font-size:9px; text-transform:uppercase; letter-spacing:.1em; font-weight:700; color:var(--brand); }
+  .bl-card .bl-body h3 { font-size:var(--text-lg); font-weight:600; line-height:1.3; margin:0; }
+  .bl-card .bl-body p { font-size:var(--text-sm); color:var(--text-soft); line-height:1.5; margin:0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .bl-card .bl-body .bl-meta { font-size:var(--text-xs); color:var(--text-muted); font-family:var(--font-mono); margin-top:auto; padding-top:10px; display:flex; gap:12px; }
+  .related-grid {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+  @media(max-width:900px){ .related-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:560px){ .related-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div data-partial="header"></div>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <div class="article-hero">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1600&q=80" alt="" />
+    <div class="ah-overlay wrap">
+      <span class="ah-tag">Featured story</span>
+      <h1>"The kiln that waits: inside Murmur Atelier's six-month firing cycle"</h1>
+      <div class="ah-meta">
+        <div class="ah-author">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="" />
+          <div>
+            <div class="ahan-name">Ravi Mehta</div>
+            <div class="ahan-role">Co-founder · Lahar Hub</div>
+          </div>
+        </div>
+        <span class="ah-divider"></span>
+        <span class="ah-stat">Vol. 07</span>
+        <span class="ah-stat">May 28, 2026</span>
+        <span class="ah-stat">16 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BODY ── -->
+  <div class="article-body">
+    <p>It begins with a single block of clay, roughly the weight of a newborn, slapped onto a spinning wheel in a stone-floored workshop two hours north of Kyoto. The air smells of damp earth and charcoal. Outside, it is November. Inside, Yoshiko Murata is already thinking about June.</p>
+    <p>Murmur Atelier is not a place that answers to calendars. The studio fires its wood kiln only twice a year — once in late spring and once in early winter. Each firing cycle, from prep to unload, takes roughly six months. That means the cup you buy in December was designed the previous winter, thrown in spring, trimmed in summer, bisque-fired in autumn, glazed in October, and wood-fired in November. It will arrive at your door carrying nearly a full calendar year of attention.</p>
+    <p>"People ask why our prices don't drop," says Yoshiko, who co-founded the studio with her brother Kenji. "I tell them: we cannot make more than two hundred pieces per firing. That is the constraint of the wood kiln. The alternative is to switch to gas and produce eight hundred pieces in a week. But then it is not Murmur."</p>
+
+    <h2>The wood kiln as a teacher</h2>
+    <p>The anagama kiln that sits behind the studio is a tunnel of firebrick and clay roughly the size of a delivery truck. Loading it takes three full days. Every piece must be stacked by hand, spaced precisely to allow flame and ash to travel through the chamber. The glaze is not entirely under the potter's control — it is shaped by where the piece sits in the kiln, how much ash settles on it, and at what temperature the flame hits that particular spot.</p>
+
+    <blockquote>
+      "You are not the one firing the kiln. The kiln fires itself. Your job is to listen and learn when to add wood, when to let it breathe, and when to do nothing at all."
+      <cite>— Yoshiko Murata, co-founder of Murmur Atelier</cite>
+    </blockquote>
+
+    <p>Kenji Murata, who manages the firing schedule, keeps a notebook dating back to 2012. Each firing is recorded: temperature curves, wood consumption, atmospheric conditions, results. "We learned the hard way that a typhoon approaching from the south changes the oxygen flow through the chimney," he says, flipping to a page marked with charcoal sketches. "Firing 14 ended in a total loss because we didn't adjust the damper in time."</p>
+
+    <h3>A day-by-day breakdown</h3>
+    <p>The wood kiln burns for six continuous days. It requires someone awake and feeding it at every hour. The team rotates in eight-hour shifts. Here is what a typical firing looks like:</p>
+
+    <div class="tip-grid">
+      <div class="tip-card">
+        <div class="tip-n">Day 1–2</div>
+        <p>Candle firing — small flame, slow rise. The kiln is brought from room temperature to 400 °C. Moisture must be driven out gradually or the pots crack.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-n">Day 3</div>
+        <p>The body reduction phase. Flame temperature reaches 1,000 °C. Ash begins to melt onto the shoulders of pots. The team adds oak every 12 minutes.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-n">Day 4</div>
+        <p>Intense reduction. The kiln hits 1,260 °C. The flame turns from orange to white. Ash becomes a full liquid glaze. Pieces near the firebox may partially melt.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-n">Day 5–6</div>
+        <p>Soaking. The temperature is held steady. The potter decides the exact moment to stop. A few hours too long and everything slumps. A few hours too short and the glaze is matte.</p>
+      </div>
+    </div>
+
+    <p>After the fire dies, the kiln is sealed. The cooling period takes three full months. Opening it too early would crack every piece from thermal shock. "You learn patience, or you learn loss," Yoshiko says. "We have learned both."</p>
+
+    <figure>
+      <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=900&q=80" alt="" />
+      <figcaption>The anagama kiln during unloading — each piece dusted of ash before inspection</figcaption>
+    </figure>
+
+    <h2>Why this matters for the way we shop</h2>
+    <p>In an era of same-day delivery and infinite scroll, a studio that produces exactly 200 pieces twice a year feels like an artifact from another century. But that is precisely the point. The scarcity is not artificial — it is structural. It is the direct result of a process that refuses to prioritize volume over character.</p>
+    <p>"Every piece that leaves this studio carries the memory of that fire," Kenji says, holding a sake cup that came out of the most recent firing. The glaze is the colour of caramel and charcoal, and it falls unevenly — thicker on one side, thinner on the other, with a single streak of ash that froze mid-drip. "You cannot design this. You cannot repeat it. That cup is the only one in existence."</p>
+    <p>For Lahar, working with Murmur Atelier means accepting that we will never have more than a few dozen pieces per drop. It means telling customers to wait. It means not meeting demand. But it also means that when you receive a box from Kyoto, what is inside is not a product. It is a document of weather, wood, fire, and time.</p>
+
+    <p style="opacity:.5; font-size:var(--text-sm); border-top:1px solid var(--border); padding-top:16px; margin-top:40px;"><em>Photography by Ravi Mehta. Field support by the Murata family.</em></p>
+  </div>
+
+  <!-- ── TAGS ── -->
+  <div class="article-tags">
+    <a href="blog.html" class="atag">Maker spotlight</a>
+    <a href="blog.html" class="atag">Ceramics</a>
+    <a href="blog.html" class="atag">Murmur Atelier</a>
+    <a href="blog.html" class="atag">Kyoto</a>
+    <a href="blog.html" class="atag">Wood-fired</a>
+    <a href="blog.html" class="atag">Slow making</a>
+  </div>
+
+  <!-- ── AUTHOR ── -->
+  <div class="article-author">
+    <div class="aa-card">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="" />
+      <div class="aa-body">
+        <div class="aa-name">Ravi Mehta</div>
+        <div class="aa-role">Co-founder · Lahar Hub</div>
+        <p>Ravi writes about craft, material culture, and the people behind the objects we use every day. He has spent the last decade documenting workshops across Japan, Portugal, and Scandinavia. He also takes the photographs that accompany every story.</p>
+        <a href="blog.html" class="aa-link">More from Ravi <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-sep"><hr /></div>
+
+  <!-- ── RELATED ── -->
+  <section class="tight" style="padding-top:40px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Continue reading</div>
+          <div class="sec-sub">more from the journal</div>
+        </div>
+        <a href="blog.html" class="sec-link">All articles
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="related-grid">
+
+        <a href="blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Field test</span>
+            <h3>North Field 1988 NOS — 10 years of daily wear</h3>
+            <p>A decade on the wrist of a single collector — what holds up and what doesn't.</p>
+            <div class="bl-meta"><span>Aiko Tanaka</span><span>8 min read</span></div>
+          </div>
+        </a>
+
+        <a href="blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Maker spotlight</span>
+            <h3>Porto's last family tannery — where Halen finds its leather</h3>
+            <p>A visit to the century-old workshop behind every Halen Goods bag.</p>
+            <div class="bl-meta"><span>Lahar team</span><span>14 min read</span></div>
+          </div>
+        </a>
+
+        <a href="blog-detail.html" class="bl-card">
+          <div class="bl-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="" /></div>
+          <div class="bl-body">
+            <span class="bl-tag">Design notes</span>
+            <h3>Prototype #002 — the chair Brindle can't stop refining</h3>
+            <p>Every rejection that shaped the piece of the year.</p>
+            <div class="bl-meta"><span>Maya Krishnan</span><span>12 min read</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEWSLETTER ── -->
+  <section class="tight">
+    <div class="wrap">
+      <div class="newsletter-strip">
+        <div class="ns-left">
+          <h4>Never miss a story</h4>
+          <p>The best of the journal, delivered to your inbox every Sunday.</p>
+        </div>
+        <div class="ns-right">
+          <input type="email" placeholder="your@email.com" />
+          <button>Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="js/partials.js"></script>
+</body>
+</html>

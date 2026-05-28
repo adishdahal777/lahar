@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Compare · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+  .cp-empty { text-align: center; padding: 80px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); }
+  .cp-empty .icon { width: 56px; height: 56px; border-radius: 50%; background: var(--surface-3); display: grid; place-items: center; margin: 0 auto 16px; }
+  .cp-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .cp-table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); }
+  .cp-table th { background: var(--surface-2); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; color: var(--text-muted); padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border); width: 130px; }
+  .cp-table td { padding: 14px 18px; font-size: 14px; border-bottom: 1px solid var(--border); background: var(--surface); vertical-align: middle; }
+  .cp-table tr:last-child td { border-bottom: 0; }
+  .cp-table .product-col { min-width: 200px; text-align: center; vertical-align: top; }
+  .cp-table .product-col img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--r-md); margin-bottom: 12px; background: var(--surface-3); }
+  .cp-table .product-col .name { font-family: var(--font-display); font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .cp-table .product-col .vendor { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+  .cp-table .product-col .price { font-family: var(--font-mono); font-weight: 700; font-size: 18px; display: block; margin-bottom: 12px; }
+  .cp-table .product-col .remove { font-size: 11px; color: var(--text-muted); text-decoration: underline; cursor: pointer; }
+  .cp-table .check { color: var(--ok); }
+  .cp-table .cross { color: var(--danger); }
+  .cp-table .em { font-weight: 600; }
+  .cp-th { position: sticky; top: 88px; z-index: 5; }
+  .cp-add { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 100px; border: 1px dashed var(--border); border-radius: var(--r-md); padding: 20px; cursor: pointer; color: var(--text-muted); font-size: 13px; }
+  .cp-add:hover { border-color: var(--text); color: var(--text); }
+  .cp-compact { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  @media (max-width: 720px) { .cp-compact { grid-template-columns: 1fr; } }
+  .cp-cat { padding: 4px 8px; background: var(--surface-3); border-radius: var(--r-sm); font-size: 11px; font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+
+<main style="padding:32px 0 64px">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Compare</span></div>
+    <h1 style="margin:18px 0 6px">Product comparison</h1>
+    <p style="color:var(--text-muted);margin-bottom:32px">2 products selected · add up to 4 side by side</p>
+
+    <div class="cp-table-wrap">
+      <table class="cp-table">
+        <thead>
+          <tr><th></th>
+            <th class="product-col">
+              <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=400&q=80" alt="" />
+              <div class="name">Pebble buds Pro</div>
+              <div class="vendor">Sundry Audio</div>
+              <span class="price">$278</span>
+              <a href="cart.html" class="btn btn-primary btn-sm btn-block">Add to cart</a>
+              <div class="remove" style="margin-top:8px">Remove</div>
+            </th>
+            <th class="product-col">
+              <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&q=80" alt="" />
+              <div class="name">Field studs · stem-mic</div>
+              <div class="vendor">North Field</div>
+              <span class="price">$152</span>
+              <a href="cart.html" class="btn btn-primary btn-sm btn-block">Add to cart</a>
+              <div class="remove" style="margin-top:8px">Remove</div>
+            </th>
+            <th class="product-col">
+              <div class="cp-add">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+                Add product
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th>Price</th>
+            <td><span class="em">$278</span><span style="color:var(--text-muted);font-size:12px;margin-left:6px;text-decoration:line-through">$348</span></td>
+            <td><span class="em">$152</span><span style="color:var(--text-muted);font-size:12px;margin-left:6px;text-decoration:line-through">$190</span></td>
+            <td style="color:var(--text-muted)">—</td>
+          </tr>
+          <tr><th>Rating</th>
+            <td><span class="stars"><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></span> 4.8 · 421</td>
+            <td><span class="stars"><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" class="e"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></span> 4.5 · 162</td>
+            <td style="color:var(--text-muted)">—</td>
+          </tr>
+          <tr><th>Driver</th><td>11mm beryllium</td><td>8mm dynamic</td><td>—</td></tr>
+          <tr><th>Frequency</th><td>15Hz – 40kHz</td><td>20Hz – 22kHz</td><td>—</td></tr>
+          <tr><th>Codecs</th><td>LDAC · LC3 · AAC</td><td>AAC · SBC</td><td>—</td></tr>
+          <tr><th>Battery (buds)</th><td>8h ANC on</td><td>6h ANC on</td><td>—</td></tr>
+          <tr><th>Battery (case)</th><td>34h total</td><td>24h total</td><td>—</td></tr>
+          <tr><th>Charging</th><td>USB-C · Qi wireless</td><td>USB-C</td><td>—</td></tr>
+          <tr><th>ANC</th><td><span class="check">✓ 4-mic array</span></td><td><span class="check">✓ 2-mic</span></td><td>—</td></tr>
+          <tr><th>Spatial audio</th><td><span class="check">✓</span></td><td class="cross">✗</td><td>—</td></tr>
+          <tr><th>Water rating</th><td>IPX5 buds</td><td>IPX7 buds</td><td>—</td></tr>
+          <tr><th>Multi-point</th><td><span class="check">✓ 2 devices</span></td><td class="cross">✗</td><td>—</td></tr>
+          <tr><th>Weight</th><td>5.6 g/bud</td><td>6.2 g/bud</td><td>—</td></tr>
+          <tr><th>Warranty</th><td>2 years</td><td>1 year</td><td>—</td></tr>
+          <tr><th>Made in</th><td>Brooklyn, NY</td><td>Bristol, UK</td><td>—</td></tr>
+          <tr><th>SKU</th><td><span class="mono">SND-PB-PRO-ONX-M</span></td><td><span class="mono">NF-FS-SM-BLK-M</span></td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin:48px 0 16px">Recently compared</h3>
+    <div class="cp-compact">
+      <div style="display:flex;gap:16px;align-items:center;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg)">
+        <div style="width:60px;aspect-ratio:1;border-radius:var(--r-md);overflow:hidden;background:var(--surface-3)"><img src="https://images.unsplash.com/photo-1631176093617-63490a3d785a?w=140&q=80" style="width:100%;height:100%;object-fit:cover" alt=""/></div>
+        <div style="flex:1"><strong>Pebble open-ear · sport</strong><div style="font-size:12px;color:var(--text-muted)">Sundry Audio · $220</div></div>
+        <a class="btn btn-secondary btn-sm" href="#">Compare</a>
+      </div>
+      <div style="display:flex;gap:16px;align-items:center;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg)">
+        <div style="width:60px;aspect-ratio:1;border-radius:var(--r-md);overflow:hidden;background:var(--surface-3)"><img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=140&q=80" style="width:100%;height:100%;object-fit:cover" alt=""/></div>
+        <div style="flex:1"><strong>Studio 60 over-ear</strong><div style="font-size:12px;color:var(--text-muted)">Sundry Audio · $329</div></div>
+        <a class="btn btn-secondary btn-sm" href="#">Compare</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap">
+      <a href="category.html" class="ad-banner-sm">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80" alt="" />
+        <div class="ad-overlay">
+          <span class="ad-label">Compare More</span>
+          <div class="ad-title">Hear the difference — shop audio</div>
+          <span class="ad-cta">Browse headphones →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="js/partials.js"></script>
+</body>
+</html>

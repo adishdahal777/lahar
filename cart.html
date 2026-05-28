@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Cart · Lahar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+  .cart-layout {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  @media (max-width: 880px) { .cart-layout { grid-template-columns: 1fr; } }
+  .vendor-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .vendor-group .vg-head {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .vendor-group .vg-head .left { display: flex; align-items: center; gap: 12px; }
+  .vendor-group .vg-head .left .avatar { width: 28px; height: 28px; }
+  .vendor-group .vg-head .vname { font-weight: 600; font-size: 14px; }
+  .vendor-group .vg-head .ship { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+  .cart-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 20px;
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .cart-item:last-child { border-bottom: 0; }
+  .ci-img { aspect-ratio: 1; border-radius: var(--r-md); overflow: hidden; background: var(--surface-3); }
+  .ci-img img { width:100%; height:100%; object-fit: cover; }
+  .ci-info .title { font-family: var(--font-display); font-weight: 600; font-size: 16px; margin: 0 0 4px; }
+  .ci-info .var { font-size: 12px; color: var(--text-muted); display: flex; gap: 12px; flex-wrap: wrap; }
+  .ci-info .var span { display: inline-flex; align-items: center; gap: 4px; }
+  .ci-info .stock { font-size: 12px; margin-top: 8px; color: var(--ok); display: inline-flex; align-items: center; gap: 6px; }
+  .ci-info .stock.low { color: var(--warning); }
+  .ci-info .actions { display: flex; gap: 14px; margin-top: 12px; font-size: 12px; }
+  .ci-info .actions a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
+  .ci-info .actions a:hover { color: var(--text); }
+  .ci-price { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 14px; min-width: 130px; }
+  .ci-price .p { font-family: var(--font-mono); font-weight: 700; font-size: 18px; }
+  .ci-price .p-old { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); text-decoration: line-through; }
+  .ci-qty { display: flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 2px; }
+  .ci-qty button { width: 28px; height: 28px; border: 0; background: transparent; cursor: pointer; color: var(--text-soft); }
+  .ci-qty .v { font-family: var(--font-mono); font-weight: 700; min-width: 24px; text-align: center; font-size: 13px; }
+
+  .vg-foot { padding: 14px 20px; background: var(--surface-2); border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 13px; }
+  .vg-foot .ship-opt { color: var(--text-soft); display: flex; gap: 8px; align-items: center; }
+  .vg-foot .ship-opt select { background: transparent; border: 0; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .vg-foot .sub { font-family: var(--font-mono); font-weight: 700; }
+
+  .summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 28px;
+    position: sticky;
+    top: 92px;
+  }
+  .summary h3 { font-size: 18px; margin: 0 0 18px; }
+  .summary .row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; }
+  .summary .row .v { font-family: var(--font-mono); font-weight: 600; }
+  .summary .row .v.discount { color: var(--ok); }
+  .summary .divider { margin: 14px 0; }
+  .summary .total .l { font-weight: 600; font-size: 16px; }
+  .summary .total .v { font-size: 22px; font-weight: 700; font-family: var(--font-mono); }
+  .promo {
+    background: var(--surface-2);
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--r-md);
+    padding: 14px;
+    margin: 18px 0;
+    display: flex; gap: 8px;
+  }
+  .promo input { flex: 1; border: 0; background: transparent; outline: 0; font-size: 14px; font-family: var(--font-mono); }
+  .promo button { background: var(--text); color: var(--bg); border: 0; padding: 6px 12px; border-radius: var(--r-sm); font-size: 12px; font-weight: 600; cursor: pointer; }
+  .applied-promo {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px;
+    background: color-mix(in oklab, var(--ok) 10%, transparent);
+    border-radius: var(--r-md);
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--ok);
+  }
+  .applied-promo .mono { font-family: var(--font-mono); font-weight: 700; }
+  .pay-row { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+  .pay-tag { font-size: var(--text-2xs); padding: 4px 8px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--text-muted); font-family: var(--font-mono); }
+
+  .empty-banner {
+    background: var(--brand-tint);
+    border: 1px dashed var(--brand);
+    border-radius: var(--r-md);
+    padding: 16px;
+    color: var(--brand);
+    margin-bottom: 24px;
+    font-size: 13px;
+    display: flex; gap: 10px; align-items: center;
+  }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+
+<main style="padding:32px 0 64px">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Cart</span></div>
+    <h1 style="margin:18px 0 6px">Your cart</h1>
+    <p style="color:var(--text-muted);margin-bottom:32px">3 items · 2 vendors · holding for 24 hours</p>
+
+    <div class="cart-layout">
+      <div>
+        <!-- VENDOR 1 -->
+        <div class="vendor-group">
+          <div class="vg-head">
+            <div class="left">
+              <span class="avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt=""/></span>
+              <div>
+                <div class="vname">Sundry Audio <span class="badge badge-soft" style="margin-left:6px">Verified</span></div>
+                <div class="ship">Brooklyn, NY · ships in 2–3 days</div>
+              </div>
+            </div>
+            <a href="vendor.html" style="font-size:12px;text-decoration:underline;color:var(--text-soft)">Visit shop →</a>
+          </div>
+
+          <div class="cart-item">
+            <div class="ci-img"><img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=200&q=80" alt=""/></div>
+            <div class="ci-info">
+              <h3 class="title">Pebble buds Pro · ANC</h3>
+              <div class="var">
+                <span>Color: <strong style="color:var(--text)">Onyx</strong></span>
+                <span>Tips: <strong style="color:var(--text)">Medium</strong></span>
+                <span>Warranty: <strong style="color:var(--text)">+3 yr</strong></span>
+              </div>
+              <div class="stock">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5L20 7"/></svg>
+                In stock · ready to ship
+              </div>
+              <div class="actions">
+                <a href="#">Save for later</a>
+                <a href="#">Remove</a>
+                <a href="#">Edit options</a>
+              </div>
+            </div>
+            <div class="ci-price">
+              <div>
+                <span class="p-old">$348</span>
+                <div class="p">$278</div>
+              </div>
+              <div class="ci-qty"><button>−</button><span class="v">1</span><button>+</button></div>
+            </div>
+          </div>
+
+          <div class="cart-item">
+            <div class="ci-img"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80" alt=""/></div>
+            <div class="ci-info">
+              <h3 class="title">Studio 60 over-ear · matte</h3>
+              <div class="var">
+                <span>Color: <strong style="color:var(--text)">Sand</strong></span>
+                <span>Cable: <strong style="color:var(--text)">XLR 3m</strong></span>
+              </div>
+              <div class="stock low">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                Only 2 left · low stock
+              </div>
+              <div class="actions">
+                <a href="#">Save for later</a>
+                <a href="#">Remove</a>
+              </div>
+            </div>
+            <div class="ci-price">
+              <div class="p">$329</div>
+              <div class="ci-qty"><button>−</button><span class="v">1</span><button>+</button></div>
+            </div>
+          </div>
+
+          <div class="vg-foot">
+            <div class="ship-opt">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9h13v8H3z"/><path d="M16 12h4l1 3v2h-5"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+              <select>
+                <option>Standard · 4 days · free</option>
+                <option>Express · 2 days · $12</option>
+                <option>Overnight · 1 day · $28</option>
+              </select>
+            </div>
+            <div>Vendor subtotal · <span class="sub">$607.00</span></div>
+          </div>
+        </div>
+
+        <!-- VENDOR 2 -->
+        <div class="vendor-group">
+          <div class="vg-head">
+            <div class="left">
+              <span class="avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt=""/></span>
+              <div>
+                <div class="vname">Murmur Atelier <span class="badge badge-soft" style="margin-left:6px">Verified</span></div>
+                <div class="ship">Kyoto, JP · ships in 6–8 days</div>
+              </div>
+            </div>
+            <a href="vendor.html" style="font-size:12px;text-decoration:underline;color:var(--text-soft)">Visit shop →</a>
+          </div>
+
+          <div class="cart-item">
+            <div class="ci-img"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=200&q=80" alt=""/></div>
+            <div class="ci-info">
+              <h3 class="title">Ceramic table vase · S</h3>
+              <div class="var">
+                <span>Color: <strong style="color:var(--text)">Ash glaze</strong></span>
+                <span>Size: <strong style="color:var(--text)">12cm</strong></span>
+              </div>
+              <div class="stock">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5L20 7"/></svg>
+                Made to order · firing #14
+              </div>
+              <div class="actions">
+                <a href="#">Save for later</a>
+                <a href="#">Remove</a>
+                <a href="#">Gift options</a>
+              </div>
+            </div>
+            <div class="ci-price">
+              <div>
+                <span class="p-old">$80</span>
+                <div class="p">$56</div>
+              </div>
+              <div class="ci-qty"><button>−</button><span class="v">2</span><button>+</button></div>
+            </div>
+          </div>
+
+          <div class="vg-foot">
+            <div class="ship-opt">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9h13v8H3z"/><path d="M16 12h4l1 3v2h-5"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+              <select>
+                <option>Standard · 8 days · $18</option>
+                <option>Express · 5 days · $42</option>
+              </select>
+            </div>
+            <div>Vendor subtotal · <span class="sub">$130.00</span></div>
+          </div>
+        </div>
+
+        <div class="empty-banner">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>
+          <span>You have <strong>4 items saved</strong> in your wishlist. <a href="wishlist.html" style="text-decoration:underline">Take a look →</a></span>
+        </div>
+
+        <h3 style="font-size:20px;margin:32px 0 16px">Recently viewed</h3>
+        <div class="pgrid" style="grid-template-columns:repeat(4,1fr)">
+          <a class="pcard vc" href="product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Field watch 38mm</h3><div class="pcard-vendor">North Field</div><span class="price">$418</span></div></a>
+          <a class="pcard vc" href="product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Field runner · oat</h3><div class="pcard-vendor">Halen Goods</div><span class="price">$148</span></div></a>
+          <a class="pcard vc" href="product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=400&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Hand-thrown mug</h3><div class="pcard-vendor">Quay & Co.</div><span class="price">$28</span></div></a>
+          <a class="pcard vc" href="product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Reading chair</h3><div class="pcard-vendor">Brindle</div><span class="price">$1,240</span></div></a>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="summary">
+        <h3>Order summary</h3>
+        <div class="row"><span>Items (4)</span><span class="v">$807.00</span></div>
+        <div class="row"><span>Vendor discount</span><span class="v discount">−$94.00</span></div>
+        <div class="row"><span>Shipping (2 vendors)</span><span class="v">$18.00</span></div>
+        <div class="row"><span>Estimated tax</span><span class="v">$57.96</span></div>
+
+        <div class="promo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--text-muted);align-self:center"><path d="M12 2 2 12l10 10 10-10L12 2z"/><path d="M8 12h.01"/></svg>
+          <input placeholder="Promo code" value="LAHAR10" />
+          <button>Apply</button>
+        </div>
+
+        <div class="applied-promo">
+          <span>✓ Code applied · LAHAR10</span>
+          <span class="mono">−$80.70</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row total"><span class="l">Total · USD</span><span class="v">$702.26</span></div>
+        <p style="font-size:12px;color:var(--text-muted);margin:6px 0 18px">or 4 payments of <span class="mono" style="color:var(--text);font-weight:600">$175.57</span> with Klarna</p>
+
+        <a href="checkout.html" class="btn btn-primary btn-lg btn-block">
+          Proceed to checkout
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+
+        <div class="pay-row">
+          <span class="pay-tag">VISA</span>
+          <span class="pay-tag">MC</span>
+          <span class="pay-tag">AMEX</span>
+          <span class="pay-tag">Apple Pay</span>
+          <span class="pay-tag">Klarna</span>
+          <span class="pay-tag">Affirm</span>
+        </div>
+
+        <div style="margin-top:18px;font-size:11px;color:var(--text-muted);display:flex;gap:6px;align-items:center">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+          Secure checkout · escrow held until delivered
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap">
+      <a href="category.html" class="ad-banner">
+        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=1400&q=80" alt="" />
+        <div class="ad-overlay">
+          <span class="ad-label">Complete Your Look</span>
+          <h3 class="ad-title">Add $42 more for free shipping</h3>
+          <p class="ad-desc">Popular add-ons: linen caps, cable organizers, leather keychains — all under $50.</p>
+          <span class="ad-cta">Shop add-ons →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="js/partials.js"></script>
+</body>
+</html>

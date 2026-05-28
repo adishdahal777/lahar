@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Pebble · Lahar brand</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://laharhub.com/uploads/images/logo_1770984823_.png" />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+/* ── cover ── */
+.br-cover { height:320px; background:var(--surface-2); border-bottom:1px solid var(--border); overflow:hidden; position:relative; }
+.br-cover img { width:100%; height:100%; object-fit:cover; }
+.br-cover .br-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.7)); }
+
+/* ── hero ── */
+.br-hero { margin-top:-72px; position:relative; z-index:2; }
+.br-hero .wrap > .br-panel {
+  background:color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border:1px solid color-mix(in oklab, var(--border) 60%, transparent);
+  border-radius:var(--r-2xl); padding:24px 28px;
+  box-shadow:var(--shadow-lg);
+}
+.br-hero .br-row1 { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.br-hero .br-id { display:flex; align-items:center; gap:20px; }
+.br-hero .br-id .br-logo { width:80px; height:80px; border-radius:var(--r-xl); border:3px solid var(--bg); box-shadow:var(--shadow-md); object-fit:cover; flex-shrink:0; background:var(--surface-3); }
+.br-hero .br-id .br-name { font-family:var(--font-display); font-size:var(--text-7xl); font-weight:600; letter-spacing:-.015em; }
+.br-hero .br-id .br-sub { font-size:var(--text-base); color:var(--text-soft); display:flex; gap:12px; align-items:center; margin-top:4px; flex-wrap:wrap; }
+.br-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.br-actions .btn-secondary { background:color-mix(in oklab, var(--bg) 70%, transparent); backdrop-filter:blur(4px); border-color:var(--border); }
+.br-actions .btn-secondary:hover { background:var(--bg); border-color:var(--text); }
+.br-strap { font-family:var(--font-editorial); font-style:italic; font-size:var(--text-2xl); color:var(--text-soft); max-width:680px; line-height:1.55; margin-top:16px; }
+
+/* ── stats ── */
+.br-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:18px; }
+@media(max-width:600px){ .br-stats{grid-template-columns:repeat(2,1fr)} }
+.br-stats .bs { text-align:center; padding:14px 10px; border-radius:var(--r-lg); border:1px solid var(--border); background:color-mix(in oklab, var(--surface) 50%, transparent); transition:all var(--t); }
+.br-stats .bs:hover { border-color:var(--text); background:var(--surface); }
+.br-stats .bs .bs-icon { display:block; margin-bottom:6px; opacity:.5; }
+.br-stats .bs .bs-n { font-family:var(--font-display); font-size:26px; font-weight:700; letter-spacing:-.02em; line-height:1; }
+.br-stats .bs .bs-l { font-size:var(--text-2xs); color:var(--text-muted); text-transform:uppercase; letter-spacing:.1em; font-weight:600; margin-top:4px; display:block; }
+
+/* ── categories bar ── */
+.br-cats { display:flex; gap:8px; overflow-x:auto; padding:24px 0 0; -webkit-overflow-scrolling:touch; }
+.br-cats .pill { display:inline-flex; align-items:center; gap:6px; padding:7px 18px; border-radius:var(--r-pill); border:1px solid var(--border); background:var(--surface); font-size:var(--text-base); font-weight:500; white-space:nowrap; transition:all var(--t); cursor:pointer; }
+.br-cats .pill.on { background:var(--text); color:var(--bg); border-color:var(--text); }
+.br-cats .pill .count { font-family:var(--font-mono); font-size:var(--text-xs); opacity:.55; }
+
+/* ── sections ── */
+.br-section { margin-bottom:48px; }
+.br-section h2 { font-family:var(--font-display); font-size:var(--text-5xl); font-weight:600; letter-spacing:-.01em; margin:0 0 4px; }
+.br-section .br-sub { font-size:var(--text-base); color:var(--text-muted); margin-bottom:20px; }
+
+/* ── about ── */
+.br-about { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:720px){ .br-about{grid-template-columns:1fr} }
+.br-about .br-ab-img { border-radius:var(--r-lg); overflow:hidden; background:var(--surface-3); }
+.br-about .br-ab-img img { width:100%; height:220px; object-fit:cover; display:block; }
+.br-about .br-ab-text p { font-size:var(--text-md); color:var(--text-soft); line-height:1.65; margin:0 0 12px; }
+
+/* ── product grid ── */
+.br-prods { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+@media(max-width:1100px){ .br-prods{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:500px){ .br-prods{grid-template-columns:1fr} }
+.br-controls { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px; }
+
+/* ── vendors strip ── */
+.br-vendors { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+@media(max-width:900px){ .br-vendors{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:500px){ .br-vendors{grid-template-columns:1fr} }
+.br-v { display:flex; align-items:center; gap:12px; padding:16px; border-radius:var(--r-lg); border:1px solid var(--border); background:var(--surface); text-decoration:none; color:inherit; transition:all var(--t); }
+.br-v:hover { border-color:var(--text); box-shadow:var(--shadow-sm); }
+.br-v img { width:44px; height:44px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+.br-v .br-v-body { flex:1; min-width:0; }
+.br-v .br-v-body .br-vn { font-weight:600; font-size:var(--text-md); }
+.br-v .br-v-body .br-vl { font-size:var(--text-xs); color:var(--text-muted); font-family:var(--font-mono); }
+.br-v .br-v-rating { display:flex; align-items:center; gap:3px; font-size:var(--text-sm); font-weight:600; }
+.br-v .br-v-rating svg { width:13px; height:13px; color:var(--warning); }
+
+/* ── reels strip ── */
+.br-reels { display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; -webkit-overflow-scrolling:touch; }
+.br-reels a { position:relative; flex-shrink:0; text-decoration:none; }
+.br-reels a img { width:180px; height:280px; border-radius:var(--r-lg); object-fit:cover; background:var(--surface-3); transition:transform var(--t); }
+.br-reels a img:hover { transform:scale(1.02); }
+.br-reels .brr-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.br-reels .brr-play svg { width:44px; height:44px; opacity:.85; filter:drop-shadow(0 2px 12px rgba(0,0,0,.35)); }
+.br-reels .brr-label { position:absolute; bottom:0; left:0; right:0; padding:36px 14px 12px; background:linear-gradient(transparent,rgba(0,0,0,.6)); color:white; font-size:var(--text-sm); font-weight:500; border-radius:0 0 var(--r-lg) var(--r-lg); }
+</style>
+</head>
+<body>
+<div data-partial="header"></div>
+
+<main>
+  <!-- ── COVER ── -->
+  <div class="br-cover">
+    <img src="https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=1400&q=85" alt=""/>
+    <div class="br-overlay"></div>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section class="br-hero" style="padding-top:0">
+    <div class="wrap">
+      <div class="br-panel">
+        <div class="br-row1">
+          <div class="br-id">
+            <img class="br-logo" src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=200&q=80" alt=""/>
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <div class="br-name">Pebble</div>
+                <span class="badge badge-feat" style="vertical-align:middle">Official brand</span>
+              </div>
+              <div class="br-sub">
+                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="vertical-align:-2px;margin-right:4px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Founded in Brooklyn, NY</span>
+                <span class="dot-sep"></span>
+                <span>Est. 2021</span>
+                <span class="dot-sep"></span>
+                <span>6 products on Lahar</span>
+              </div>
+            </div>
+          </div>
+          <div class="br-actions">
+            <button class="btn btn-primary" onclick="this.textContent=this.textContent==='Follow'?'Following':'Follow'">Follow</button>
+            <button class="btn btn-secondary">Share</button>
+          </div>
+        </div>
+
+        <p class="br-strap">"Audio tools designed for the way you actually listen — not for the way you shop."</p>
+
+        <div class="br-stats">
+          <div class="bs">
+            <span class="bs-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></span>
+            <span class="bs-n">6</span>
+            <span class="bs-l">Products</span>
+          </div>
+          <div class="bs">
+            <span class="bs-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+            <span class="bs-n">4.7</span>
+            <span class="bs-l">Avg. rating</span>
+          </div>
+          <div class="bs">
+            <span class="bs-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <span class="bs-n">2</span>
+            <span class="bs-l">Vendors</span>
+          </div>
+          <div class="bs">
+            <span class="bs-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+            <span class="bs-n">2.4k</span>
+            <span class="bs-l">Followers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CATEGORIES ── -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="br-cats">
+        <div class="pill on">All <span class="count">6</span></div>
+        <div class="pill">Earbuds <span class="count">3</span></div>
+        <div class="pill">Accessories <span class="count">2</span></div>
+        <div class="pill">Cables <span class="count">1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MAIN ── -->
+  <section style="padding-top:0">
+    <div class="wrap">
+
+      <!-- ABOUT -->
+      <div class="br-section">
+        <h2>About Pebble</h2>
+        <div class="br-sub">The story behind the brand</div>
+        <div class="br-about">
+          <div class="br-ab-img"><img src="https://images.unsplash.com/photo-1617791160536-598cf32026fb?w=600&q=85" alt=""/></div>
+          <div class="br-ab-img"><img src="https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=600&q=85" alt=""/></div>
+          <div class="br-ab-text" style="grid-column:1/-1">
+            <p>Pebble was born from a simple frustration: great audio shouldn't require a second mortgage. In 2021, Drew Gallagher realized that the gap between $20 disposables and $500 "audiophile" earbuds was wide enough to drive a truck through — so he built a bridge.</p>
+            <p>Every Pebble product is engineered in Brooklyn and manufactured with partners who share our obsession with fit, finish, and frequency response. We don't believe in annual refreshes. We believe in getting it right and leaving it alone until we can genuinely improve it. Our drivers are custom-tuned on a Klippel analyzer. Our cables are braided by hand. Our charging cases are designed to feel like a river stone — hence the name.</p>
+            <p>Today, Pebble is carried by select independent vendors who share our philosophy: sell less, sell better. You won't find us in big-box stores. You'll find us on the shelves of people who actually listen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="br-section">
+        <h2>Products</h2>
+        <div class="br-sub">Every Pebble product available on Lahar</div>
+        <div class="br-controls">
+          <span style="font-size:var(--text-base);color:var(--text-muted)"><strong style="color:var(--text);font-family:var(--font-mono)">6</strong> products</span>
+          <select class="select" style="width:auto;padding:7px 32px 7px 12px;font-size:var(--text-base)">
+            <option>Sort: Featured</option>
+            <option>Price · low to high</option>
+            <option>Price · high to low</option>
+            <option>New arrivals</option>
+          </select>
+        </div>
+        <div class="br-prods">
+          <a class="pcard vc" href="product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Pebble buds Pro · ANC</h3><div class="pcard-vendor">Sundry Audio</div><span class="price">$278</span><span class="rating">4.8 · 421</span></div></a>
+          <a class="pcard vc" href="product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1631176093617-63490a3d785a?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Pebble open-ear · sport</h3><div class="pcard-vendor">Sundry Audio</div><span class="price">$220</span><span class="rating">4.6 · 162</span></div></a>
+          <a class="pcard vc" href="product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1599669454699-248893623440?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Pebble buds · ivory</h3><div class="pcard-vendor">Sundry Audio</div><span class="price">$189</span><span class="rating">4.7 · 1,024</span></div></a>
+          <a class="pcard vc" href="product.html"><div class="pcard-img"><img src="https://images.unsplash.com/photo-1655720828018-7461f09a06e2?w=500&q=80" alt=""/></div><div class="pcard-body"><h3 class="pcard-title">Mono band · single bud</h3><div class="pcard-vendor">Sundry Audio</div><span class="price">$84</span><span class="rating">4.2 · 84</span></div></a>
+        </div>
+      </div>
+
+      <!-- REELS -->
+      <div class="br-section">
+        <h2>Reels</h2>
+        <div class="br-sub">Pebble featured in vendor stories and behind-the-scenes content</div>
+        <div class="br-reels">
+          <a href="reels.html">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80" alt=""/>
+            <span class="brr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+            <span class="brr-label">Pebble buds Pro unboxing</span>
+          </a>
+          <a href="reels.html">
+            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&q=80" alt=""/>
+            <span class="brr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+            <span class="brr-label">How Pebble ANC is tuned</span>
+          </a>
+          <a href="reels.html">
+            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80" alt=""/>
+            <span class="brr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+            <span class="brr-label">Pebble assembly line</span>
+          </a>
+          <a href="reels.html">
+            <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&q=80" alt=""/>
+            <span class="brr-play"><svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+            <span class="brr-label">Pebble cable braiding</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- VENDORS -->
+      <div class="br-section">
+        <h2>Vendors carrying Pebble</h2>
+        <div class="br-sub">Independent sellers who stock Pebble products</div>
+        <div class="br-vendors">
+          <a href="vendor.html" class="br-v">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80" alt=""/>
+            <div class="br-v-body">
+              <div class="br-vn">Sundry Audio</div>
+              <div class="br-vl">Brooklyn, US</div>
+            </div>
+            <div class="br-v-rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.7</div>
+          </a>
+          <a href="vendor.html" class="br-v">
+            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=120&q=80" alt=""/>
+            <div class="br-v-body">
+              <div class="br-vn">North Field</div>
+              <div class="br-vl">Bristol, UK</div>
+            </div>
+            <div class="br-v-rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.9</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <a href="category.html" class="ad-banner">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1400&q=80" alt="" />
+        <div class="ad-overlay">
+          <span class="ad-label">Brand Spotlight</span>
+          <h3 class="ad-title">Explore Sundry Audio's full catalog</h3>
+          <p class="ad-desc">From over-ear to in-ear to bone conduction — hear the difference precision engineering makes.</p>
+          <span class="ad-cta">View all products →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div data-partial="footer"></div>
+<div data-partial="tweaks"></div>
+<script src="js/partials.js"></script>
+</body>
+</html>
